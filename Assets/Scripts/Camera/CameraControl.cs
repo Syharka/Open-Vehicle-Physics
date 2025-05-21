@@ -13,7 +13,7 @@ namespace RVP
     {
         Transform tr;
         Camera cam;
-        VehicleParent vp;
+        VehicleController vp;
         public Transform target; // The target vehicle
         Rigidbody targetBody;
 
@@ -51,9 +51,9 @@ namespace RVP
 
             // Set variables based on target vehicle's properties
             if (target) {
-                vp = target.GetComponent<VehicleParent>();
-                distance += vp.cameraDistanceChange;
-                height += vp.cameraHeightChange;
+                vp = target.GetComponent<VehicleController>();
+                //distance += vp.cameraDistanceChange;
+                //height += vp.cameraHeightChange;
                 forwardLook = target.forward;
                 upLook = target.up;
                 targetBody = target.GetComponent<Rigidbody>();
