@@ -4,35 +4,22 @@ using System.Collections;
 
 public class VehicleController : MonoBehaviour
 {
-    [System.NonSerialized]
-    public Rigidbody rb;
-    [System.NonSerialized]
-    public Transform norm; // Normal orientation object
+    [Header("Old Stuff")]
+    public Rigidbody rb { get; private set; }
+    public Transform norm { get; private set; }
 
-    [System.NonSerialized]
-    public float accelInput;
-    [System.NonSerialized]
-    public float brakeInput;
-    [System.NonSerialized]
-    public float steerInput;
-    [System.NonSerialized]
-    public float ebrakeInput;
-    [System.NonSerialized]
-    public bool boostButton;
-    [System.NonSerialized]
-    public bool upshiftPressed;
-    [System.NonSerialized]
-    public bool downshiftPressed;
-    [System.NonSerialized]
-    public float upshiftHold;
-    [System.NonSerialized]
-    public float downshiftHold;
-    [System.NonSerialized]
-    public float pitchInput;
-    [System.NonSerialized]
-    public float yawInput;
-    [System.NonSerialized]
-    public float rollInput;
+    public float accelInput { get; private set; }
+    public float brakeInput { get; private set; }
+    public float steerInput { get; private set; }
+    public float ebrakeInput { get; private set; }
+    public bool boostButton { get; private set; }
+    public bool upshiftPressed { get; private set; }
+    public bool downshiftPressed { get; private set; }
+    public float upshiftHold { get; private set; }
+    public float downshiftHold { get; private set; }
+    public float pitchInput { get; private set; }
+    public float yawInput { get; private set; }
+    public float rollInput { get; private set; }
 
     [Tooltip("Accel axis is used for brake input")]
     public bool accelAxisIsBrake;
@@ -44,36 +31,24 @@ public class VehicleController : MonoBehaviour
     public bool holdEbrakePark;
 
     public float burnoutThreshold = 0.9f;
-    [System.NonSerialized]
-    public float burnout;
+    public float burnout { get; private set; }
     public float burnoutSpin = 5;
     [Range(0, 0.9f)]
     public float burnoutSmoothness = 0.5f;
     public NewMotor engine;
 
-    bool stopUpshift;
-    bool stopDownShift;
+    private bool stopUpshift;
+    private bool stopDownShift;
 
-    [System.NonSerialized]
-    public Vector3 localVelocity; // Local space velocity
-    [System.NonSerialized]
-    public Vector3 localAngularVel; // Local space angular velocity
-    [System.NonSerialized]
-    public float forwardDot; // Dot product between forwardDir and GlobalControl.worldUpDir
-    [System.NonSerialized]
-    public float rightDot; // Dot product between rightDir and GlobalControl.worldUpDir
-    [System.NonSerialized]
-    public float upDot; // Dot product between upDir and GlobalControl.worldUpDir
+    public Vector3 localVelocity { get; private set; }
+    public Vector3 localAngularVel { get; private set; }
 
-    [System.NonSerialized]
-    public bool reversing;
+    public bool reversing { get; private set; }
 
     public NewWheel[] wheels;
-    [System.NonSerialized]
-    public int groundedWheels; // Number of wheels grounded
-    [System.NonSerialized]
-    public Vector3 wheelNormalAverage; // Average normal of the wheel contact points
-    Vector3 wheelContactsVelocity; // Average velocity of wheel contact points
+    public int groundedWheels { get; private set; }
+    public Vector3 wheelNormalAverage { get; private set; }
+    private Vector3 wheelsAverageVelocity; // Average velocity of wheel contact points
 
     [Tooltip("Lower center of mass by suspension height")]
     public bool suspensionCenterOfMass;
@@ -81,6 +56,14 @@ public class VehicleController : MonoBehaviour
 
     public ForceMode wheelForceMode = ForceMode.Acceleration;
     public ForceMode suspensionForceMode = ForceMode.Acceleration;
+
+    [Header("New Stuff")]
+    public EngineSettings _engine;
+    public float rawRpm;
+    public float rpm;
+
+    public TransmissionSettings _transmission;
+    public float gear;
 
     void Start()
     {
@@ -92,7 +75,6 @@ public class VehicleController : MonoBehaviour
 
     void Update()
     {
-        // Shift single frame pressing logic
         if (stopUpshift)
         {
             upshiftPressed = false;
@@ -120,16 +102,16 @@ public class VehicleController : MonoBehaviour
     {
         GetGroundedWheels();
 
-        localVelocity = transform.InverseTransformDirection(rb.linearVelocity - wheelContactsVelocity);
-        localAngularVel = transform.InverseTransformDirection(rb.angularVelocity);
-        forwardDot = Vector3.Dot(transform.forward, GlobalControl.worldUpDir);
-        rightDot = Vector3.Dot(transform.right, GlobalControl.worldUpDir);
-        upDot = Vector3.Dot(transform.up, GlobalControl.worldUpDir);
-        norm.transform.position = transform.position;
-        norm.transform.rotation = Quaternion.LookRotation(groundedWheels == 0 ? transform.up : wheelNormalAverage, transform.forward);
+        SetVelocities();
+        SetOrientNormal();
 
         SetBurnoutInputs();
         SetReversing();
+
+        _engine.UpdateEngine(rpm, accelInput, false, false, (groundedWheels == 0), 0, 0);
+
+        rawRpm = wheels[3].rawRPM;
+        rpm = _engine.RPM;
     }
 
     private void CreateNormalOrientation()
@@ -208,6 +190,20 @@ public class VehicleController : MonoBehaviour
         downshiftHold = f;
     }
 
+    void SetVelocities()
+    {
+        if (rb == null) return;
+        localVelocity = transform.InverseTransformDirection(rb.linearVelocity - wheelsAverageVelocity);
+        localAngularVel = transform.InverseTransformDirection(rb.angularVelocity);
+    }
+
+    void SetOrientNormal()
+    {
+        if (norm == null) return;
+        norm.transform.position = transform.position;
+        norm.transform.rotation = Quaternion.LookRotation(groundedWheels == 0 ? transform.up : wheelNormalAverage, transform.forward);
+    }
+
     void SetCenterOfMass()
     {
         float susAverage = 0;
@@ -258,13 +254,13 @@ public class VehicleController : MonoBehaviour
     void GetGroundedWheels()
     {
         groundedWheels = 0;
-        wheelContactsVelocity = Vector3.zero;
+        wheelsAverageVelocity = Vector3.zero;
 
         for (int i = 0; i < wheels.Length; i++)
         {
             if (!wheels[i].grounded) break;
 
-            wheelContactsVelocity = i == 0 ? wheels[i].contactVelocity : (wheelContactsVelocity + wheels[i].contactVelocity) * 0.5f;
+            wheelsAverageVelocity = i == 0 ? wheels[i].contactVelocity : (wheelsAverageVelocity + wheels[i].contactVelocity) * 0.5f;
             wheelNormalAverage = i == 0 ? wheels[i].contactPoint.normal : (wheelNormalAverage + wheels[i].contactPoint.normal).normalized;
             groundedWheels++;
         }

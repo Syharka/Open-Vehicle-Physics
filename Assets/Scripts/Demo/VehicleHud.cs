@@ -18,11 +18,9 @@ namespace RVP
         public Text propertySetterText;
         public Text stuntText;
         public Text scoreText;
-        VehicleParent vp;
-        Motor engine;
-        Transmission trans;
-        GearboxTransmission gearbox;
-        ContinuousTransmission varTrans;
+        VehicleController vp;
+        NewMotor engine;
+        NewTransmission trans;
         StuntDetect stunter;
         public bool stuntMode;
         float stuntEndTime = -1;
@@ -35,23 +33,15 @@ namespace RVP
         public void Initialize(GameObject newVehicle) {
             if (!newVehicle) { return; }
             targetVehicle = newVehicle;
-            vp = targetVehicle.GetComponent<VehicleParent>();
+            vp = targetVehicle.GetComponent<VehicleController>();
 
-            trans = targetVehicle.GetComponentInChildren<Transmission>();
-            if (trans) {
-                if (trans is GearboxTransmission) {
-                    gearbox = trans as GearboxTransmission;
-                }
-                else if (trans is ContinuousTransmission) {
-                    varTrans = trans as ContinuousTransmission;
-                }
-            }
+            trans = targetVehicle.GetComponentInChildren<NewTransmission>();
 
             if (stuntMode) {
                 stunter = targetVehicle.GetComponent<StuntDetect>();
             }
 
-            engine = targetVehicle.GetComponentInChildren<Motor>();
+            engine = targetVehicle.GetComponentInChildren<NewMotor>();
             propertySetter = targetVehicle.GetComponent<PropertyToggleSetter>();
 
             stuntText.gameObject.SetActive(stuntMode);
@@ -60,15 +50,10 @@ namespace RVP
 
         void Update() {
             if (vp) {
-                speedText.text = (vp.velMag * 2.23694f).ToString("0") + " MPH";
+                speedText.text = (vp.rb.linearVelocity.magnitude * 2.23694f).ToString("0") + " MPH";
 
                 if (trans) {
-                    if (gearbox) {
-                        gearText.text = "Gear: " + (gearbox.currentGear == 0 ? "R" : (gearbox.currentGear == 1 ? "N" : (gearbox.currentGear - 1).ToString()));
-                    }
-                    else if (varTrans) {
-                        gearText.text = "Ratio: " + varTrans.currentRatio.ToString("0.00");
-                    }
+                        gearText.text = "Gear: " + (trans.currentGear == 0 ? "R" : (trans.currentGear == 1 ? "N" : (trans.currentGear - 1).ToString()));
                 }
 
                 if (engine) {

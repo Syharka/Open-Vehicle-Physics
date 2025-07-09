@@ -6,6 +6,10 @@ public class NewAssist : MonoBehaviour
     Rigidbody rb;
     VehicleController vp;
 
+    public float forwardDot { get; private set; }
+    public float rightDot { get; private set; }
+    public float upDot { get; private set; }
+
     [Header("Drift")]
 
     [Tooltip("Variables are multiplied based on the number of wheels grounded out of the total number of wheels")]
@@ -76,6 +80,10 @@ public class NewAssist : MonoBehaviour
 
     void FixedUpdate()
     {
+        forwardDot = Vector3.Dot(transform.forward, -Physics.gravity.normalized);
+        rightDot = Vector3.Dot(transform.right, -Physics.gravity.normalized);
+        upDot = Vector3.Dot(transform.up, -Physics.gravity.normalized);
+
         if (vp.groundedWheels > 0)
         {
             groundedFactor = basedOnWheelsGrounded ? vp.groundedWheels / vp.wheels.Length : 1;
@@ -98,7 +106,7 @@ public class NewAssist : MonoBehaviour
             if (angularDragOnJump)
             {
                 angDragTime = Mathf.Max(0, angDragTime - Time.timeScale * TimeMaster.inverseFixedTimeFactor);
-                rb.angularDamping = angDragTime > 0 && vp.upDot > 0.5 ? 10 : initialAngularDrag;
+                rb.angularDamping = angDragTime > 0 && upDot > 0.5 ? 10 : initialAngularDrag;
             }
         }
 
@@ -183,7 +191,7 @@ public class NewAssist : MonoBehaviour
         RaycastHit rollHit;
 
         // Check if rolled over
-        if (vp.groundedWheels == 0 && vp.rb.linearVelocity.magnitude < rollSpeedThreshold && vp.upDot < 0.8 && rollCheckDistance > 0)
+        if (vp.groundedWheels == 0 && vp.rb.linearVelocity.magnitude < rollSpeedThreshold && upDot < 0.8 && rollCheckDistance > 0)
         {
             if (Physics.Raycast(transform.position, vp.transform.up, out rollHit, rollCheckDistance, GlobalControl.groundMaskStatic)
                 || Physics.Raycast(transform.position, vp.transform.right, out rollHit, rollCheckDistance, GlobalControl.groundMaskStatic)
@@ -213,7 +221,7 @@ public class NewAssist : MonoBehaviour
             else if (autoRollOver)
             {
                 rb.AddRelativeTorque(
-                    new Vector3(0, 0, -Mathf.Sign(vp.rightDot) * rollOverForce),
+                    new Vector3(0, 0, -Mathf.Sign(rightDot) * rollOverForce),
                     ForceMode.Acceleration);
             }
         }

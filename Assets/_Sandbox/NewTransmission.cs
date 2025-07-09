@@ -5,8 +5,6 @@ public class NewTransmission : MonoBehaviour
 {
     [Range(0, 1)]
     public float strength = 1;
-    [System.NonSerialized]
-    public float health = 1;
     protected VehicleController vp;
     protected DriveForce targetDrive;
     protected DriveForce newDrive;
@@ -117,7 +115,6 @@ public class NewTransmission : MonoBehaviour
 
     void FixedUpdate()
     {
-        health = Mathf.Clamp01(health);
         shiftTime = Mathf.Max(0, shiftTime - Time.timeScale * TimeMaster.inverseFixedTimeFactor);
         curGearRatio = gears[currentGear].ratio;
 
@@ -203,47 +200,39 @@ public class NewTransmission : MonoBehaviour
     // Shift gears by the number entered
     public void Shift(int dir)
     {
-        if (health > 0)
+        shiftTime = shiftDelay;
+        currentGear += dir;
+
+        while ((skipNeutral || automatic) && gears[Mathf.Clamp(currentGear, 0, gears.Length - 1)].ratio == 0 && currentGear != 0 && currentGear != gears.Length - 1)
         {
-            shiftTime = shiftDelay;
             currentGear += dir;
-
-            while ((skipNeutral || automatic) && gears[Mathf.Clamp(currentGear, 0, gears.Length - 1)].ratio == 0 && currentGear != 0 && currentGear != gears.Length - 1)
-            {
-                currentGear += dir;
-            }
-
-            currentGear = Mathf.Clamp(currentGear, 0, gears.Length - 1);
         }
+
+        currentGear = Mathf.Clamp(currentGear, 0, gears.Length - 1);
+
     }
 
     // Shift straight to the gear specified
     public void ShiftToGear(int gear)
     {
-        if (health > 0)
-        {
-            shiftTime = shiftDelay;
-            currentGear = Mathf.Clamp(gear, 0, gears.Length - 1);
-        }
+        shiftTime = shiftDelay;
+        currentGear = Mathf.Clamp(gear, 0, gears.Length - 1);
     }
 
     // Caculate ideal RPM ranges for each gear (works most of the time)
     public void CalculateRpmRanges()
     {
         bool cantCalc = false;
-        if (!Application.isPlaying)
-        {
-            GasMotor engine = transform.GetTopmostParentComponent<VehicleParent>().GetComponentInChildren<GasMotor>();
+        NewMotor engine = transform.GetTopmostParentComponent<VehicleController>().GetComponentInChildren<NewMotor>();
 
-            if (engine)
-            {
-                maxRPM = engine.torqueCurve.keys[engine.torqueCurve.length - 1].time;
-            }
-            else
-            {
-                Debug.LogError("There is no <GasMotor> in the vehicle to get RPM info from.", this);
-                cantCalc = true;
-            }
+        if (engine)
+        {
+            maxRPM = engine.torqueCurve.keys[engine.torqueCurve.length - 1].time;
+        }
+        else
+        {
+            Debug.LogError("There is no <GasMotor> in the vehicle to get RPM info from.", this);
+            cantCalc = true;
         }
 
         if (!cantCalc)
@@ -307,6 +296,8 @@ public class NewTransmission : MonoBehaviour
             }
         }
     }
+
+
 }
 
 [System.Serializable]

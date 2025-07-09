@@ -4,12 +4,9 @@ using UnityEngine;
 public class NewWheel : MonoBehaviour
 {
     Rigidbody rb;
-    [System.NonSerialized]
-    public VehicleController vp;
-    [System.NonSerialized]
-    public NewSuspension suspensionParent;
-    [System.NonSerialized]
-    public Transform rim;
+    public VehicleController vp { get; private set; }
+    public NewSuspension suspensionParent { get; private set; }
+    public Transform rim { get; private set; }
     Transform tire;
     Vector3 localVel;
 
@@ -43,6 +40,17 @@ public class NewWheel : MonoBehaviour
     public float sidewaysRimFriction = 0.5f;
     public float forwardCurveStretch = 1;
     public float sidewaysCurveStretch = 1;
+
+    public float forwardSlip;
+    public float sidewaysSlip;
+    float forwardSlipFactor;
+    float sidewaysSlipFactor;
+    float forwardSlipDependenceFactor;
+    float sidewaysSlipDependenceFactor;
+    float targetForceX;
+    float targetForceZ;
+    Vector3 targetForce;
+    float targetForceMultiplier;
     Vector3 frictionForce = Vector3.zero;
 
     [Tooltip("X-axis = slip, y-axis = friction")]
@@ -50,10 +58,6 @@ public class NewWheel : MonoBehaviour
 
     [Tooltip("X-axis = slip, y-axis = friction")]
     public AnimationCurve sidewaysFrictionCurve = AnimationCurve.Linear(0, 0, 1, 1);
-    [System.NonSerialized]
-    public float forwardSlip;
-    [System.NonSerialized]
-    public float sidewaysSlip;
     public enum SlipDependenceMode { dependent, forward, sideways, independent };
     public SlipDependenceMode slipDependence = SlipDependenceMode.sideways;
     [Range(0, 2)]
@@ -71,88 +75,31 @@ public class NewWheel : MonoBehaviour
     [Header("Size")]
 
     public float tireRadius;
-    public float rimRadius;
     public float tireWidth;
-    public float rimWidth;
 
-    [System.NonSerialized]
-    public float setTireWidth;
-    [System.NonSerialized]
-    public float tireWidthPrev;
-    [System.NonSerialized]
-    public float setTireRadius;
-    [System.NonSerialized]
-    public float tireRadiusPrev;
-
-    [System.NonSerialized]
-    public float setRimWidth;
-    [System.NonSerialized]
-    public float rimWidthPrev;
-    [System.NonSerialized]
-    public float setRimRadius;
-    [System.NonSerialized]
-    public float rimRadiusPrev;
-
-    [System.NonSerialized]
-    public float actualRadius;
-
-    [Header("Tire")]
-
-    [Range(0, 1)]
-    public float tirePressure = 1;
-    [System.NonSerialized]
-    public float setTirePressure;
-    [System.NonSerialized]
-    public float tirePressurePrev;
-    float initialTirePressure;
-    public bool popped;
-    [System.NonSerialized]
-    public bool setPopped;
-    [System.NonSerialized]
-    public bool poppedPrev;
-    public bool canPop;
-
-    [Tooltip("Requires deform shader")]
-    public float deformAmount;
-    Material rimMat;
-    Material tireMat;
-    float airLeakTime = -1;
-
-    [Range(0, 1)]
-    public float rimGlow;
-    float glowAmount;
-    Color glowColor;
-
-    [System.NonSerialized]
-    public bool updatedSize;
-    [System.NonSerialized]
-    public bool updatedPopped;
+    public float setTireWidth { get; private set; }
+    public float tireWidthPrev { get; private set; }
+    public float setTireRadius { get; private set; }
+    public float tireRadiusPrev { get; private set; }
 
     float currentRPM;
-    [System.NonSerialized]
-    public DriveForce targetDrive;
-    [System.NonSerialized]
-    public float rawRPM; // RPM based purely on velocity
+    public DriveForce targetDrive { get; private set; }
+    public float rawRPM { get; private set; }
     [System.NonSerialized]
     public WheelContact contactPoint = new WheelContact();
     [System.NonSerialized]
     public bool getContact = true; // Should the wheel try to get contact info?
-    [System.NonSerialized]
-    public bool grounded;
+    public bool grounded { get; private set; }
     float airTime;
-    [System.NonSerialized]
-    public float travelDist;
-    Vector3 upDir; // Up direction
-    float circumference;
+    public float travelDist { get; private set; }
+    float circumference => Mathf.PI * tireRadius * 2;
 
-    [System.NonSerialized]
-    public Vector3 contactVelocity; // Velocity of contact point
+    public Vector3 contactVelocity { get; private set; }
     float actualEbrake;
     float actualTargetRPM;
     float actualTorque;
 
-    [System.NonSerialized]
-    public Vector3 forceApplicationPoint; // Point at which friction forces are applied
+    public Vector3 forceApplicationPoint { get; private set; }
 
     [Tooltip("Apply friction forces at ground point")]
     public bool applyForceAtGroundContact;
@@ -166,61 +113,18 @@ public class NewWheel : MonoBehaviour
     {
         rb = transform.GetTopmostParentComponent<Rigidbody>();
         vp = transform.GetTopmostParentComponent<VehicleController>();
+        rim = transform.GetChild(0);
         suspensionParent = transform.parent.GetComponent<NewSuspension>();
         travelDist = suspensionParent.targetCompression;
-        initialTirePressure = tirePressure;
-
-        if (transform.childCount > 0)
-        {
-            // Get rim
-            rim = transform.GetChild(0);
-
-            // Set up rim glow material
-            if (rimGlow > 0 && Application.isPlaying)
-            {
-                rimMat = new Material(rim.GetComponent<MeshRenderer>().sharedMaterial);
-                rimMat.EnableKeyword("_EMISSION");
-                rim.GetComponent<MeshRenderer>().sharedMaterial = rimMat;
-            }
-
-            // Get tire
-            if (rim.childCount > 0)
-            {
-                tire = rim.GetChild(0);
-                if (deformAmount > 0 && Application.isPlaying)
-                {
-                    tireMat = new Material(tire.GetComponent<MeshRenderer>().sharedMaterial);
-                    tire.GetComponent<MeshRenderer>().sharedMaterial = tireMat;
-                }
-            }
-
-            if (Application.isPlaying)
-            {
-                // Generate hard collider
-                if (generateHardCollider)
-                {
-                    GameObject sphereColNew = new GameObject("Rim Collider");
-                    sphereColNew.layer = GlobalControl.ignoreWheelCastLayer;
-                    sphereColTr = sphereColNew.transform;
-                    sphereCol = sphereColNew.AddComponent<SphereCollider>();
-                    sphereColTr.parent = transform;
-                    sphereColTr.localPosition = Vector3.zero;
-                    sphereColTr.localRotation = Quaternion.identity;
-                    sphereCol.radius = Mathf.Min(rimWidth * 0.5f, rimRadius * 0.5f);
-                    sphereCol.sharedMaterial = GlobalControl.frictionlessMatStatic;
-                }
-            }
-        }
 
         targetDrive = GetComponent<DriveForce>();
         currentRPM = 0;
+
+        CreateWheelCollider();
     }
 
     void FixedUpdate()
     {
-        upDir = transform.up;
-        actualRadius = popped ? rimRadius : Mathf.Lerp(rimRadius, tireRadius, tirePressure);
-        circumference = Mathf.PI * actualRadius * 2;
         localVel = rb.GetPointVelocity(forceApplicationPoint);
 
         // Get proper inputs
@@ -239,135 +143,48 @@ public class NewWheel : MonoBehaviour
 
         airTime = grounded ? 0 : airTime + Time.fixedDeltaTime;
         forceApplicationPoint = applyForceAtGroundContact ? contactPoint.point : transform.position;
-            GetRawRPM();
-            ApplyDrive();
+
+        GetRawRPM();
+        ApplyDrive();
 
         // Get travel distance
         travelDist = suspensionParent.compression < travelDist || grounded ? suspensionParent.compression : Mathf.Lerp(travelDist, suspensionParent.compression, suspensionParent.extendSpeed * Time.fixedDeltaTime);
 
         PositionWheel();
-
-            // Update hard collider size upon changed radius or width
-            if (generateHardCollider)
-            {
-                setRimWidth = rimWidth;
-                setRimRadius = rimRadius;
-                setTireWidth = tireWidth;
-                setTireRadius = tireRadius;
-                setTirePressure = tirePressure;
-
-                if (rimWidthPrev != setRimWidth || rimRadiusPrev != setRimRadius)
-                {
-                    sphereCol.radius = Mathf.Min(rimWidth * 0.5f, rimRadius * 0.5f);
-                    updatedSize = true;
-                }
-                else if (tireWidthPrev != setTireWidth || tireRadiusPrev != setTireRadius || tirePressurePrev != setTirePressure)
-                {
-                    updatedSize = true;
-                }
-                else
-                {
-                    updatedSize = false;
-                }
-
-                rimWidthPrev = setRimWidth;
-                rimRadiusPrev = setRimRadius;
-                tireWidthPrev = setTireWidth;
-                tireRadiusPrev = setTireRadius;
-                tirePressurePrev = setTirePressure;
-            }
-
-            GetSlip();
-            ApplyFriction();
-
-            // Burnout spinning
-            if (vp.burnout > 0 && targetDrive.rpm != 0 && actualEbrake * vp.ebrakeInput == 0 && grounded)
-            {
-                rb.AddForceAtPosition(suspensionParent.forwardDir * -suspensionParent.flippedSideFactor * (vp.steerInput * vp.burnoutSpin * currentRPM * Mathf.Min(0.1f, targetDrive.torque) * 0.001f) * vp.burnout * (popped ? 0.5f : 1) * contactPoint.surfaceFriction, suspensionParent.transform.position, vp.wheelForceMode);
-            }
-
-            // Popping logic
-            setPopped = popped;
-
-            if (poppedPrev != setPopped)
-            {
-                if (tire)
-                {
-                    tire.gameObject.SetActive(!popped);
-                }
-
-                updatedPopped = true;
-            }
-            else
-            {
-                updatedPopped = false;
-            }
-
-            poppedPrev = setPopped;
-            
-    }
-
-    void Update()
-    {
         RotateWheel();
 
-        if (!Application.isPlaying)
-        {
-            PositionWheel();
-        }
-        else
-        {
-            // Update tire and rim materials
-            if (deformAmount > 0 && tireMat)
-            {
-                if (tireMat.HasProperty("_DeformNormal"))
-                {
-                    // Deform tire (requires deform shader)
-                    Vector3 deformNormal = grounded ? contactPoint.normal * Mathf.Max(-suspensionParent.penetration * (1 - suspensionParent.compression) * 10, 1 - tirePressure) * deformAmount : Vector3.zero;
-                    tireMat.SetVector("_DeformNormal", new Vector4(deformNormal.x, deformNormal.y, deformNormal.z, 0));
-                }
-            }
+        GetSlip();
+        ApplyFriction();
 
-            if (rimMat)
-            {
-                if (rimMat.HasProperty("_EmissionColor"))
-                {
-                    // Make the rim glow
-                    float targetGlow = GroundSurfaceMaster.surfaceTypesStatic[contactPoint.surfaceType].leaveSparks ? Mathf.Abs(F.MaxAbs(forwardSlip, sidewaysSlip)) : 0;
-                    glowAmount = popped ? Mathf.Lerp(glowAmount, targetGlow, (targetGlow > glowAmount ? 2 : 0.2f) * Time.deltaTime) : 0;
-                    glowColor = new Color(glowAmount, glowAmount * 0.5f, 0);
-                    rimMat.SetColor("_EmissionColor", popped ? Color.Lerp(Color.black, glowColor, glowAmount * rimGlow) : Color.black);
-                }
-            }
+        // Handle Burnout
+        if (vp.burnout > 0 && targetDrive.rpm != 0 && actualEbrake * vp.ebrakeInput == 0 && grounded)
+        {
+            rb.AddForceAtPosition(suspensionParent.forwardDir * -suspensionParent.flippedSideFactor * (vp.steerInput * vp.burnoutSpin * currentRPM * Mathf.Min(0.1f, targetDrive.torque) * 0.001f) * vp.burnout * 1 * contactPoint.surfaceFriction, suspensionParent.transform.position, vp.wheelForceMode);
         }
+    }
+
+    void CreateWheelCollider()
+    {
+        if (!generateHardCollider) return;
+
+        GameObject sphereColNew = new GameObject("Rim Collider");
+        sphereColNew.layer = GlobalControl.ignoreWheelCastLayer;
+        sphereColTr = sphereColNew.transform;
+        sphereCol = sphereColNew.AddComponent<SphereCollider>();
+        sphereColTr.parent = transform;
+        sphereColTr.localPosition = Vector3.zero;
+        sphereColTr.localRotation = Quaternion.identity;
+        sphereCol.radius = Mathf.Min(tireWidth * 0.5f, tireRadius * 0.5f);
+        sphereCol.sharedMaterial = GlobalControl.frictionlessMatStatic;
     }
 
     // Use raycasting to find the current contact point for the wheel
     void GetWheelContact()
     {
-        float castDist = Mathf.Max(suspensionParent.suspensionDistance * Mathf.Max(0.001f, suspensionParent.targetCompression) + actualRadius, 0.001f);
-        RaycastHit[] wheelHits = Physics.RaycastAll(suspensionParent.maxCompressPoint, suspensionParent.springDirection, castDist, GlobalControl.wheelCastMaskStatic);
+        float castDist = Mathf.Max(suspensionParent.suspensionDistance * Mathf.Max(0.001f, suspensionParent.targetCompression) + tireRadius, 0.001f);
         RaycastHit hit;
-        int hitIndex = 0;
-        bool validHit = false;
-        float hitDist = Mathf.Infinity;
-
-            for (int i = 0; i < wheelHits.Length; i++)
-            {
-                if (!wheelHits[i].transform.IsChildOf(vp.transform) && wheelHits[i].distance < hitDist)
-                {
-                    hitIndex = i;
-                    hitDist = wheelHits[i].distance;
-                    validHit = true;
-                }
-            }
-        
-
-        // Set contact point variables
-        if (validHit)
+        if (Physics.Raycast(suspensionParent.maxCompressPoint, suspensionParent.springDirection, out hit, castDist, GlobalControl.wheelCastMaskStatic))
         {
-            hit = wheelHits[hitIndex];
-
             if (!grounded && impactSnd && (tireHitClips.Length > 0))
             {
                 impactSnd.PlayOneShot(tireHitClips[Mathf.RoundToInt(Random.Range(0, tireHitClips.Length - 1))], Mathf.Clamp01(airTime * airTime));
@@ -375,7 +192,7 @@ public class NewWheel : MonoBehaviour
             }
 
             grounded = true;
-            contactPoint.distance = hit.distance - actualRadius;
+            contactPoint.distance = hit.distance - tireRadius;
             contactPoint.point = hit.point + localVel * Time.fixedDeltaTime;
             contactPoint.grounded = true;
             contactPoint.normal = hit.normal;
@@ -417,7 +234,7 @@ public class NewWheel : MonoBehaviour
             contactPoint.distance = suspensionParent.suspensionDistance;
             contactPoint.point = Vector3.zero;
             contactPoint.grounded = false;
-            contactPoint.normal = upDir;
+            contactPoint.normal = transform.up;
             contactPoint.relativeVelocity = Vector3.zero;
             contactPoint.col = null;
             contactVelocity = Vector3.zero;
@@ -459,18 +276,18 @@ public class NewWheel : MonoBehaviour
     {
         if (grounded)
         {
-            float forwardSlipFactor = (int)slipDependence == 0 || (int)slipDependence == 1 ? forwardSlip - sidewaysSlip : forwardSlip;
-            float sidewaysSlipFactor = (int)slipDependence == 0 || (int)slipDependence == 2 ? sidewaysSlip - forwardSlip : sidewaysSlip;
-            float forwardSlipDependenceFactor = Mathf.Clamp01(forwardSlipDependence - Mathf.Clamp01(Mathf.Abs(sidewaysSlip)));
-            float sidewaysSlipDependenceFactor = Mathf.Clamp01(sidewaysSlipDependence - Mathf.Clamp01(Mathf.Abs(forwardSlip)));
+            forwardSlipFactor = (int)slipDependence == 0 || (int)slipDependence == 1 ? forwardSlip - sidewaysSlip : forwardSlip;
+            sidewaysSlipFactor = (int)slipDependence == 0 || (int)slipDependence == 2 ? sidewaysSlip - forwardSlip : sidewaysSlip;
+            forwardSlipDependenceFactor = Mathf.Clamp01(forwardSlipDependence - Mathf.Clamp01(Mathf.Abs(sidewaysSlip)));
+            sidewaysSlipDependenceFactor = Mathf.Clamp01(sidewaysSlipDependence - Mathf.Clamp01(Mathf.Abs(forwardSlip)));
 
-            float targetForceX = forwardFrictionCurve.Evaluate(Mathf.Abs(forwardSlipFactor)) * -System.Math.Sign(forwardSlip) * (popped ? forwardRimFriction : forwardFriction) * forwardSlipDependenceFactor * -suspensionParent.flippedSideFactor;
-            float targetForceZ = sidewaysFrictionCurve.Evaluate(Mathf.Abs(sidewaysSlipFactor)) * -System.Math.Sign(sidewaysSlip) * (popped ? sidewaysRimFriction : sidewaysFriction) * sidewaysSlipDependenceFactor *
+            targetForceX = forwardFrictionCurve.Evaluate(Mathf.Abs(forwardSlipFactor)) * -System.Math.Sign(forwardSlip) * forwardFriction * forwardSlipDependenceFactor * -suspensionParent.flippedSideFactor;
+            targetForceZ = sidewaysFrictionCurve.Evaluate(Mathf.Abs(sidewaysSlipFactor)) * -System.Math.Sign(sidewaysSlip) * sidewaysFriction * sidewaysSlipDependenceFactor *
                 normalFrictionCurve.Evaluate(Mathf.Clamp01(Vector3.Dot(contactPoint.normal, GlobalControl.worldUpDir))) *
                 (vp.burnout > 0 && Mathf.Abs(targetDrive.rpm) != 0 && actualEbrake * vp.ebrakeInput == 0 && grounded ? (1 - vp.burnout) * (1 - Mathf.Abs(vp.accelInput)) : 1);
 
-            Vector3 targetForce = transform.TransformDirection(targetForceX, 0, targetForceZ);
-            float targetForceMultiplier = ((1 - compressionFrictionFactor) + (1 - suspensionParent.compression) * compressionFrictionFactor * Mathf.Clamp01(Mathf.Abs(suspensionParent.transform.InverseTransformDirection(localVel).z) * 10)) * contactPoint.surfaceFriction;
+            targetForce = transform.TransformDirection(targetForceX, 0, targetForceZ);
+            targetForceMultiplier = ((1 - compressionFrictionFactor) + (1 - suspensionParent.compression) * compressionFrictionFactor * Mathf.Clamp01(Mathf.Abs(suspensionParent.transform.InverseTransformDirection(localVel).z) * 10)) * contactPoint.surfaceFriction;
             frictionForce = Vector3.Lerp(frictionForce, targetForce * targetForceMultiplier, 1 - frictionSmoothness);
             rb.AddForceAtPosition(frictionForce, forceApplicationPoint, vp.wheelForceMode);
 
@@ -513,13 +330,19 @@ public class NewWheel : MonoBehaviour
         }
         bool validTorque = (!(Mathf.Approximately(actualTorque, 0) && Mathf.Abs(actualTargetRPM) < 0.01f) && !Mathf.Approximately(actualTargetRPM, 0)) || brakeForce + actualEbrake * vp.ebrakeInput > 0;
 
-        currentRPM = Mathf.Lerp(rawRPM,
-            Mathf.Lerp(
-            Mathf.Lerp(rawRPM, actualTargetRPM, validTorque ? EvaluateTorque(actualTorque) : actualTorque),
-            0, Mathf.Max(brakeForce, actualEbrake * vp.ebrakeInput)),
-        validTorque ? EvaluateTorque(actualTorque + brakeForce + actualEbrake * vp.ebrakeInput) : actualTorque + brakeForce + actualEbrake * vp.ebrakeInput);
+        currentRPM = CalculateRPM(validTorque, brakeForce);
 
         targetDrive.feedbackRPM = Mathf.Lerp(currentRPM, rawRPM, feedbackRpmBias);
+    }
+
+    float CalculateRPM(bool validTorque, float brakeForce)
+    {
+        float torqueOutput = validTorque ?
+            EvaluateTorque(actualTorque + brakeForce + actualEbrake * vp.ebrakeInput) : actualTorque + brakeForce + actualEbrake * vp.ebrakeInput;
+
+        float evaluatedTorque = validTorque ? EvaluateTorque(actualTorque) : actualTorque;
+
+        return Mathf.Lerp(rawRPM, Mathf.Lerp( Mathf.Lerp(rawRPM, actualTargetRPM, evaluatedTorque), 0, Mathf.Max(brakeForce, actualEbrake * vp.ebrakeInput)), torqueOutput);
     }
 
     // Extra method for evaluating torque to make the ApplyDrive method more readable
@@ -535,21 +358,18 @@ public class NewWheel : MonoBehaviour
         if (suspensionParent)
         {
             rim.position = suspensionParent.maxCompressPoint + suspensionParent.springDirection * suspensionParent.suspensionDistance * (Application.isPlaying ? travelDist : suspensionParent.targetCompression) +
-                suspensionParent.upDir * Mathf.Pow(Mathf.Max(Mathf.Abs(Mathf.Sin(suspensionParent.sideAngle * Mathf.Deg2Rad)), Mathf.Abs(Mathf.Sin(suspensionParent.casterAngle * Mathf.Deg2Rad))), 2) * actualRadius +
+                suspensionParent.upDir * Mathf.Pow(Mathf.Max(Mathf.Abs(Mathf.Sin(suspensionParent.sideAngle * Mathf.Deg2Rad)), Mathf.Abs(Mathf.Sin(suspensionParent.casterAngle * Mathf.Deg2Rad))), 2) * tireRadius +
                 suspensionParent.pivotOffset * suspensionParent.transform.TransformDirection(Mathf.Sin(transform.localEulerAngles.y * Mathf.Deg2Rad), 0, Mathf.Cos(transform.localEulerAngles.y * Mathf.Deg2Rad))
                 - suspensionParent.pivotOffset * (Application.isPlaying ? suspensionParent.forwardDir : suspensionParent.transform.forward);
         }
 
-        if (Application.isPlaying && generateHardCollider)
-        {
             sphereColTr.position = rim.position;
-        }
     }
 
     // Visual wheel rotation
     void RotateWheel()
     {
-        if (transform && suspensionParent)
+        if (suspensionParent)
         {
             float ackermannVal = Mathf.Sign(suspensionParent.steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.ackermannFactor : 1 - suspensionParent.ackermannFactor;
             transform.localEulerAngles = new Vector3(
@@ -558,97 +378,14 @@ public class NewWheel : MonoBehaviour
                 0);
         }
 
-        if (Application.isPlaying)
-        {
-            rim.Rotate(Vector3.forward, currentRPM * suspensionParent.flippedSideFactor * Time.deltaTime);
+        rim.Rotate(Vector3.forward, currentRPM * suspensionParent.flippedSideFactor * Time.deltaTime);
 
-            if (rim.localEulerAngles.x != 0 || rim.localEulerAngles.y != 0)
-            {
-                rim.localEulerAngles = new Vector3(0, 0, rim.localEulerAngles.z);
-            }
+        if (rim.localEulerAngles.x != 0 || rim.localEulerAngles.y != 0)
+        {
+            rim.localEulerAngles = new Vector3(0, 0, rim.localEulerAngles.z);
         }
     }
 
-    // Automatically sets wheel dimensions based on rim/tire meshes
-    public void GetWheelDimensions(float radiusMargin, float widthMargin)
-    {
-        Mesh rimMesh = null;
-        Mesh tireMesh = null;
-        Mesh checker;
-        Transform scaler = transform;
-
-        if (transform.childCount > 0)
-        {
-            if (transform.GetChild(0).GetComponent<MeshFilter>())
-            {
-                rimMesh = transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
-                scaler = transform.GetChild(0);
-            }
-
-            if (transform.GetChild(0).childCount > 0)
-            {
-                if (transform.GetChild(0).GetChild(0).GetComponent<MeshFilter>())
-                {
-                    tireMesh = transform.GetChild(0).GetChild(0).GetComponent<MeshFilter>().sharedMesh;
-                }
-            }
-
-            checker = tireMesh ? tireMesh : rimMesh;
-
-            if (checker)
-            {
-                float maxWidth = 0;
-                float maxRadius = 0;
-
-                foreach (Vector3 curVert in checker.vertices)
-                {
-                    if (new Vector2(curVert.x * scaler.localScale.x, curVert.y * scaler.localScale.y).magnitude > maxRadius)
-                    {
-                        maxRadius = new Vector2(curVert.x * scaler.localScale.x, curVert.y * scaler.localScale.y).magnitude;
-                    }
-
-                    if (Mathf.Abs(curVert.z * scaler.localScale.z) > maxWidth)
-                    {
-                        maxWidth = Mathf.Abs(curVert.z * scaler.localScale.z);
-                    }
-                }
-
-                tireRadius = maxRadius + radiusMargin;
-                tireWidth = maxWidth + widthMargin;
-
-                if (tireMesh && rimMesh)
-                {
-                    maxWidth = 0;
-                    maxRadius = 0;
-
-                    foreach (Vector3 curVert in rimMesh.vertices)
-                    {
-                        if (new Vector2(curVert.x * scaler.localScale.x, curVert.y * scaler.localScale.y).magnitude > maxRadius)
-                        {
-                            maxRadius = new Vector2(curVert.x * scaler.localScale.x, curVert.y * scaler.localScale.y).magnitude;
-                        }
-
-                        if (Mathf.Abs(curVert.z * scaler.localScale.z) > maxWidth)
-                        {
-                            maxWidth = Mathf.Abs(curVert.z * scaler.localScale.z);
-                        }
-                    }
-
-                    rimRadius = maxRadius + radiusMargin;
-                    rimWidth = maxWidth + widthMargin;
-                }
-                else
-                {
-                    rimRadius = maxRadius * 0.5f + radiusMargin;
-                    rimWidth = maxWidth * 0.5f + widthMargin;
-                }
-            }
-            else
-            {
-                Debug.LogError("No rim or tire meshes found for getting wheel dimensions.", this);
-            }
-        }
-    }
 
     // visualize wheel
     void OnDrawGizmosSelected()
@@ -665,25 +402,13 @@ public class NewWheel : MonoBehaviour
             }
         }
 
-        float tireActualRadius = Mathf.Lerp(rimRadius, tireRadius, tirePressure);
-
-        if (tirePressure < 1 && tirePressure > 0)
-        {
-            Gizmos.color = new Color(1, 1, 0, popped ? 0.5f : 1);
-            GizmosExtra.DrawWireCylinder(rim.position, rim.forward, tireActualRadius, tireWidth * 2);
-        }
+        float tireActualRadius = tireRadius;
 
         Gizmos.color = Color.white;
         GizmosExtra.DrawWireCylinder(rim.position, rim.forward, tireRadius, tireWidth * 2);
 
-        Gizmos.color = tirePressure == 0 || popped ? Color.green : Color.cyan;
-        GizmosExtra.DrawWireCylinder(rim.position, rim.forward, rimRadius, rimWidth * 2);
-
-        Gizmos.color = new Color(1, 1, 1, tirePressure < 1 ? 0.5f : 1);
+        Gizmos.color = new Color(1, 1, 1, 1);
         GizmosExtra.DrawWireCylinder(rim.position, rim.forward, tireRadius, tireWidth * 2);
-
-        Gizmos.color = tirePressure == 0 || popped ? Color.green : Color.cyan;
-        GizmosExtra.DrawWireCylinder(rim.position, rim.forward, rimRadius, rimWidth * 2);
     }
 }
 

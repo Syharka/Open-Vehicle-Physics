@@ -23,7 +23,6 @@ public class NewSuspension : MonoBehaviour
 
     [Tooltip("Multiplier for the radius of the hard collider")]
     public float hardColliderRadiusFactor = 1;
-    float hardColliderRadiusFactorPrev;
     float setHardColliderRadiusFactor;
     Transform compressTr; // Transform component of the hard collider
 
@@ -154,10 +153,8 @@ public class NewSuspension : MonoBehaviour
                 compressTr.localEulerAngles = new Vector3(camberAngle, 0, -casterAngle * flippedSideFactor);
                 compressCol = cap.AddComponent<CapsuleCollider>();
                 compressCol.direction = 1;
-                setHardColliderRadiusFactor = hardColliderRadiusFactor;
-                hardColliderRadiusFactorPrev = setHardColliderRadiusFactor;
-                compressCol.radius = wheel.rimWidth * hardColliderRadiusFactor;
-                compressCol.height = (wheel.popped ? wheel.rimRadius : Mathf.Lerp(wheel.rimRadius, wheel.tireRadius, wheel.tirePressure)) * 2;
+                compressCol.radius = wheel.tireWidth * hardColliderRadiusFactor;
+                compressCol.height = wheel.tireRadius * 2;
                 compressCol.sharedMaterial = GlobalControl.frictionlessMatStatic;
             }
 
@@ -187,30 +184,6 @@ public class NewSuspension : MonoBehaviour
         if (targetCompression > 0)
         {
             ApplySuspensionForce();
-        }
-
-        // Set hard collider size if it is changed during play mode
-        if (generateHardCollider)
-        {
-            setHardColliderRadiusFactor = hardColliderRadiusFactor;
-
-            if (hardColliderRadiusFactorPrev != setHardColliderRadiusFactor || wheel.updatedSize || wheel.updatedPopped)
-            {
-                if (wheel.rimWidth > wheel.actualRadius)
-                {
-                    compressCol.direction = 2;
-                    compressCol.radius = wheel.actualRadius * hardColliderRadiusFactor;
-                    compressCol.height = wheel.rimWidth * 2;
-                }
-                else
-                {
-                    compressCol.direction = 1;
-                    compressCol.radius = wheel.rimWidth * hardColliderRadiusFactor;
-                    compressCol.height = wheel.actualRadius * 2;
-                }
-            }
-
-            hardColliderRadiusFactorPrev = setHardColliderRadiusFactor;
         }
         if (wheel.targetDrive)
         {

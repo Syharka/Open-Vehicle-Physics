@@ -25,7 +25,6 @@ namespace RVP
         public VehicleHud hud;
 
         void Update() {
-            cam.stayFlat = camToggle.isOn;
             chaseCarSpawnTime = Mathf.Max(0, chaseCarSpawnTime - Time.deltaTime);
         }
 

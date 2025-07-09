@@ -981,7 +981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheel: {fileID: 1332262138342175505}
-  generateHardCollider: 1
+  generateHardCollider: 0
   hardColliderRadiusFactor: 1
   brakeForce: 0.5
   ebrakeForce: 1
@@ -1149,6 +1149,8 @@ MonoBehaviour:
   sidewaysRimFriction: 1
   forwardCurveStretch: 10
   sidewaysCurveStretch: 1
+  forwardSlip: 0
+  sidewaysSlip: 0
   forwardFrictionCurve:
     serializedVersion: 2
     m_Curve:
@@ -1253,14 +1255,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   compressionFrictionFactor: 0.5
   tireRadius: 0.296
-  rimRadius: 0.22
   tireWidth: 0.11
-  rimWidth: 0.105
-  tirePressure: 1
-  popped: 0
-  canPop: 1
-  deformAmount: 0.2
-  rimGlow: 0
   applyForceAtGroundContact: 0
   impactSnd: {fileID: 750240436247928207}
   tireHitClips:
@@ -1618,6 +1613,8 @@ MonoBehaviour:
   sidewaysRimFriction: 1
   forwardCurveStretch: 10
   sidewaysCurveStretch: 1
+  forwardSlip: 0
+  sidewaysSlip: 0
   forwardFrictionCurve:
     serializedVersion: 2
     m_Curve:
@@ -1722,14 +1719,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   compressionFrictionFactor: 0.5
   tireRadius: 0.296
-  rimRadius: 0.22
   tireWidth: 0.11
-  rimWidth: 0.105
-  tirePressure: 1
-  popped: 0
-  canPop: 1
-  deformAmount: 0.2
-  rimGlow: 0
   applyForceAtGroundContact: 0
   impactSnd: {fileID: 750240436247928207}
   tireHitClips:
@@ -6972,6 +6962,8 @@ MonoBehaviour:
   sidewaysRimFriction: 1
   forwardCurveStretch: 10
   sidewaysCurveStretch: 1
+  forwardSlip: 0
+  sidewaysSlip: 0
   forwardFrictionCurve:
     serializedVersion: 2
     m_Curve:
@@ -7076,14 +7068,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   compressionFrictionFactor: 0.5
   tireRadius: 0.296
-  rimRadius: 0.22
   tireWidth: 0.11
-  rimWidth: 0.105
-  tirePressure: 1
-  popped: 0
-  canPop: 1
-  deformAmount: 0.2
-  rimGlow: 0
   applyForceAtGroundContact: 0
   impactSnd: {fileID: 750240436247928207}
   tireHitClips:
@@ -7485,10 +7470,14 @@ MonoBehaviour:
   - {fileID: 1332262138342175505}
   - {fileID: 7596426462887484613}
   - {fileID: 6456462955189796019}
-  suspensionCenterOfMass: 1
+  suspensionCenterOfMass: 0
   centerOfMassOffset: {x: 0, y: -0.1, z: 0}
   wheelForceMode: 5
   suspensionForceMode: 5
+  _engine: {fileID: 11400000, guid: a4397a2ed1c2c274babe18999f7a13f0, type: 2}
+  rpm: 0
+  _transmission: {fileID: 11400000, guid: e1556ab5fe2f90046818a96325f0901b, type: 2}
+  gear: 0
 --- !u!114 &6846634884538205187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7616,16 +7605,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87eb5d0acac57174db04f481ab057562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelAxis: 
-  brakeAxis: 
-  steerAxis: 
-  ebrakeAxis: 
-  boostButton: 
-  upshiftButton: 
-  downshiftButton: 
-  pitchAxis: 
-  yawAxis: 
-  rollAxis: 
+  accelAxis: Accel
+  brakeAxis: Brake
+  steerAxis: Horizontal
+  ebrakeAxis: Ebrake
+  boostButton: Boost
+  upshiftButton: Upshift
+  downshiftButton: Downshift
+  pitchAxis: Vertical
+  yawAxis: Spin
+  rollAxis: Horizontal
 --- !u!114 &9027277398838608468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8086,7 +8075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheel: {fileID: 6456462955189796019}
-  generateHardCollider: 1
+  generateHardCollider: 0
   hardColliderRadiusFactor: 1
   brakeForce: 0.5
   ebrakeForce: 1
@@ -8308,7 +8297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheel: {fileID: 2293858944175353494}
-  generateHardCollider: 1
+  generateHardCollider: 0
   hardColliderRadiusFactor: 1
   brakeForce: 0.5
   ebrakeForce: 0
@@ -14162,6 +14151,8 @@ MonoBehaviour:
   sidewaysRimFriction: 1
   forwardCurveStretch: 10
   sidewaysCurveStretch: 1
+  forwardSlip: 0
+  sidewaysSlip: 0
   forwardFrictionCurve:
     serializedVersion: 2
     m_Curve:
@@ -14266,14 +14257,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   compressionFrictionFactor: 0.5
   tireRadius: 0.296
-  rimRadius: 0.22
   tireWidth: 0.11
-  rimWidth: 0.105
-  tirePressure: 1
-  popped: 0
-  canPop: 1
-  deformAmount: 0.2
-  rimGlow: 0
   applyForceAtGroundContact: 0
   impactSnd: {fileID: 750240436247928207}
   tireHitClips:
@@ -14443,7 +14427,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7473999559395684239}
   - component: {fileID: 8330247824032194009}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: undercollider
   m_TagString: Underside
   m_Icon: {fileID: 0}
@@ -14806,7 +14790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheel: {fileID: 7596426462887484613}
-  generateHardCollider: 1
+  generateHardCollider: 0
   hardColliderRadiusFactor: 1
   brakeForce: 0.5
   ebrakeForce: 0
