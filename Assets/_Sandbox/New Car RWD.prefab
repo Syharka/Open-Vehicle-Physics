@@ -161,6 +161,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!82 &4449857956232079144
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1068,6 +1078,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2223084429816982787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,154 +1134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a0a51c84e41fb459fbdc6e3252f54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wheelSettings: {fileID: 11400000, guid: 8fd2d060d0496e142b7a97588f389e5e, type: 2}
   generateHardCollider: 1
-  feedbackRpmBias: 0
-  rpmBiasCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rpmBiasCurveLimit: Infinity
-  axleFriction: 0
-  frictionSmoothness: 0.5
-  forwardFriction: 5
-  sidewaysFriction: 5
-  forwardRimFriction: 1
-  sidewaysRimFriction: 1
-  forwardCurveStretch: 10
-  sidewaysCurveStretch: 1
   forwardSlip: 0
   sidewaysSlip: 0
-  forwardFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.3071366
-      inSlope: 8.809789
-      outSlope: 8.809789
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.20130093
-      value: 0.9982152
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.39624968
-      value: 0.8593253
-      inSlope: -0.26457107
-      outSlope: -0.26457107
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.8018612
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  sidewaysFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.30383185
-      inSlope: 8.826521
-      outSlope: 8.826521
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.19317453
-      value: 1.2089926
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1.0520122
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  slipDependence: 2
-  forwardSlipDependence: 2
-  sidewaysSlipDependence: 2
-  normalFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  compressionFrictionFactor: 0.5
-  tireRadius: 0.296
-  tireWidth: 0.11
-  applyForceAtGroundContact: 0
-  impactSnd: {fileID: 750240436247928207}
-  tireHitClips:
-  - {fileID: 8300000, guid: 8c6f42263cbcb8742bd07df4682f7464, type: 3}
-  - {fileID: 8300000, guid: c7207f2274511374299bc2b223b3bd62, type: 3}
-  - {fileID: 8300000, guid: 9c7391cace38b5f44bcec78e8019f9c5, type: 3}
 --- !u!114 &7036166322110982957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,6 +1150,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2606421711671527541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1308,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &3318031878013134469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,154 +1474,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a0a51c84e41fb459fbdc6e3252f54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wheelSettings: {fileID: 11400000, guid: 5ba89160eace2d74d82dbb7ca00ec3a4, type: 2}
   generateHardCollider: 1
-  feedbackRpmBias: 0
-  rpmBiasCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rpmBiasCurveLimit: Infinity
-  axleFriction: 0
-  frictionSmoothness: 0.5
-  forwardFriction: 5
-  sidewaysFriction: 4
-  forwardRimFriction: 1
-  sidewaysRimFriction: 1
-  forwardCurveStretch: 10
-  sidewaysCurveStretch: 1
   forwardSlip: 0
   sidewaysSlip: 0
-  forwardFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.3071366
-      inSlope: 8.809789
-      outSlope: 8.809789
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.20130093
-      value: 0.9982152
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.39624968
-      value: 0.8593253
-      inSlope: -0.26457107
-      outSlope: -0.26457107
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.8018612
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  sidewaysFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.30383185
-      inSlope: 8.826521
-      outSlope: 8.826521
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.19317453
-      value: 1.9994437
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1.0520122
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  slipDependence: 2
-  forwardSlipDependence: 2
-  sidewaysSlipDependence: 2
-  normalFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  compressionFrictionFactor: 0.5
-  tireRadius: 0.296
-  tireWidth: 0.11
-  applyForceAtGroundContact: 0
-  impactSnd: {fileID: 750240436247928207}
-  tireHitClips:
-  - {fileID: 8300000, guid: 8c6f42263cbcb8742bd07df4682f7464, type: 3}
-  - {fileID: 8300000, guid: c7207f2274511374299bc2b223b3bd62, type: 3}
-  - {fileID: 8300000, guid: 9c7391cace38b5f44bcec78e8019f9c5, type: 3}
 --- !u!114 &2576360903239747965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1738,6 +1490,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &3822377277433174206
 GameObject:
   m_ObjectHideFlags: 0
@@ -6927,154 +6689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a0a51c84e41fb459fbdc6e3252f54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wheelSettings: {fileID: 11400000, guid: 8fd2d060d0496e142b7a97588f389e5e, type: 2}
   generateHardCollider: 1
-  feedbackRpmBias: 0
-  rpmBiasCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rpmBiasCurveLimit: Infinity
-  axleFriction: 0
-  frictionSmoothness: 0.5
-  forwardFriction: 5
-  sidewaysFriction: 5
-  forwardRimFriction: 1
-  sidewaysRimFriction: 1
-  forwardCurveStretch: 10
-  sidewaysCurveStretch: 1
   forwardSlip: 0
   sidewaysSlip: 0
-  forwardFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.3071366
-      inSlope: 8.809789
-      outSlope: 8.809789
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.20130093
-      value: 0.9982152
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.39624968
-      value: 0.8593253
-      inSlope: -0.26457107
-      outSlope: -0.26457107
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.8018612
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  sidewaysFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.30383185
-      inSlope: 8.826521
-      outSlope: 8.826521
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.19317453
-      value: 1.2089926
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1.0520122
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  slipDependence: 2
-  forwardSlipDependence: 2
-  sidewaysSlipDependence: 2
-  normalFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  compressionFrictionFactor: 0.5
-  tireRadius: 0.296
-  tireWidth: 0.11
-  applyForceAtGroundContact: 0
-  impactSnd: {fileID: 750240436247928207}
-  tireHitClips:
-  - {fileID: 8300000, guid: 8c6f42263cbcb8742bd07df4682f7464, type: 3}
-  - {fileID: 8300000, guid: c7207f2274511374299bc2b223b3bd62, type: 3}
-  - {fileID: 8300000, guid: 9c7391cace38b5f44bcec78e8019f9c5, type: 3}
 --- !u!114 &5310535782273850256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7087,6 +6705,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &4904016697233742472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7474,10 +7102,6 @@ MonoBehaviour:
   centerOfMassOffset: {x: 0, y: -0.1, z: 0}
   wheelForceMode: 5
   suspensionForceMode: 5
-  _engine: {fileID: 11400000, guid: a4397a2ed1c2c274babe18999f7a13f0, type: 2}
-  rpm: 0
-  _transmission: {fileID: 11400000, guid: e1556ab5fe2f90046818a96325f0901b, type: 2}
-  gear: 0
 --- !u!114 &6846634884538205187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7573,10 +7197,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5490219933845673502}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -8162,6 +7786,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &6558597509815987421
 GameObject:
   m_ObjectHideFlags: 0
@@ -8384,6 +8018,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &7019630432916055562
 GameObject:
   m_ObjectHideFlags: 0
@@ -14116,154 +13760,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a0a51c84e41fb459fbdc6e3252f54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wheelSettings: {fileID: 11400000, guid: 5ba89160eace2d74d82dbb7ca00ec3a4, type: 2}
   generateHardCollider: 1
-  feedbackRpmBias: 0
-  rpmBiasCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rpmBiasCurveLimit: Infinity
-  axleFriction: 0
-  frictionSmoothness: 0.5
-  forwardFriction: 5
-  sidewaysFriction: 4
-  forwardRimFriction: 1
-  sidewaysRimFriction: 1
-  forwardCurveStretch: 10
-  sidewaysCurveStretch: 1
   forwardSlip: 0
   sidewaysSlip: 0
-  forwardFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.3071366
-      inSlope: 8.809789
-      outSlope: 8.809789
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.20130093
-      value: 0.9982152
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.39624968
-      value: 0.8593253
-      inSlope: -0.26457107
-      outSlope: -0.26457107
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.8018612
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  sidewaysFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.30383185
-      inSlope: 8.826521
-      outSlope: 8.826521
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.19317453
-      value: 1.9994437
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1.0520122
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  slipDependence: 2
-  forwardSlipDependence: 2
-  sidewaysSlipDependence: 2
-  normalFrictionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  compressionFrictionFactor: 0.5
-  tireRadius: 0.296
-  tireWidth: 0.11
-  applyForceAtGroundContact: 0
-  impactSnd: {fileID: 750240436247928207}
-  tireHitClips:
-  - {fileID: 8300000, guid: 8c6f42263cbcb8742bd07df4682f7464, type: 3}
-  - {fileID: 8300000, guid: c7207f2274511374299bc2b223b3bd62, type: 3}
-  - {fileID: 8300000, guid: 9c7391cace38b5f44bcec78e8019f9c5, type: 3}
 --- !u!114 &4176265318684492596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14276,6 +13776,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &8240016789815400626
 GameObject:
   m_ObjectHideFlags: 0
@@ -14877,3 +14387,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1

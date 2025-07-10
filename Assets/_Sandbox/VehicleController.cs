@@ -57,14 +57,6 @@ public class VehicleController : MonoBehaviour
     public ForceMode wheelForceMode = ForceMode.Acceleration;
     public ForceMode suspensionForceMode = ForceMode.Acceleration;
 
-    [Header("New Stuff")]
-    public EngineSettings _engine;
-    public float rawRpm;
-    public float rpm;
-
-    public TransmissionSettings _transmission;
-    public float gear;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -107,11 +99,6 @@ public class VehicleController : MonoBehaviour
 
         SetBurnoutInputs();
         SetReversing();
-
-        _engine.UpdateEngine(rpm, accelInput, false, false, (groundedWheels == 0), 0, 0);
-
-        rawRpm = wheels[3].rawRPM;
-        rpm = _engine.RPM;
     }
 
     private void CreateNormalOrientation()

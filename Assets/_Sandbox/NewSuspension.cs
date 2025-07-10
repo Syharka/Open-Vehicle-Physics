@@ -153,8 +153,8 @@ public class NewSuspension : MonoBehaviour
                 compressTr.localEulerAngles = new Vector3(camberAngle, 0, -casterAngle * flippedSideFactor);
                 compressCol = cap.AddComponent<CapsuleCollider>();
                 compressCol.direction = 1;
-                compressCol.radius = wheel.tireWidth * hardColliderRadiusFactor;
-                compressCol.height = wheel.tireRadius * 2;
+                compressCol.radius = wheel.tireSize.tireWidth * hardColliderRadiusFactor;
+                compressCol.height = wheel.tireSize.tireRadius * 2;
                 compressCol.sharedMaterial = GlobalControl.frictionlessMatStatic;
             }
 

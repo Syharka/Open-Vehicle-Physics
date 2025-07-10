@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81445d4e87d89a14e8197f0a70bb89ed, type: 3}
+  m_Name: Test_RearWheel
+  m_EditorClassIdentifier: 
+  extra:
+    generateHardCollider: 1
+    applyForceAtGroundContact: 0
+  friction:
+    frictionSmoothness: 0.5
+    forwardFriction: 5
+    sidewaysFriction: 4
+    forwardRimFriction: 1
+    sidewaysRimFriction: 1
+    forwardCurveStretch: 10
+    sidewaysCurveStretch: 1
+    forwardFrictionCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.3071366
+        inSlope: 8.809789
+        outSlope: 8.809789
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.20130093
+        value: 0.9982152
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.39624968
+        value: 0.8593253
+        inSlope: -0.26457107
+        outSlope: -0.26457107
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.8018612
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    sidewaysFrictionCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.30383185
+        inSlope: 8.826521
+        outSlope: 8.826521
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.19317453
+        value: 1.9994437
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1.0520122
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    slipDependence: 2
+    forwardSlipDependence: 2
+    sidewaysSlipDependence: 2
+    normalFrictionCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    compressionFrictionFactor: 0.5
+  rotation:
+    feedbackRpmBias: 0
+    rpmBiasCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    rpmBiasCurveLimit: Infinity
+    axleFriction: 0
+  tireSize:
+    tireRadius: 0.296
+    tireWidth: 0.11
+  tireAudio:
+    impactSnd: {fileID: 0}
+    tireHitClips:
+    - {fileID: 8300000, guid: 8c6f42263cbcb8742bd07df4682f7464, type: 3}
+    - {fileID: 8300000, guid: c7207f2274511374299bc2b223b3bd62, type: 3}
+    - {fileID: 8300000, guid: 9c7391cace38b5f44bcec78e8019f9c5, type: 3}
