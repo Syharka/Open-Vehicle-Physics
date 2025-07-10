@@ -990,82 +990,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6406c80a489224abf391fac67a44a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oppositeWheel: {fileID: 2383688111211546213}
+  suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
   wheel: {fileID: 1332262138342175505}
   generateHardCollider: 0
   hardColliderRadiusFactor: 1
-  brakeForce: 0.5
-  ebrakeForce: 1
-  steerRangeMin: -50
-  steerRangeMax: 50
-  steerFactor: 0
-  steerAngle: 0
-  ackermannFactor: 0.2
-  camberCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  camberOffset: 0
-  solidAxleCamber: 0
-  oppositeWheel: {fileID: 2383688111211546213}
-  sideAngle: 0
-  casterAngle: 0
-  toeAngle: 0
-  pivotOffset: 0.14
-  suspensionDistance: 0.2
-  targetCompression: 1
-  springForce: 5
-  springForceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  springExponent: 10
-  springDampening: 0.5
-  extendSpeed: 20
-  applyHardContactForce: 1
-  hardContactForce: 50
-  hardContactSensitivity: 2
-  applyForceAtGroundContact: 1
-  leaningForce: 0
 --- !u!114 &5316955850910900141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1135,9 +1064,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 8fd2d060d0496e142b7a97588f389e5e, type: 2}
-  generateHardCollider: 1
-  forwardSlip: 0
-  sidewaysSlip: 0
 --- !u!114 &7036166322110982957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1475,9 +1401,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 5ba89160eace2d74d82dbb7ca00ec3a4, type: 2}
-  generateHardCollider: 1
-  forwardSlip: 0
-  sidewaysSlip: 0
 --- !u!114 &2576360903239747965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6690,9 +6613,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 8fd2d060d0496e142b7a97588f389e5e, type: 2}
-  generateHardCollider: 1
-  forwardSlip: 0
-  sidewaysSlip: 0
 --- !u!114 &5310535782273850256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7698,82 +7618,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6406c80a489224abf391fac67a44a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oppositeWheel: {fileID: 2894025643322900104}
+  suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
   wheel: {fileID: 6456462955189796019}
   generateHardCollider: 0
   hardColliderRadiusFactor: 1
-  brakeForce: 0.5
-  ebrakeForce: 1
-  steerRangeMin: -50
-  steerRangeMax: 50
-  steerFactor: 0
-  steerAngle: 0
-  ackermannFactor: 0.2
-  camberCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  camberOffset: 0
-  solidAxleCamber: 0
-  oppositeWheel: {fileID: 2894025643322900104}
-  sideAngle: 0
-  casterAngle: 0
-  toeAngle: 0
-  pivotOffset: 0.14
-  suspensionDistance: 0.2
-  targetCompression: 1
-  springForce: 5
-  springForceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  springExponent: 10
-  springDampening: 0.5
-  extendSpeed: 20
-  applyHardContactForce: 1
-  hardContactForce: 50
-  hardContactSensitivity: 2
-  applyForceAtGroundContact: 1
-  leaningForce: 0
 --- !u!114 &9038354042199345143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7930,82 +7779,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6406c80a489224abf391fac67a44a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oppositeWheel: {fileID: 6717674609977350985}
+  suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
   wheel: {fileID: 2293858944175353494}
   generateHardCollider: 0
   hardColliderRadiusFactor: 1
-  brakeForce: 0.5
-  ebrakeForce: 0
-  steerRangeMin: -40
-  steerRangeMax: 40
-  steerFactor: 1
-  steerAngle: 0
-  ackermannFactor: 0.1
-  camberCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  camberOffset: 0
-  solidAxleCamber: 0
-  oppositeWheel: {fileID: 6717674609977350985}
-  sideAngle: 0
-  casterAngle: 0
-  toeAngle: 0
-  pivotOffset: 0.14
-  suspensionDistance: 0.2
-  targetCompression: 1
-  springForce: 5
-  springForceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  springExponent: 10
-  springDampening: 0.5
-  extendSpeed: 20
-  applyHardContactForce: 1
-  hardContactForce: 50
-  hardContactSensitivity: 2
-  applyForceAtGroundContact: 1
-  leaningForce: 0
 --- !u!114 &5947994816998685243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13761,9 +13539,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 5ba89160eace2d74d82dbb7ca00ec3a4, type: 2}
-  generateHardCollider: 1
-  forwardSlip: 0
-  sidewaysSlip: 0
 --- !u!114 &4176265318684492596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14299,82 +14074,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6406c80a489224abf391fac67a44a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oppositeWheel: {fileID: 6317199783542584441}
+  suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
   wheel: {fileID: 7596426462887484613}
   generateHardCollider: 0
   hardColliderRadiusFactor: 1
-  brakeForce: 0.5
-  ebrakeForce: 0
-  steerRangeMin: -40
-  steerRangeMax: 40
-  steerFactor: 1
-  steerAngle: 0
-  ackermannFactor: 0.1
-  camberCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  camberOffset: 0
-  solidAxleCamber: 0
-  oppositeWheel: {fileID: 6317199783542584441}
-  sideAngle: 0
-  casterAngle: 0
-  toeAngle: 0
-  pivotOffset: 0.14
-  suspensionDistance: 0.2
-  targetCompression: 1
-  springForce: 5
-  springForceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  springExponent: 10
-  springDampening: 0.5
-  extendSpeed: 20
-  applyHardContactForce: 1
-  hardContactForce: 50
-  hardContactSensitivity: 2
-  applyForceAtGroundContact: 1
-  leaningForce: 0
 --- !u!114 &1678505281412745523
 MonoBehaviour:
   m_ObjectHideFlags: 0

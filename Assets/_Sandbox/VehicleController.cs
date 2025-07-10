@@ -200,7 +200,7 @@ public class VehicleController : MonoBehaviour
         {
             for (int i = 0; i < wheels.Length; i++)
             {
-                float newSusDist = wheels[i].transform.parent.GetComponent<NewSuspension>().suspensionDistance;
+                float newSusDist = wheels[i].transform.parent.GetComponent<NewSuspension>().spring.suspensionDistance;
                 susAverage = i == 0 ? newSusDist : (susAverage + newSusDist) * 0.5f;
             }
         }

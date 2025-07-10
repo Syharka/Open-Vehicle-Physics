@@ -38,7 +38,7 @@ public class Steering : MonoBehaviour
         // Set steer angles in wheels
         foreach (NewSuspension curSus in steeredWheels)
         {
-            curSus.steerAngle = Mathf.Lerp(curSus.steerAngle, steerAmount * curSus.steerFactor * (curSus.steerEnabled ? 1 : 0) * (curSus.steerInverted ? -1 : 1), steerRate * TimeMaster.inverseFixedTimeFactor * Time.timeScale);
+            curSus.steering.steerAngle = Mathf.Lerp(curSus.steering.steerAngle, steerAmount * curSus.steering.steerFactor * (curSus.steerEnabled ? 1 : 0) * (curSus.steerInverted ? -1 : 1), steerRate * TimeMaster.inverseFixedTimeFactor * Time.timeScale);
         }
     }
 

@@ -12,11 +12,11 @@ public class NewWheel : MonoBehaviour
 
     #region Settings
     public WheelSettings wheelSettings;
-    public ExtraValues extra { get; private set; }
-    public FrictionValues friction { get; private set; }
-    public RotationValues rotation { get; private set; }
-    public TireSizeValues tireSize { get; private set; }
-    public TireAudioValues tireAudio { get; private set; }
+    public WheelExtraValues extra { get; private set; }
+    public WheelFrictionValues friction { get; private set; }
+    public WheelRotationValues rotation { get; private set; }
+    public WheelSizeValues tireSize { get; private set; }
+    public WheelAudioValues tireAudio { get; private set; }
     #endregion
 
     #region Friction Values
@@ -44,8 +44,8 @@ public class NewWheel : MonoBehaviour
     #endregion
 
     #region Misc
-    SphereCollider sphereCol; // Hard collider
-    Transform sphereColTr; // Hard collider transform
+    private SphereCollider sphereCol; // Hard collider
+    private Transform sphereColTr; // Hard collider transform
 
     public float travelDist { get; private set; }
     private float circumference => Mathf.PI * tireSize.tireRadius * 2;
@@ -65,8 +65,8 @@ public class NewWheel : MonoBehaviour
         extra = wheelSettings.extra;
         friction = wheelSettings.friction;
         rotation = wheelSettings.rotation;
-        tireSize = wheelSettings.tireSize;
-        tireAudio = wheelSettings.tireAudio;
+        tireSize = wheelSettings.size;
+        tireAudio = wheelSettings.audio;
     }
 
     void Start()
@@ -75,7 +75,7 @@ public class NewWheel : MonoBehaviour
         vp = transform.GetTopmostParentComponent<VehicleController>();
         rim = transform.GetChild(0);
         suspensionParent = transform.parent.GetComponent<NewSuspension>();
-        travelDist = suspensionParent.targetCompression;
+        travelDist = suspensionParent.spring.targetCompression;
 
         targetDrive = GetComponent<DriveForce>();
         currentRPM = 0;
@@ -88,7 +88,7 @@ public class NewWheel : MonoBehaviour
         localVel = rb.GetPointVelocity(forceApplicationPoint);
 
         // Get proper inputs
-        actualEbrake = suspensionParent.ebrakeEnabled ? suspensionParent.ebrakeForce : 0;
+        actualEbrake = suspensionParent.ebrakeEnabled ? suspensionParent.brake.ebrakeForce : 0;
         actualTargetRPM = targetDrive.rpm * (suspensionParent.driveInverted ? -1 : 1);
         actualTorque = suspensionParent.driveEnabled ? Mathf.Lerp(targetDrive.torque, Mathf.Abs(vp.accelInput), vp.burnout) : 0;
 
@@ -108,7 +108,7 @@ public class NewWheel : MonoBehaviour
         ApplyDrive();
 
         // Get travel distance
-        travelDist = suspensionParent.compression < travelDist || grounded ? suspensionParent.compression : Mathf.Lerp(travelDist, suspensionParent.compression, suspensionParent.extendSpeed * Time.fixedDeltaTime);
+        travelDist = suspensionParent.compression < travelDist || grounded ? suspensionParent.compression : Mathf.Lerp(travelDist, suspensionParent.compression, suspensionParent.spring.extendSpeed * Time.fixedDeltaTime);
 
         PositionWheel();
         RotateWheel();
@@ -141,7 +141,7 @@ public class NewWheel : MonoBehaviour
     // Use raycasting to find the current contact point for the wheel
     void GetWheelContact()
     {
-        float castDist = Mathf.Max(suspensionParent.suspensionDistance * Mathf.Max(0.001f, suspensionParent.targetCompression) + tireSize.tireRadius, 0.001f);
+        float castDist = Mathf.Max(suspensionParent.spring.suspensionDistance * Mathf.Max(0.001f, suspensionParent.spring.targetCompression) + tireSize.tireRadius, 0.001f);
         RaycastHit hit;
         if (Physics.Raycast(suspensionParent.maxCompressPoint, suspensionParent.springDirection, out hit, castDist, GlobalControl.wheelCastMaskStatic))
         {
@@ -191,7 +191,7 @@ public class NewWheel : MonoBehaviour
         else
         {
             grounded = false;
-            contactPoint.distance = suspensionParent.suspensionDistance;
+            contactPoint.distance = suspensionParent.spring.suspensionDistance;
             contactPoint.point = Vector3.zero;
             contactPoint.grounded = false;
             contactPoint.normal = transform.up;
@@ -212,7 +212,7 @@ public class NewWheel : MonoBehaviour
         }
         else
         {
-            rawRPM = Mathf.Lerp(rawRPM, actualTargetRPM, (actualTorque + suspensionParent.brakeForce * vp.brakeInput + actualEbrake * vp.ebrakeInput) * Time.timeScale);
+            rawRPM = Mathf.Lerp(rawRPM, actualTargetRPM, (actualTorque + suspensionParent.brake.brakeForce * vp.brakeInput + actualEbrake * vp.ebrakeInput) * Time.timeScale);
         }
     }
 
@@ -270,16 +270,16 @@ public class NewWheel : MonoBehaviour
         {
             if (brakeCheckValue > 0)
             {
-                brakeForce = suspensionParent.brakeForce * vp.brakeInput;
+                brakeForce = suspensionParent.brake.brakeForce * vp.brakeInput;
             }
             else if (brakeCheckValue <= 0)
             {
-                brakeForce = suspensionParent.brakeForce * Mathf.Clamp01(vp.accelInput);
+                brakeForce = suspensionParent.brake.brakeForce * Mathf.Clamp01(vp.accelInput);
             }
         }
         else
         {
-            brakeForce = suspensionParent.brakeForce * vp.brakeInput;
+            brakeForce = suspensionParent.brake.brakeForce * vp.brakeInput;
         }
 
         brakeForce += rotation.axleFriction * 0.1f * (Mathf.Approximately(actualTorque, 0) ? 1 : 0);
@@ -317,10 +317,10 @@ public class NewWheel : MonoBehaviour
     {
         if (suspensionParent)
         {
-            rim.position = suspensionParent.maxCompressPoint + suspensionParent.springDirection * suspensionParent.suspensionDistance * (Application.isPlaying ? travelDist : suspensionParent.targetCompression) +
-                suspensionParent.upDir * Mathf.Pow(Mathf.Max(Mathf.Abs(Mathf.Sin(suspensionParent.sideAngle * Mathf.Deg2Rad)), Mathf.Abs(Mathf.Sin(suspensionParent.casterAngle * Mathf.Deg2Rad))), 2) * tireSize.tireRadius +
-                suspensionParent.pivotOffset * suspensionParent.transform.TransformDirection(Mathf.Sin(transform.localEulerAngles.y * Mathf.Deg2Rad), 0, Mathf.Cos(transform.localEulerAngles.y * Mathf.Deg2Rad))
-                - suspensionParent.pivotOffset * (Application.isPlaying ? suspensionParent.forwardDir : suspensionParent.transform.forward);
+            rim.position = suspensionParent.maxCompressPoint + suspensionParent.springDirection * suspensionParent.spring.suspensionDistance * (Application.isPlaying ? travelDist : suspensionParent.spring.targetCompression) +
+                suspensionParent.upDir * Mathf.Pow(Mathf.Max(Mathf.Abs(Mathf.Sin(suspensionParent.camber.sideAngle * Mathf.Deg2Rad)), Mathf.Abs(Mathf.Sin(suspensionParent.camber.casterAngle * Mathf.Deg2Rad))), 2) * tireSize.tireRadius +
+                suspensionParent.camber.pivotOffset * suspensionParent.transform.TransformDirection(Mathf.Sin(transform.localEulerAngles.y * Mathf.Deg2Rad), 0, Mathf.Cos(transform.localEulerAngles.y * Mathf.Deg2Rad))
+                - suspensionParent.camber.pivotOffset * (Application.isPlaying ? suspensionParent.forwardDir : suspensionParent.transform.forward);
         }
 
             sphereColTr.position = rim.position;
@@ -331,10 +331,10 @@ public class NewWheel : MonoBehaviour
     {
         if (suspensionParent)
         {
-            float ackermannVal = Mathf.Sign(suspensionParent.steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.ackermannFactor : 1 - suspensionParent.ackermannFactor;
+            float ackermannVal = Mathf.Sign(suspensionParent.steering.steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.steering.ackermannFactor : 1 - suspensionParent.steering.ackermannFactor;
             transform.localEulerAngles = new Vector3(
-                suspensionParent.camberAngle + suspensionParent.casterAngle * suspensionParent.steerAngle * suspensionParent.flippedSideFactor,
-                -suspensionParent.toeAngle * suspensionParent.flippedSideFactor + suspensionParent.steerDegrees * ackermannVal,
+                suspensionParent.camberAngle + suspensionParent.camber.casterAngle * suspensionParent.steering.steerAngle * suspensionParent.flippedSideFactor,
+                -suspensionParent.camber.toeAngle * suspensionParent.flippedSideFactor + suspensionParent.steerDegrees * ackermannVal,
                 0);
         }
 
@@ -350,7 +350,7 @@ public class NewWheel : MonoBehaviour
     // visualize wheel
     void OnDrawGizmosSelected()
     {
-        TireSizeValues activeSettings = Application.isPlaying ? tireSize : wheelSettings.tireSize;
+        WheelSizeValues activeSettings = Application.isPlaying ? tireSize : wheelSettings.size;
         if (transform.childCount > 0)
         {
             // Rim is the first child of this object

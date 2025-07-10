@@ -1,17 +1,18 @@
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(menuName = "Settings/Wheel")]
+[CreateAssetMenu(menuName = "OVP/Vehicle/New Wheel")]
 public class WheelSettings : ScriptableObject
 {
-    public ExtraValues extra;
-    public FrictionValues friction;
-    public RotationValues rotation;
-    public TireSizeValues tireSize;
-    public TireAudioValues tireAudio;
+    public WheelExtraValues extra;
+    public WheelFrictionValues friction;
+    public WheelRotationValues rotation;
+    public WheelSizeValues size;
+    public WheelAudioValues audio;
 }
 
-[System.Serializable]
-public class ExtraValues
+[Serializable]
+public class WheelExtraValues
 {
     [Tooltip("Generate a sphere collider to represent the wheel for side collisions")]
     public bool generateHardCollider = true;
@@ -20,8 +21,8 @@ public class ExtraValues
     public bool applyForceAtGroundContact;
 }
 
-[System.Serializable]
-public class FrictionValues
+[Serializable]
+public class WheelFrictionValues
 {
     [Range(0, 1)]
     public float frictionSmoothness = 0.5f;
@@ -49,8 +50,8 @@ public class FrictionValues
     public float compressionFrictionFactor = 0.5f;
 }
 
-[System.Serializable]
-public class RotationValues
+[Serializable]
+public class WheelRotationValues
 {
     [Tooltip("Bias for feedback RPM lerp between target RPM and raw RPM")]
     [Range(0, 1)]
@@ -66,15 +67,15 @@ public class RotationValues
     public float axleFriction;
 }
 
-[System.Serializable]
-public class TireSizeValues
+[Serializable]
+public class WheelSizeValues
 {
     public float tireRadius;
     public float tireWidth;
 }
 
-[System.Serializable]
-public class TireAudioValues
+[Serializable]
+public class WheelAudioValues
 {
     [Header("Audio")]
     public AudioSource impactSnd;
