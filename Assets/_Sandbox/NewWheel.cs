@@ -368,6 +368,7 @@ public class NewWheel : MonoBehaviour
 }
 
 // Contact point class
+[System.Serializable]
 public class WheelContact
 {
     public bool grounded; // Is the contact point grounded?

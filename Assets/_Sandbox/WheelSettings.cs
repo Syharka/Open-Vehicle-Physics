@@ -77,7 +77,6 @@ public class WheelSizeValues
 [Serializable]
 public class WheelAudioValues
 {
-    [Header("Audio")]
     public AudioSource impactSnd;
     public AudioClip[] tireHitClips;
 }
