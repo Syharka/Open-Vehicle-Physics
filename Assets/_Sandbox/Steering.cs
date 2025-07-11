@@ -3,51 +3,53 @@ using UnityEngine;
 
 public class Steering : MonoBehaviour
 {
-    VehicleController vp;
-    public float steerRate = 0.1f;
-    float steerAmount;
-
-    [Tooltip("Curve for limiting steer range based on speed, x-axis = speed, y-axis = multiplier")]
-    public AnimationCurve steerCurve = AnimationCurve.Linear(0, 1, 30, 0.1f);
-    public bool limitSteer = true;
-
-    [Tooltip("Horizontal stretch of the steer curve")]
-    public float steerCurveStretch = 1;
-    public bool applyInReverse = true; // Limit steering in reverse?
+    #region Core Components
+    public VehicleController vp {  get; private set; }
     public NewSuspension[] steeredWheels;
+    #endregion
 
-    [Header("Visual")]
+    #region Settings
+    public SteeringSettings steeringSettings;
+    public SteeringExtraValues extra { get; private set; }
+    public SteeringControlValues control { get; private set; }
+    public SteeringVisualValues visual { get; private set; }
+    #endregion
 
-    public bool rotate;
-    public float maxDegreesRotation;
-    public float rotationOffset;
-    float steerRot;
+    private float steerAmount;
+    private float steerRot;
+
+    private void Awake()
+    {
+        extra = steeringSettings.extra;
+        control = steeringSettings.control;
+        visual = steeringSettings.visual;
+    }
 
     void Start()
     {
         vp = transform.GetTopmostParentComponent<VehicleController>();
-        steerRot = rotationOffset;
+        steerRot = visual.rotationOffset;
     }
 
     void FixedUpdate()
     {
-        float rbSpeed = vp.localVelocity.z / steerCurveStretch;
-        float steerLimit = limitSteer ? steerCurve.Evaluate(applyInReverse ? Mathf.Abs(rbSpeed) : rbSpeed) : 1;
+        float rbSpeed = vp.localVelocity.z / control.steerCurveStretch;
+        float steerLimit = extra.limitSteer ? control.steerCurve.Evaluate(extra.applyInReverse ? Mathf.Abs(rbSpeed) : rbSpeed) : 1;
         steerAmount = vp.steerInput * steerLimit;
 
         // Set steer angles in wheels
         foreach (NewSuspension curSus in steeredWheels)
         {
-            curSus.steering.steerAngle = Mathf.Lerp(curSus.steering.steerAngle, steerAmount * curSus.steering.steerFactor * (curSus.steerEnabled ? 1 : 0) * (curSus.steerInverted ? -1 : 1), steerRate * TimeMaster.inverseFixedTimeFactor * Time.timeScale);
+            curSus.steering.steerAngle = Mathf.Lerp(curSus.steering.steerAngle, steerAmount * curSus.steering.steerFactor * (curSus.steerEnabled ? 1 : 0) * (curSus.steerInverted ? -1 : 1), control.steerRate * TimeMaster.inverseFixedTimeFactor * Time.timeScale);
         }
     }
 
     void Update()
     {
         // Visual steering wheel rotation
-        if (rotate)
+        if (visual.rotate)
         {
-            steerRot = Mathf.Lerp(steerRot, steerAmount * maxDegreesRotation + rotationOffset, steerRate * Time.timeScale);
+            steerRot = Mathf.Lerp(steerRot, steerAmount * visual.maxDegreesRotation + visual.rotationOffset, control.steerRate * Time.timeScale);
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, steerRot);
         }
     }

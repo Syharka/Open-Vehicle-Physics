@@ -216,7 +216,7 @@ public class NewTransmission : MonoBehaviour
 
         if (engine)
         {
-            maxRPM = engine.torqueCurve.keys[engine.torqueCurve.length - 1].time;
+            maxRPM = engine.performance.torqueCurve.keys[engine.performance.torqueCurve.length - 1].time;
         }
         else
         {

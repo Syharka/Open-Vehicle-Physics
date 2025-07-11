@@ -46,109 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c6eabd28c9b624c95f068000145fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignition: 1
-  power: 1
-  inputCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minPitch: 0.5
-  maxPitch: 1.5
-  canBoost: 1
-  boost: 1
-  boostPowerCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 50
-      value: 0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  maxBoost: 1
-  boostBurnRate: 0.01
+  outputDrives:
+  - {fileID: 8958686372316910562}
+  motorSettings: {fileID: 11400000, guid: c418920e6dbf13c429a56c687347d6f4, type: 2}
   boostLoopSnd: {fileID: 6368097505544381720}
-  boostStart: {fileID: 8300000, guid: 27c508aa14a6022439b9fa55e3d0b8bd, type: 3}
-  boostEnd: {fileID: 8300000, guid: c77128afd2d136e4481f5235bb62fac7, type: 3}
   boostParticles:
   - {fileID: 6445605747769176062}
   - {fileID: 1710568784083389572}
-  torqueCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.869695
-      inSlope: 0.061536875
-      outSlope: 0.061536875
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 4.180513
-      value: 0.99924433
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 8.0434
-      value: 0.004496321
-      inSlope: -0.3291178
-      outSlope: -0.3291178
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  inertia: 0.8
-  canReverse: 0
-  outputDrives:
-  - {fileID: 8958686372316910562}
-  driveDividePower: 3
-  transmission: {fileID: 58682418803900612}
-  pitchIncreaseBetweenShift: 1
-  pitchDecreaseWithoutThrottle: 1
 --- !u!114 &6729716748363591976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,17 +1091,6 @@ MonoBehaviour:
   - {fileID: 9038354042199345143}
   transmissionSettings: {fileID: 11400000, guid: 530a425553ec253488a0768c219585ed,
     type: 2}
-  extra:
-    autoCalculateRpmRanges: 1
-    skidSteerDrive: 0
-    driveDividePower: 3
-  gear:
-    skipNeutral: 0
-    startGear: 0
-    gears: []
-  clutch:
-    shiftDelay: 0
-    shiftThreshold: 0
 --- !u!114 &8958686372316910562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8348,42 +8241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9890332aa717b4d47bb173715a425b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steerRate: 0.1
-  steerCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.07894346
-      outSlope: -0.07894346
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 30
-      value: 0.19808796
-      inSlope: -0.0024225756
-      outSlope: -0.0024225756
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  limitSteer: 1
-  steerCurveStretch: 1
-  applyInReverse: 1
   steeredWheels:
   - {fileID: 6317199783542584441}
-  - {fileID: 2894025643322900104}
   - {fileID: 6717674609977350985}
-  - {fileID: 2383688111211546213}
-  rotate: 0
-  maxDegreesRotation: 0
-  rotationOffset: 0
+  steeringSettings: {fileID: 11400000, guid: 1399182756cd1fe4da09745d8f5eb63a, type: 2}
 --- !u!1 &7636272792677085179
 GameObject:
   m_ObjectHideFlags: 0

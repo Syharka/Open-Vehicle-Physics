@@ -59,8 +59,8 @@ namespace RVP
                 if (engine) {
                     rpmMeter.value = engine.targetPitch;
 
-                    if (engine.maxBoost > 0) {
-                        boostMeter.value = engine.boost / engine.maxBoost;
+                    if (engine.boost.maxBoost > 0) {
+                        boostMeter.value = engine.boost.boostPower / engine.boost.maxBoost;
                     }
                 }
 
