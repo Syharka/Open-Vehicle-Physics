@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Sus_Front
   m_EditorClassIdentifier: 
   extra:
+    generateHardCollider: 0
+    hardColliderRadiusFactor: 1
     applyHardContactForce: 1
     applyForceAtGroundContact: 1
     leaningForce: 0
@@ -23,7 +25,7 @@ MonoBehaviour:
     steerRangeMin: -40
     steerRangeMax: 40
     steerFactor: 1
-    steerAngle: 0
+    steerAngle: -2.570426e-18
     ackermannFactor: 0.1
   camber:
     camberCurve:

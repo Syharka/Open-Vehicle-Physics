@@ -14,6 +14,12 @@ public class SuspensionSettings : ScriptableObject
 [Serializable]
 public class AxleExtraValues
 {
+    [Tooltip("Generate a capsule collider for hard compressions")]
+    public bool generateHardCollider = true;
+
+    [Tooltip("Multiplier for the radius of the hard collider")]
+    public float hardColliderRadiusFactor = 1;
+
     [Tooltip("Apply forces to prevent the wheel from intersecting with the ground, not necessary if generating a hard collider")]
     public bool applyHardContactForce = true;
 

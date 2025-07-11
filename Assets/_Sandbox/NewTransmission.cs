@@ -3,23 +3,39 @@ using UnityEngine;
 
 public class NewTransmission : MonoBehaviour
 {
-    [Range(0, 1)]
-    public float strength = 1;
+    #region Core Components
     protected VehicleController vp;
     protected DriveForce targetDrive;
     protected DriveForce newDrive;
-    public bool automatic;
-
-    [Tooltip("Apply special drive to wheels for skid steering")]
-    public bool skidSteerDrive;
-
     public DriveForce[] outputDrives;
+    #endregion
 
-    [Tooltip("Exponent for torque output on each wheel")]
-    public float driveDividePower = 3;
+    #region Settings
+    public TransmissionSettings transmissionSettings;
+    public TransmissionExtraValues extra { get; private set; }
+    public TransmissionGearValues gear { get; private set; }
+    public TransmissionClutchValues clutch { get; private set; }
+    #endregion
 
-    [System.NonSerialized]
-    public float maxRPM = -1;
+    public bool automatic { get; private set; } = true;
+
+    public float maxRPM { get; private set; } = -1;
+    public int currentGear { get; private set; }
+    private int firstGear;
+    public float curGearRatio { get; private set; }
+    public float shiftTime { get; private set; }
+
+    private Gear upperGear; // Next gear above current
+    private Gear lowerGear; // Next gear below current
+    private float upshiftDifference; // RPM difference between current gear and upper gear
+    private float downshiftDifference; // RPM difference between current gear and lower gear
+
+    private void Awake()
+    {
+        extra = transmissionSettings.extra;
+        gear = transmissionSettings.gear;
+        clutch = transmissionSettings.clutch;
+    }
 
     public virtual void Start()
     {
@@ -27,7 +43,7 @@ public class NewTransmission : MonoBehaviour
         targetDrive = GetComponent<DriveForce>();
         newDrive = gameObject.AddComponent<DriveForce>();
 
-        currentGear = Mathf.Clamp(startGear, 0, gears.Length - 1);
+        currentGear = Mathf.Clamp(gear.startGear, 0, gear.gears.Length - 1);
 
         // Get gear number 1 (first one above neutral)
         GetFirstGear();
@@ -49,14 +65,14 @@ public class NewTransmission : MonoBehaviour
                 }
             }
 
-            float torqueFactor = Mathf.Pow(1f / enabledDrives, driveDividePower);
+            float torqueFactor = Mathf.Pow(1f / enabledDrives, extra.driveDividePower);
             float tempRPM = 0;
 
             foreach (DriveForce curOutput in outputDrives)
             {
                 if (curOutput.active)
                 {
-                    tempRPM += skidSteerDrive ? Mathf.Abs(curOutput.feedbackRPM) : curOutput.feedbackRPM;
+                    tempRPM += extra.skidSteerDrive ? Mathf.Abs(curOutput.feedbackRPM) : curOutput.feedbackRPM;
                     curOutput.SetDrive(newDrive, torqueFactor);
                 }
             }
@@ -69,39 +85,12 @@ public class NewTransmission : MonoBehaviour
     {
         maxRPM = -1; // Setting this to -1 triggers derived classes to recalculate things
     }
-
-    public Gear[] gears;
-    public int startGear;
-    [System.NonSerialized]
-    public int currentGear;
-    int firstGear;
-    [System.NonSerialized]
-    public float curGearRatio; // Ratio of the current gear
-
-    public bool skipNeutral;
-
-    [Tooltip("Calculate the RPM ranges of the gears in play mode.  This will overwrite the current values")]
-    public bool autoCalculateRpmRanges = true;
-
-    [Tooltip("Number of physics steps a shift should last")]
-    public float shiftDelay;
-    [System.NonSerialized]
-    public float shiftTime;
-
-    Gear upperGear; // Next gear above current
-    Gear lowerGear; // Next gear below current
-    float upshiftDifference; // RPM difference between current gear and upper gear
-    float downshiftDifference; // RPM difference between current gear and lower gear
-
-    [Tooltip("Multiplier for comparisons in automatic shifting calculations, should be 2 in most cases")]
-    public float shiftThreshold;
-
     void Update()
     {
         // Check for manual shift button presses
         if (!automatic)
         {
-            if (vp.upshiftPressed && currentGear < gears.Length - 1)
+            if (vp.upshiftPressed && currentGear < gear.gears.Length - 1)
             {
                 Shift(1);
             }
@@ -116,32 +105,32 @@ public class NewTransmission : MonoBehaviour
     void FixedUpdate()
     {
         shiftTime = Mathf.Max(0, shiftTime - Time.timeScale * TimeMaster.inverseFixedTimeFactor);
-        curGearRatio = gears[currentGear].ratio;
+        curGearRatio = gear.gears[currentGear].ratio;
 
         // Calculate upperGear and lowerGear
         float actualFeedbackRPM = targetDrive.feedbackRPM / Mathf.Abs(curGearRatio);
         int upGearOffset = 1;
         int downGearOffset = 1;
 
-        while ((skipNeutral || automatic) && gears[Mathf.Clamp(currentGear + upGearOffset, 0, gears.Length - 1)].ratio == 0 && currentGear + upGearOffset != 0 && currentGear + upGearOffset < gears.Length - 1)
+        while ((gear.skipNeutral || automatic) && gear.gears[Mathf.Clamp(currentGear + upGearOffset, 0, gear.gears.Length - 1)].ratio == 0 && currentGear + upGearOffset != 0 && currentGear + upGearOffset < gear.gears.Length - 1)
         {
             upGearOffset++;
         }
 
-        while ((skipNeutral || automatic) && gears[Mathf.Clamp(currentGear - downGearOffset, 0, gears.Length - 1)].ratio == 0 && currentGear - downGearOffset != 0 && currentGear - downGearOffset > 0)
+        while ((gear.skipNeutral || automatic) && gear.gears[Mathf.Clamp(currentGear - downGearOffset, 0, gear.gears.Length - 1)].ratio == 0 && currentGear - downGearOffset != 0 && currentGear - downGearOffset > 0)
         {
             downGearOffset++;
         }
 
-        upperGear = gears[Mathf.Min(gears.Length - 1, currentGear + upGearOffset)];
-        lowerGear = gears[Mathf.Max(0, currentGear - downGearOffset)];
+        upperGear = gear.gears[Mathf.Min(gear.gears.Length - 1, currentGear + upGearOffset)];
+        lowerGear = gear.gears[Mathf.Max(0, currentGear - downGearOffset)];
 
         // Perform RPM calculations
         if (maxRPM == -1)
         {
             maxRPM = targetDrive.curve.keys[targetDrive.curve.length - 1].time;
 
-            if (autoCalculateRpmRanges)
+            if (extra.autoCalculateRpmRanges)
             {
                 CalculateRpmRanges();
             }
@@ -157,29 +146,29 @@ public class NewTransmission : MonoBehaviour
         }
         else
         {
-            newDrive.rpm = (automatic && skidSteerDrive ? Mathf.Abs(targetDrive.rpm) * Mathf.Sign(vp.accelInput - (vp.brakeIsReverse ? vp.brakeInput * (1 - vp.burnout) : 0)) : targetDrive.rpm) / curGearRatio;
+            newDrive.rpm = (automatic && extra.skidSteerDrive ? Mathf.Abs(targetDrive.rpm) * Mathf.Sign(vp.accelInput - (vp.brakeIsReverse ? vp.brakeInput * (1 - vp.burnout) : 0)) : targetDrive.rpm) / curGearRatio;
             newDrive.torque = Mathf.Abs(curGearRatio) * targetDrive.torque;
         }
 
         // Perform automatic shifting
-        upshiftDifference = gears[currentGear].maxRPM - upperGear.minRPM;
-        downshiftDifference = lowerGear.maxRPM - gears[currentGear].minRPM;
+        upshiftDifference = gear.gears[currentGear].maxRPM - upperGear.minRPM;
+        downshiftDifference = lowerGear.maxRPM - gear.gears[currentGear].minRPM;
 
         if (automatic && shiftTime == 0 && vp.groundedWheels > 0)
         {
-            if (!skidSteerDrive && vp.burnout == 0)
+            if (!extra.skidSteerDrive && vp.burnout == 0)
             {
                 if (Mathf.Abs(vp.localVelocity.z) > 1 || vp.accelInput > 0 || (vp.brakeInput > 0 && vp.brakeIsReverse))
                 {
-                    if (currentGear < gears.Length - 1
-                        && (upperGear.minRPM + upshiftDifference * (curGearRatio < 0 ? Mathf.Min(1, shiftThreshold) : shiftThreshold) - actualFeedbackRPM <= 0 || (curGearRatio <= 0 && upperGear.ratio > 0 && (!vp.reversing || (vp.accelInput > 0 && vp.localVelocity.z > curGearRatio * 10))))
+                    if (currentGear < gear.gears.Length - 1
+                        && (upperGear.minRPM + upshiftDifference * (curGearRatio < 0 ? Mathf.Min(1, clutch.shiftThreshold) : clutch.shiftThreshold) - actualFeedbackRPM <= 0 || (curGearRatio <= 0 && upperGear.ratio > 0 && (!vp.reversing || (vp.accelInput > 0 && vp.localVelocity.z > curGearRatio * 10))))
                         && !(vp.brakeInput > 0 && vp.brakeIsReverse && upperGear.ratio >= 0)
                         && !(vp.localVelocity.z < 0 && vp.accelInput == 0))
                     {
                         Shift(1);
                     }
                     else if (currentGear > 0
-                        && (actualFeedbackRPM - (lowerGear.maxRPM - downshiftDifference * shiftThreshold) <= 0 || (curGearRatio >= 0 && lowerGear.ratio < 0 && (vp.reversing || ((vp.accelInput < 0 || (vp.brakeInput > 0 && vp.brakeIsReverse)) && vp.localVelocity.z < curGearRatio * 10))))
+                        && (actualFeedbackRPM - (lowerGear.maxRPM - downshiftDifference * clutch.shiftThreshold) <= 0 || (curGearRatio >= 0 && lowerGear.ratio < 0 && (vp.reversing || ((vp.accelInput < 0 || (vp.brakeInput > 0 && vp.brakeIsReverse)) && vp.localVelocity.z < curGearRatio * 10))))
                         && !(vp.accelInput > 0 && lowerGear.ratio <= 0)
                         && (lowerGear.ratio > 0 || vp.localVelocity.z < 1))
                     {
@@ -200,23 +189,23 @@ public class NewTransmission : MonoBehaviour
     // Shift gears by the number entered
     public void Shift(int dir)
     {
-        shiftTime = shiftDelay;
+        shiftTime = clutch.shiftDelay;
         currentGear += dir;
 
-        while ((skipNeutral || automatic) && gears[Mathf.Clamp(currentGear, 0, gears.Length - 1)].ratio == 0 && currentGear != 0 && currentGear != gears.Length - 1)
+        while ((gear.skipNeutral || automatic) && gear.gears[Mathf.Clamp(currentGear, 0, gear.gears.Length - 1)].ratio == 0 && currentGear != 0 && currentGear != gear.gears.Length - 1)
         {
             currentGear += dir;
         }
 
-        currentGear = Mathf.Clamp(currentGear, 0, gears.Length - 1);
+        currentGear = Mathf.Clamp(currentGear, 0, gear.gears.Length - 1);
 
     }
 
     // Shift straight to the gear specified
-    public void ShiftToGear(int gear)
+    public void ShiftToGear(int _gear)
     {
-        shiftTime = shiftDelay;
-        currentGear = Mathf.Clamp(gear, 0, gears.Length - 1);
+        shiftTime = clutch.shiftDelay;
+        currentGear = Mathf.Clamp(_gear, 0, gear.gears.Length - 1);
     }
 
     // Caculate ideal RPM ranges for each gear (works most of the time)
@@ -241,45 +230,45 @@ public class NewTransmission : MonoBehaviour
             float nextGearRatio;
             float actualMaxRPM = maxRPM * 1000;
 
-            for (int i = 0; i < gears.Length; i++)
+            for (int i = 0; i < gear.gears.Length; i++)
             {
-                prevGearRatio = gears[Mathf.Max(i - 1, 0)].ratio;
-                nextGearRatio = gears[Mathf.Min(i + 1, gears.Length - 1)].ratio;
+                prevGearRatio = gear.gears[Mathf.Max(i - 1, 0)].ratio;
+                nextGearRatio = gear.gears[Mathf.Min(i + 1, gear.gears.Length - 1)].ratio;
 
-                if (gears[i].ratio < 0)
+                if (gear.gears[i].ratio < 0)
                 {
-                    gears[i].minRPM = actualMaxRPM / gears[i].ratio;
+                    gear.gears[i].minRPM = actualMaxRPM / gear.gears[i].ratio;
 
                     if (nextGearRatio == 0)
                     {
-                        gears[i].maxRPM = 0;
+                        gear.gears[i].maxRPM = 0;
                     }
                     else
                     {
-                        gears[i].maxRPM = actualMaxRPM / nextGearRatio + (actualMaxRPM / nextGearRatio - gears[i].minRPM) * 0.5f;
+                        gear.gears[i].maxRPM = actualMaxRPM / nextGearRatio + (actualMaxRPM / nextGearRatio - gear.gears[i].minRPM) * 0.5f;
                     }
                 }
-                else if (gears[i].ratio > 0)
+                else if (gear.gears[i].ratio > 0)
                 {
-                    gears[i].maxRPM = actualMaxRPM / gears[i].ratio;
+                    gear.gears[i].maxRPM = actualMaxRPM / gear.gears[i].ratio;
 
                     if (prevGearRatio == 0)
                     {
-                        gears[i].minRPM = 0;
+                        gear.gears[i].minRPM = 0;
                     }
                     else
                     {
-                        gears[i].minRPM = actualMaxRPM / prevGearRatio - (gears[i].maxRPM - actualMaxRPM / prevGearRatio) * 0.5f;
+                        gear.gears[i].minRPM = actualMaxRPM / prevGearRatio - (gear.gears[i].maxRPM - actualMaxRPM / prevGearRatio) * 0.5f;
                     }
                 }
                 else
                 {
-                    gears[i].minRPM = 0;
-                    gears[i].maxRPM = 0;
+                    gear.gears[i].minRPM = 0;
+                    gear.gears[i].maxRPM = 0;
                 }
 
-                gears[i].minRPM *= 0.55f;
-                gears[i].maxRPM *= 0.55f;
+                gear.gears[i].minRPM *= 0.55f;
+                gear.gears[i].maxRPM *= 0.55f;
             }
         }
     }
@@ -287,23 +276,13 @@ public class NewTransmission : MonoBehaviour
     // Returns the first gear (first gear above neutral)
     public void GetFirstGear()
     {
-        for (int i = 0; i < gears.Length; i++)
+        for (int i = 0; i < gear.gears.Length; i++)
         {
-            if (gears[i].ratio == 0)
+            if (gear.gears[i].ratio == 0)
             {
                 firstGear = i + 1;
                 break;
             }
         }
     }
-
-
-}
-
-[System.Serializable]
-public class Gear
-{
-    public float ratio;
-    public float minRPM;
-    public float maxRPM;
 }

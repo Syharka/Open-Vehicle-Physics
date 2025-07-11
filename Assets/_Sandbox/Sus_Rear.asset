@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Sus_Rear
   m_EditorClassIdentifier: 
   extra:
+    generateHardCollider: 0
+    hardColliderRadiusFactor: 1
     applyHardContactForce: 1
     applyForceAtGroundContact: 1
     leaningForce: 0

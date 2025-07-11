@@ -154,10 +154,10 @@ MonoBehaviour:
       m_RotationOrder: 4
     rpmBiasCurveLimit: Infinity
     axleFriction: 0
-  tireSize:
+  size:
     tireRadius: 0.296
     tireWidth: 0.11
-  tireAudio:
+  audio:
     impactSnd: {fileID: 0}
     tireHitClips:
     - {fileID: 8300000, guid: 8c6f42263cbcb8742bd07df4682f7464, type: 3}

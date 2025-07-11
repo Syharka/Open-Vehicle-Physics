@@ -12,18 +12,18 @@ public class NewSuspension : MonoBehaviour
 
     #region Settings
     public SuspensionSettings suspensionSettings;
-    public AxleExtraValues extra => suspensionSettings.extra; //{ get; private set; }
-    public AxleBrakeValues brake => suspensionSettings.brake; //{ get; private set; }
-    public AxleSteeringValues steering => suspensionSettings.steering; //{ get; private set; }
-    public AxleCamberValues camber => suspensionSettings.camber; //{ get; private set; }
-    public AxleSpringValues spring => suspensionSettings.spring; //{ get; private set; }
+    public AxleExtraValues extra { get; private set; }
+    public AxleBrakeValues brake { get; private set; }
+    public AxleSteeringValues steering { get; private set; }
+    public AxleCamberValues camber { get; private set; }
+    public AxleSpringValues spring { get; private set; }
     #endregion
 
     public bool flippedSide { get; private set; }
     public float flippedSideFactor { get; private set; }
     public Quaternion initialRotation { get; private set; }
 
-    public NewWheel wheel;
+    public NewWheel wheel { get; private set; }
 
     public List<SuspensionPart> movingParts { get; private set; } = new List<SuspensionPart>();
     public float steerDegrees { get; private set; }
@@ -46,30 +46,25 @@ public class NewSuspension : MonoBehaviour
     public bool skidSteerBrake { get; private set; }
 
     #region Misc
-    [Tooltip("Generate a capsule collider for hard compressions")]
-    public bool generateHardCollider = true;
-
-    [Tooltip("Multiplier for the radius of the hard collider")]
-    public float hardColliderRadiusFactor = 1;
-    float setHardColliderRadiusFactor;
     CapsuleCollider compressCol; // The hard collider
     Transform compressTr; // Transform component of the hard collider
     #endregion
 
-    //private void Awake()
-    //{
-    //    extra = suspensionSettings.extra;
-    //    brake = suspensionSettings.brake;
-    //    steering = suspensionSettings.steering;
-    //    camber = suspensionSettings.camber;
-    //    spring = suspensionSettings.spring;
-    //}
+    private void Awake()
+    {
+        extra = suspensionSettings.extra;
+        brake = suspensionSettings.brake;
+        steering = suspensionSettings.steering;
+        camber = suspensionSettings.camber;
+        spring = suspensionSettings.spring;
+    }
 
     void Start()
     {
         rb = transform.GetTopmostParentComponent<Rigidbody>();
         vp = transform.GetTopmostParentComponent<VehicleController>();
         targetDrive = GetComponent<DriveForce>();
+        wheel = GetComponentInChildren<NewWheel>();
         flippedSide = Vector3.Dot(transform.forward, vp.transform.right) < 0;
         flippedSideFactor = flippedSide ? -1 : 1;
         initialRotation = transform.localRotation;
@@ -79,7 +74,7 @@ public class NewSuspension : MonoBehaviour
             GetCamber();
 
             // Generate the hard collider
-            if (generateHardCollider)
+            if (extra.generateHardCollider)
             {
                 GameObject cap = new GameObject("Compress Collider");
                 cap.layer = GlobalControl.ignoreWheelCastLayer;
@@ -89,7 +84,7 @@ public class NewSuspension : MonoBehaviour
                 compressTr.localEulerAngles = new Vector3(camberAngle, 0, -camber.casterAngle * flippedSideFactor);
                 compressCol = cap.AddComponent<CapsuleCollider>();
                 compressCol.direction = 1;
-                compressCol.radius = wheel.tireSize.tireWidth * hardColliderRadiusFactor;
+                compressCol.radius = wheel.tireSize.tireWidth * extra.hardColliderRadiusFactor;
                 compressCol.height = wheel.tireSize.tireRadius * 2;
                 compressCol.sharedMaterial = GlobalControl.frictionlessMatStatic;
             }
@@ -180,7 +175,7 @@ public class NewSuspension : MonoBehaviour
             }
 
             // Apply hard contact force
-            if (compression == 0 && !generateHardCollider && extra.applyHardContactForce)
+            if (compression == 0 && !extra.generateHardCollider && extra.applyHardContactForce)
             {
                 rb.AddForceAtPosition(
                     -vp.norm.TransformDirection(0, 0, Mathf.Clamp(travelVel, -spring.hardContactSensitivity * TimeMaster.fixedTimeFactor, 0) + penetration) * spring.hardContactForce * Mathf.Clamp01(TimeMaster.fixedTimeFactor),

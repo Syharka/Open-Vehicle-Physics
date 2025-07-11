@@ -992,9 +992,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 2383688111211546213}
   suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
-  wheel: {fileID: 1332262138342175505}
-  generateHardCollider: 0
-  hardColliderRadiusFactor: 1
 --- !u!114 &5316955850910900141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,43 +1182,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2452c5cc082452a4586195c32cebd9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 1
-  automatic: 1
-  skidSteerDrive: 0
   outputDrives:
   - {fileID: 5316955850910900141}
   - {fileID: 9038354042199345143}
-  driveDividePower: 3
-  gears:
-  - ratio: -3.5
-    minRPM: -1263.963
-    maxRPM: 0
-  - ratio: 0
-    minRPM: 0
-    maxRPM: 0
-  - ratio: 3
-    minRPM: 0
-    maxRPM: 1474.623
-  - ratio: 2
-    minRPM: 1105.968
-    maxRPM: 2211.935
-  - ratio: 1.6
-    minRPM: 1935.443
-    maxRPM: 2764.919
-  - ratio: 1.2
-    minRPM: 2304.099
-    maxRPM: 3686.558
-  - ratio: 0.9
-    minRPM: 3072.132
-    maxRPM: 4915.411
-  - ratio: 0.7
-    minRPM: 4213.21
-    maxRPM: 6319.814
-  startGear: 2
-  skipNeutral: 1
-  autoCalculateRpmRanges: 1
-  shiftDelay: 20
-  shiftThreshold: 2
+  transmissionSettings: {fileID: 11400000, guid: 530a425553ec253488a0768c219585ed,
+    type: 2}
+  extra:
+    autoCalculateRpmRanges: 1
+    skidSteerDrive: 0
+    driveDividePower: 3
+  gear:
+    skipNeutral: 0
+    startGear: 0
+    gears: []
+  clutch:
+    shiftDelay: 0
+    shiftThreshold: 0
 --- !u!114 &8958686372316910562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7620,9 +7596,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 2894025643322900104}
   suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
-  wheel: {fileID: 6456462955189796019}
-  generateHardCollider: 0
-  hardColliderRadiusFactor: 1
 --- !u!114 &9038354042199345143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7781,9 +7754,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 6717674609977350985}
   suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
-  wheel: {fileID: 2293858944175353494}
-  generateHardCollider: 0
-  hardColliderRadiusFactor: 1
 --- !u!114 &5947994816998685243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14076,9 +14046,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 6317199783542584441}
   suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
-  wheel: {fileID: 7596426462887484613}
-  generateHardCollider: 0
-  hardColliderRadiusFactor: 1
 --- !u!114 &1678505281412745523
 MonoBehaviour:
   m_ObjectHideFlags: 0

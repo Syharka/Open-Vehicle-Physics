@@ -190,8 +190,8 @@ public class NewMotor : MonoBehaviour
             airPitch = vp.groundedWheels > 0 || actualAccel != 0 ? 1 : Mathf.Lerp(airPitch, 0, 0.5f * Time.deltaTime);
             pitchFactor = (actualAccel != 0 || vp.groundedWheels == 0 || !pitchDecreaseWithoutThrottle ? 1 : 0.5f) * (shifting ?
                 (pitchIncreaseBetweenShift ?
-                    Mathf.Sin((transmission.shiftTime / transmission.shiftDelay) * Mathf.PI) :
-                    Mathf.Min(transmission.shiftDelay, Mathf.Pow(transmission.shiftTime, 2)) / transmission.shiftDelay) :
+                    Mathf.Sin((transmission.shiftTime / transmission.clutch.shiftDelay) * Mathf.PI) :
+                    Mathf.Min(transmission.clutch.shiftDelay, Mathf.Pow(transmission.shiftTime, 2)) / transmission.clutch.shiftDelay) :
                 1) * airPitch;
             targetPitch = Mathf.Abs((targetDrive.feedbackRPM * 0.001f) / maxRPM) * pitchFactor;
         }
