@@ -418,7 +418,7 @@ MonoBehaviour:
   suspension: {fileID: 0}
   isHub: 0
   connectObj: {fileID: 69273791988138356}
-  connectPoint: {x: 0, y: 0, z: -0.1}
+  connectPoint: {x: -0.000000031292437, y: 0, z: -0.100000024}
   rotate: 1
   stretch: 0
   solidAxle: 0
@@ -837,7 +837,7 @@ MonoBehaviour:
   suspension: {fileID: 0}
   isHub: 0
   connectObj: {fileID: 2451474001411806596}
-  connectPoint: {x: 0, y: -0.065, z: -0.125}
+  connectPoint: {x: -0.000000037252903, y: -0.065, z: -0.125}
   rotate: 1
   stretch: 0
   solidAxle: 0
@@ -1215,7 +1215,7 @@ MonoBehaviour:
   suspension: {fileID: 0}
   isHub: 0
   connectObj: {fileID: 1249423048722731018}
-  connectPoint: {x: 0, y: 0, z: -0.1}
+  connectPoint: {x: -0.000000049173835, y: 0, z: -0.09999996}
   rotate: 1
   stretch: 0
   solidAxle: 0
@@ -6076,7 +6076,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 049be55e936e72a4dbe5dafa47a4a9be, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6903,82 +6902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1decd4fb5f9234a971b510f284c397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basedOnWheelsGrounded: 1
-  driftSpinAssist: 2
-  driftSpinSpeed: 3
-  driftSpinExponent: 2
-  autoSteerDrift: 0
-  maxDriftAngle: 70
-  driftSpinCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.0011961722
-      inSlope: 0.094736844
-      outSlope: 0.094736844
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 2.9338434
-      value: 0.63532454
-      inSlope: 0.11338814
-      outSlope: 0.11338814
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 10
-      value: 1.0011961
-      inSlope: 0.0045412295
-      outSlope: 0.0045412295
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  driftPush: 2
-  straightenAssist: 1
-  downforce: 2
-  invertDownforceInReverse: 0
-  applyDownforceInAir: 1
-  downforceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.1281667
-      outSlope: 0.1281667
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 20
-      value: 1
-      inSlope: 0.00000001981759
-      outSlope: 0.00000001981759
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  autoRollOver: 0
-  steerRollOver: 1
-  rollCheckDistance: 1
-  rollOverForce: 20
-  rollSpeedThreshold: 100
-  angularDragOnJump: 1
-  fallSpeedLimit: Infinity
-  applyFallLimitUpwards: 0
+  assistSettings: {fileID: 11400000, guid: d536904b20967c040a5fbd971a5aed03, type: 2}
 --- !u!54 &5031735986637735294
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7318,7 +7242,7 @@ MonoBehaviour:
   suspension: {fileID: 0}
   isHub: 0
   connectObj: {fileID: 69273791988138356}
-  connectPoint: {x: 0, y: -0.065, z: -0.125}
+  connectPoint: {x: -0.000000037252903, y: -0.065, z: -0.125}
   rotate: 1
   stretch: 0
   solidAxle: 0
@@ -7858,7 +7782,7 @@ MonoBehaviour:
   suspension: {fileID: 0}
   isHub: 0
   connectObj: {fileID: 3923492273227880069}
-  connectPoint: {x: 0, y: -0.065, z: -0.125}
+  connectPoint: {x: -0.000000029802315, y: -0.065, z: -0.125}
   rotate: 1
   stretch: 0
   solidAxle: 0
@@ -8189,7 +8113,7 @@ MonoBehaviour:
   suspension: {fileID: 0}
   isHub: 0
   connectObj: {fileID: 1249423048722731018}
-  connectPoint: {x: 0, y: -0.065, z: -0.125}
+  connectPoint: {x: -0.000000029802315, y: -0.065, z: -0.125}
   rotate: 1
   stretch: 0
   solidAxle: 0
@@ -13029,7 +12953,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 049be55e936e72a4dbe5dafa47a4a9be, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

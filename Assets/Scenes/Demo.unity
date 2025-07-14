@@ -604,10 +604,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9221416}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1.5
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -919,6 +919,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &16612306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1755,6 +1765,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &63279333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1886,6 +1906,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &63295403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2365,6 +2395,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &86689337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2940,10 +2980,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119576857}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1.5
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3342,6 +3382,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &123632521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3489,6 +3539,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &125490994
 Transform:
   m_ObjectHideFlags: 0
@@ -4228,6 +4288,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &148836320
 GameObject:
   m_ObjectHideFlags: 0
@@ -10012,6 +10082,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &207473796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10306,10 +10386,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209792960}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0
+  m_LinearDamping: 0
+  m_AngularDamping: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -10871,6 +10951,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &243198854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11343,6 +11433,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &274486718
 GameObject:
   m_ObjectHideFlags: 0
@@ -11542,6 +11642,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &286298061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22100,6 +22210,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &360296176
 GameObject:
   m_ObjectHideFlags: 0
@@ -22436,6 +22556,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &373168622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23278,6 +23408,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &388284774
 GameObject:
   m_ObjectHideFlags: 0
@@ -23685,6 +23825,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &409571034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23996,6 +24146,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &412225773
 GameObject:
   m_ObjectHideFlags: 0
@@ -24212,10 +24372,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422695646}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0
+  m_LinearDamping: 0
+  m_AngularDamping: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -24607,6 +24767,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &470907649
 Transform:
   m_ObjectHideFlags: 0
@@ -24759,6 +24929,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &475734503
 GameObject:
   m_ObjectHideFlags: 0
@@ -24805,6 +24985,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &475734506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25239,6 +25429,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &495258249
 GameObject:
   m_ObjectHideFlags: 0
@@ -25376,6 +25576,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!21 &496799470
 Material:
   serializedVersion: 8
@@ -25775,10 +25985,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507361487}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -31914,6 +32124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &575813054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33360,6 +33580,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &612992845
 GameObject:
   m_ObjectHideFlags: 0
@@ -33461,6 +33691,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &618023074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33712,6 +33952,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &622436124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33916,6 +34166,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &633012027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34492,6 +34752,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &647752548
 GameObject:
   m_ObjectHideFlags: 0
@@ -40153,6 +40423,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &688083299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40423,6 +40703,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &705112015
 GameObject:
   m_ObjectHideFlags: 0
@@ -40670,6 +40960,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &718014744
 GameObject:
   m_ObjectHideFlags: 0
@@ -40700,6 +41000,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &718014746
 Transform:
   m_ObjectHideFlags: 0
@@ -40983,6 +41293,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &730494731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47158,6 +47478,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &786779944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47523,6 +47853,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &793314249
 GameObject:
   m_ObjectHideFlags: 0
@@ -47660,6 +48000,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &795454287
 GameObject:
   m_ObjectHideFlags: 0
@@ -53087,6 +53437,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &841491629
 GameObject:
   m_ObjectHideFlags: 0
@@ -53443,6 +53803,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &874624815
 GameObject:
   m_ObjectHideFlags: 0
@@ -53745,6 +54115,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &880992484
 GameObject:
   m_ObjectHideFlags: 0
@@ -54295,6 +54675,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &895833599
 GameObject:
   m_ObjectHideFlags: 0
@@ -54439,6 +54829,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &895833603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55713,10 +56113,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938772650}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 0.5
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -56130,6 +56530,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &942545461
 GameObject:
   m_ObjectHideFlags: 0
@@ -61995,6 +62405,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &990083021
 GameObject:
   m_ObjectHideFlags: 0
@@ -67507,6 +67927,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1028506005
 GameObject:
   m_ObjectHideFlags: 0
@@ -67703,6 +68133,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1038829889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68599,6 +69039,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1097115166
 GameObject:
   m_ObjectHideFlags: 0
@@ -69090,6 +69540,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1113547705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69603,6 +70063,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1139900925
 GameObject:
   m_ObjectHideFlags: 0
@@ -70075,6 +70545,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1153870070
 GameObject:
   m_ObjectHideFlags: 0
@@ -70331,10 +70811,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154898072}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -70749,6 +71229,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1160901250
 GameObject:
   m_ObjectHideFlags: 0
@@ -76323,6 +76813,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1204371595
 GameObject:
   m_ObjectHideFlags: 0
@@ -76516,6 +77016,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1221449656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76751,6 +77261,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1224259716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77739,6 +78259,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1261794078
 GameObject:
   m_ObjectHideFlags: 0
@@ -78849,10 +79379,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306682605}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -79050,6 +79580,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &1314523492
 Transform:
   m_ObjectHideFlags: 0
@@ -79899,6 +80439,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &1335458594
 Transform:
   m_ObjectHideFlags: 0
@@ -80473,6 +81023,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1377162060
 GameObject:
   m_ObjectHideFlags: 0
@@ -80610,6 +81170,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1382468241
 GameObject:
   m_ObjectHideFlags: 0
@@ -85652,6 +86222,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1407496743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86135,6 +86715,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1414963351
 GameObject:
   m_ObjectHideFlags: 0
@@ -86921,6 +87511,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1452759015
 GameObject:
   m_ObjectHideFlags: 0
@@ -87168,6 +87768,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!21 &1458464540
 Material:
   serializedVersion: 8
@@ -87442,6 +88052,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1463598420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87789,10 +88409,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469533134}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -88006,6 +88626,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1482425482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94322,6 +94952,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1617985098
 GameObject:
   m_ObjectHideFlags: 0
@@ -94493,10 +95133,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619113206}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 0.5
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -95209,6 +95849,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1677289567
 GameObject:
   m_ObjectHideFlags: 0
@@ -95742,6 +96392,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1701200563
 GameObject:
   m_ObjectHideFlags: 0
@@ -95788,6 +96448,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1701200566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96005,6 +96675,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1714682678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105907,6 +106587,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &1732027929
 Transform:
   m_ObjectHideFlags: 0
@@ -106459,6 +107149,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1775594907
 GameObject:
   m_ObjectHideFlags: 0
@@ -106489,6 +107189,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &1775594909
 Transform:
   m_ObjectHideFlags: 0
@@ -106763,10 +107473,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785446077}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 3
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -111801,6 +112511,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &1790090250
 Transform:
   m_ObjectHideFlags: 0
@@ -112041,6 +112761,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1802252036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112784,6 +113514,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1847390084
 GameObject:
   m_ObjectHideFlags: 0
@@ -112912,6 +113652,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &1847453558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115511,6 +116261,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &1999722906
 GameObject:
   m_ObjectHideFlags: 0
@@ -115825,6 +116585,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &2011189575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11410548, guid: c2b8fc8bcbd9e414ca6d0e8d4e20add6,
@@ -116084,6 +116854,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2026709877
 GameObject:
   m_ObjectHideFlags: 0
@@ -116913,6 +117693,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2048760553
 GameObject:
   m_ObjectHideFlags: 0
@@ -116943,6 +117733,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &2048760555
 Transform:
   m_ObjectHideFlags: 0
@@ -117273,6 +118073,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2077151661
 GameObject:
   m_ObjectHideFlags: 0
@@ -117410,6 +118220,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2079710368
 GameObject:
   m_ObjectHideFlags: 0
@@ -117677,6 +118497,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2097942727
 GameObject:
   m_ObjectHideFlags: 0
@@ -118263,6 +119093,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2121832473
 GameObject:
   m_ObjectHideFlags: 0
@@ -118415,6 +119255,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!114 &2124292071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118705,6 +119555,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!4 &2127426112
 Transform:
   m_ObjectHideFlags: 0
@@ -119059,6 +119919,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1 &2144341271
 GameObject:
   m_ObjectHideFlags: 0
@@ -119196,6 +120066,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpm: 0
+  torque: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  feedbackRPM: 0
+  active: 1
 --- !u!1001 &2376275811287537797
 PrefabInstance:
   m_ObjectHideFlags: 0
