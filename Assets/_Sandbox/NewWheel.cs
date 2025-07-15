@@ -57,7 +57,7 @@ public class NewWheel : MonoBehaviour
 
     // --- TO MOVE ELSEWHERE ---
     float currentRPM;
-    public DriveForce targetDrive { get; private set; }
+    public Drivetrain targetDrive { get; private set; }
     public float rawRPM { get; private set; }
 
     private void Awake()
@@ -77,7 +77,7 @@ public class NewWheel : MonoBehaviour
         suspensionParent = transform.parent.GetComponent<NewSuspension>();
         travelDist = suspensionParent.spring.targetCompression;
 
-        targetDrive = GetComponent<DriveForce>();
+        targetDrive = new Drivetrain();
         currentRPM = 0;
 
         CreateWheelCollider();

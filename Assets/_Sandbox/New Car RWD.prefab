@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6763475483257259576}
   - component: {fileID: 1392148012855773252}
-  - component: {fileID: 6729716748363591976}
   - component: {fileID: 4449857956232079144}
   m_Layer: 0
   m_Name: engine
@@ -46,35 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c6eabd28c9b624c95f068000145fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outputDrives:
-  - {fileID: 8958686372316910562}
   motorSettings: {fileID: 11400000, guid: c418920e6dbf13c429a56c687347d6f4, type: 2}
   boostLoopSnd: {fileID: 6368097505544381720}
   boostParticles:
   - {fileID: 6445605747769176062}
   - {fileID: 1710568784083389572}
---- !u!114 &6729716748363591976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212063564351605393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
 --- !u!82 &4449857956232079144
 AudioSource:
   m_ObjectHideFlags: 0
@@ -855,7 +830,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4947353732736577729}
   - component: {fileID: 2894025643322900104}
-  - component: {fileID: 5316955850910900141}
   m_Layer: 0
   m_Name: suspensionRR
   m_TagString: Untagged
@@ -896,28 +870,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 2383688111211546213}
   suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
---- !u!114 &5316955850910900141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2209566226552391238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
+  targetDrive:
+    rpm: 0
+    torque: 0
+    torqueCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    feedbackRPM: 0
+    active: 1
 --- !u!1 &2223084429816982787
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +891,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9081995471202747616}
   - component: {fileID: 7596426462887484613}
-  - component: {fileID: 7036166322110982957}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -965,28 +927,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 8fd2d060d0496e142b7a97588f389e5e, type: 2}
---- !u!114 &7036166322110982957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223084429816982787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
 --- !u!1 &2606421711671527541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +991,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4930853820493019005}
   - component: {fileID: 58682418803900612}
-  - component: {fileID: 8958686372316910562}
   m_Layer: 0
   m_Name: transmission
   m_TagString: Untagged
@@ -1087,32 +1026,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outputDrives:
-  - {fileID: 5316955850910900141}
-  - {fileID: 9038354042199345143}
+  - {fileID: 2894025643322900104}
+  - {fileID: 2383688111211546213}
   transmissionSettings: {fileID: 11400000, guid: 530a425553ec253488a0768c219585ed,
     type: 2}
---- !u!114 &8958686372316910562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3047917763592755893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
 --- !u!1 &3318031878013134469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1150,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4526404667186020482}
   - component: {fileID: 6456462955189796019}
-  - component: {fileID: 2576360903239747965}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -1270,28 +1186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 5ba89160eace2d74d82dbb7ca00ec3a4, type: 2}
---- !u!114 &2576360903239747965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3633929451622847123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
 --- !u!1 &3822377277433174206
 GameObject:
   m_ObjectHideFlags: 0
@@ -6444,7 +6338,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6304565296608668557}
   - component: {fileID: 2293858944175353494}
-  - component: {fileID: 5310535782273850256}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -6481,28 +6374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 8fd2d060d0496e142b7a97588f389e5e, type: 2}
---- !u!114 &5310535782273850256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4551715672900846569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
 --- !u!1 &4904016697233742472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7371,7 +7242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6684114134401560902}
   - component: {fileID: 2383688111211546213}
-  - component: {fileID: 9038354042199345143}
   m_Layer: 0
   m_Name: suspensionRL
   m_TagString: Untagged
@@ -7412,28 +7282,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 2894025643322900104}
   suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
---- !u!114 &9038354042199345143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6465604593870232168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
+  targetDrive:
+    rpm: 0
+    torque: 0
+    torqueCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    feedbackRPM: 0
+    active: 1
 --- !u!1 &6558597509815987421
 GameObject:
   m_ObjectHideFlags: 0
@@ -7530,7 +7389,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1837263790593396576}
   - component: {fileID: 6317199783542584441}
-  - component: {fileID: 5947994816998685243}
   m_Layer: 0
   m_Name: suspensionFL
   m_TagString: Untagged
@@ -7570,28 +7428,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 6717674609977350985}
   suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
---- !u!114 &5947994816998685243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6853530351204291213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
+  targetDrive:
+    rpm: 0
+    torque: 0
+    torqueCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    feedbackRPM: 0
+    active: 1
 --- !u!1 &7019630432916055562
 GameObject:
   m_ObjectHideFlags: 0
@@ -13255,7 +13102,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3258205200328920481}
   - component: {fileID: 1332262138342175505}
-  - component: {fileID: 4176265318684492596}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -13292,28 +13138,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: 5ba89160eace2d74d82dbb7ca00ec3a4, type: 2}
---- !u!114 &4176265318684492596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7967391534226258567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
 --- !u!1 &8240016789815400626
 GameObject:
   m_ObjectHideFlags: 0
@@ -13789,7 +13613,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7549846388109110638}
   - component: {fileID: 6717674609977350985}
-  - component: {fileID: 1678505281412745523}
   m_Layer: 0
   m_Name: suspensionFR
   m_TagString: Untagged
@@ -13829,25 +13652,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 6317199783542584441}
   suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
---- !u!114 &1678505281412745523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9130321889399074260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a871e618e5234583959237a27a203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rpm: 0
-  torque: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  feedbackRPM: 0
-  active: 1
+  targetDrive:
+    rpm: 0
+    torque: 0
+    torqueCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    feedbackRPM: 0
+    active: 1

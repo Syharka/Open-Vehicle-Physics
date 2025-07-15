@@ -5,9 +5,7 @@ public class NewMotor : MonoBehaviour
 {
     #region Core Components
     protected VehicleController vp { get; private set; }
-    public NewTransmission transmission { get; private set; }
-    private DriveForce targetDrive;
-    public DriveForce[] outputDrives;
+    private Drivetrain targetDrive;
     #endregion
 
     #region Settings
@@ -68,7 +66,8 @@ public class NewMotor : MonoBehaviour
             boostSnd.loop = false;
         }
 
-        targetDrive = GetComponent<DriveForce>();
+        targetDrive = new Drivetrain();
+        targetDrive.torqueCurve = performance.torqueCurve;
         // Get maximum possible RPM
         GetMaxRPM();
     }
@@ -128,7 +127,7 @@ public class NewMotor : MonoBehaviour
         actualAccel = Mathf.Lerp(vp.extras.brakeIsReverse && vp.reversing && vp.accelInput <= 0 ? vp.brakeInput : vp.accelInput, Mathf.Max(vp.accelInput, vp.burnout), vp.burnout);
         float accelGet = performance.canReverse ? actualAccel : Mathf.Clamp01(actualAccel);
         actualInput = temp.inputCurve.Evaluate(Mathf.Abs(accelGet)) * Mathf.Sign(accelGet);
-        targetDrive.curve = performance.torqueCurve;
+        //targetDrive.torqueCurve = performance.torqueCurve;
 
         if (ignition)
         {
@@ -146,23 +145,16 @@ public class NewMotor : MonoBehaviour
             }
 
             // Send RPM and torque through drivetrain
-            if (outputDrives.Length > 0)
+            float torqueFactor = Mathf.Pow(1f, performance.driveDividePower);
+            float tempRPM = 0;
+            tempRPM += vp.transmission.targetDrive.feedbackRPM;
+            vp.transmission.targetDrive.SetDrive(targetDrive, torqueFactor);
+
+            targetDrive.feedbackRPM = tempRPM / 1;
+
+            if (vp.transmission)
             {
-                float torqueFactor = Mathf.Pow(1f / outputDrives.Length, performance.driveDividePower);
-                float tempRPM = 0;
-
-                foreach (DriveForce curOutput in outputDrives)
-                {
-                    tempRPM += curOutput.feedbackRPM;
-                    curOutput.SetDrive(targetDrive, torqueFactor);
-                }
-
-                targetDrive.feedbackRPM = tempRPM / outputDrives.Length;
-            }
-
-            if (transmission)
-            {
-                shifting = transmission.shiftTime > 0;
+                shifting = vp.transmission.shiftTime > 0;
             }
             else
             {
@@ -176,14 +168,7 @@ public class NewMotor : MonoBehaviour
             targetDrive.torque = 0;
             targetDrive.feedbackRPM = 0;
             shifting = false;
-
-            if (outputDrives.Length > 0)
-            {
-                foreach (DriveForce curOutput in outputDrives)
-                {
-                    curOutput.SetDrive(targetDrive);
-                }
-            }
+            vp.transmission.targetDrive.SetDrive(targetDrive);
         }
     }
 
@@ -195,8 +180,8 @@ public class NewMotor : MonoBehaviour
             airPitch = vp.groundedWheels > 0 || actualAccel != 0 ? 1 : Mathf.Lerp(airPitch, 0, 0.5f * Time.deltaTime);
             pitchFactor = (actualAccel != 0 || vp.groundedWheels == 0 || !temp.pitchDecreaseWithoutThrottle ? 1 : 0.5f) * (shifting ?
                 (temp.pitchIncreaseBetweenShift ?
-                    Mathf.Sin((transmission.shiftTime / transmission.clutch.shiftDelay) * Mathf.PI) :
-                    Mathf.Min(transmission.clutch.shiftDelay, Mathf.Pow(transmission.shiftTime, 2)) / transmission.clutch.shiftDelay) :
+                    Mathf.Sin((vp.transmission.shiftTime / vp.transmission.clutch.shiftDelay) * Mathf.PI) :
+                    Mathf.Min(vp.transmission.clutch.shiftDelay, Mathf.Pow(vp.transmission.shiftTime, 2)) / vp.transmission.clutch.shiftDelay) :
                 1) * airPitch;
             targetPitch = Mathf.Abs((targetDrive.feedbackRPM * 0.001f) / maxRPM) * pitchFactor;
         }
@@ -243,18 +228,9 @@ public class NewMotor : MonoBehaviour
     {
         maxRPM = performance.torqueCurve.keys[performance.torqueCurve.length - 1].time;
 
-        if (outputDrives.Length > 0)
-        {
-            foreach (DriveForce curOutput in outputDrives)
-            {
-                curOutput.curve = targetDrive.curve;
-
-                if (curOutput.GetComponent<RVP.Transmission>())
-                {
-                    curOutput.GetComponent<RVP.Transmission>().ResetMaxRPM();
-                }
-            }
-        }
+        vp.transmission.targetDrive = new Drivetrain();
+        vp.transmission.targetDrive.torqueCurve = targetDrive.torqueCurve;
+        vp.transmission.ResetMaxRPM();
     }
 }
 

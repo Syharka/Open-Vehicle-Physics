@@ -1,6 +1,4 @@
-using JetBrains.Annotations;
 using System;
-using System.Runtime.Serialization;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "OVP/Vehicle/New Transmission")]

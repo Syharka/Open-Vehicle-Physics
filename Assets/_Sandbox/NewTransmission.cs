@@ -1,4 +1,5 @@
 using RVP;
+using System;
 using UnityEngine;
 
 /* TO DO */
@@ -6,6 +7,7 @@ using UnityEngine;
  * Remove Drivetrain Scripts
  * Feedback RPM on suspension can be applied to Wheels
  * Transmission has 2 unique drivetrains to be refactored, both using RPM, Torque & Curve. ID1 matching engine, ID2 is unique
+ * Re-add output drives of motor to multiple transmissions, as differential system
 */
 
 
@@ -13,9 +15,10 @@ public class NewTransmission : MonoBehaviour
 {
     #region Core Components
     protected VehicleController vp;
-    protected DriveForce targetDrive;
-    protected DriveForce newDrive;
-    public DriveForce[] outputDrives;
+    [NonSerialized]
+    public Drivetrain targetDrive;
+    public Drivetrain newDrive { get; private set; }
+    public NewSuspension[] outputDrives;
     #endregion
 
     #region Settings
@@ -48,8 +51,7 @@ public class NewTransmission : MonoBehaviour
     public virtual void Start()
     {
         vp = transform.GetTopmostParentComponent<VehicleController>();
-        targetDrive = GetComponent<DriveForce>();
-        newDrive = gameObject.AddComponent<DriveForce>();
+        newDrive = new Drivetrain();
 
         currentGear = Mathf.Clamp(gear.startGear, 0, gear.gears.Length - 1);
 
@@ -65,9 +67,9 @@ public class NewTransmission : MonoBehaviour
             int enabledDrives = 0;
 
             // Check for which outputs are enabled
-            foreach (DriveForce curOutput in outputDrives)
+            foreach (NewSuspension curOutput in outputDrives)
             {
-                if (curOutput.active)
+                if (curOutput.targetDrive.active)
                 {
                     enabledDrives++;
                 }
@@ -76,12 +78,12 @@ public class NewTransmission : MonoBehaviour
             float torqueFactor = Mathf.Pow(1f / enabledDrives, extra.driveDividePower);
             float tempRPM = 0;
 
-            foreach (DriveForce curOutput in outputDrives)
+            foreach (NewSuspension curOutput in outputDrives)
             {
-                if (curOutput.active)
+                if (curOutput.targetDrive.active)
                 {
-                    tempRPM += extra.skidSteerDrive ? Mathf.Abs(curOutput.feedbackRPM) : curOutput.feedbackRPM;
-                    curOutput.SetDrive(newDrive, torqueFactor);
+                    tempRPM += extra.skidSteerDrive ? Mathf.Abs(curOutput.targetDrive.feedbackRPM) : curOutput.targetDrive.feedbackRPM;
+                    curOutput.targetDrive.SetDrive(newDrive, torqueFactor);
                 }
             }
 
@@ -136,7 +138,7 @@ public class NewTransmission : MonoBehaviour
         // Perform RPM calculations
         if (maxRPM == -1)
         {
-            maxRPM = targetDrive.curve.keys[targetDrive.curve.length - 1].time;
+            maxRPM = targetDrive.torqueCurve.keys[targetDrive.torqueCurve.length - 1].time;
 
             if (extra.autoCalculateRpmRanges)
             {
@@ -145,7 +147,7 @@ public class NewTransmission : MonoBehaviour
         }
 
         // Set RPMs and torque of output
-        newDrive.curve = targetDrive.curve;
+        newDrive.torqueCurve = targetDrive.torqueCurve;
 
         if (curGearRatio == 0 || shiftTime > 0)
         {
@@ -292,5 +294,30 @@ public class NewTransmission : MonoBehaviour
                 break;
             }
         }
+    }
+}
+
+[Serializable]
+public class Drivetrain
+{
+    public float rpm;
+    public float torque;
+    public AnimationCurve torqueCurve;
+    public float feedbackRPM; // RPM sent back through the drivetrain
+    public bool active = true;
+
+    public void SetDrive(Drivetrain from)
+    {
+        rpm = from.rpm;
+        torque = from.torque;
+        torqueCurve = from.torqueCurve;
+    }
+
+    // Same as previous, but with torqueFactor multiplier for torque
+    public void SetDrive(Drivetrain from, float torqueFactor)
+    {
+        rpm = from.rpm;
+        torque = from.torque * torqueFactor;
+        torqueCurve = from.torqueCurve;
     }
 }

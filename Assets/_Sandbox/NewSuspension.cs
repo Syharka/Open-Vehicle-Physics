@@ -1,4 +1,5 @@
 using RVP;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,8 +35,7 @@ public class NewSuspension : MonoBehaviour
     public Vector3 springDirection { get; private set; }
     public Vector3 upDir { get; private set; }
     public Vector3 forwardDir { get; private set; }
-
-    public DriveForce targetDrive { get; private set; }
+    public Drivetrain targetDrive { get; private set; }
 
     public SuspensionPropertyToggle properties { get; private set; }
     public bool steerEnabled { get; private set; } = true;
@@ -63,11 +63,12 @@ public class NewSuspension : MonoBehaviour
     {
         rb = transform.GetTopmostParentComponent<Rigidbody>();
         vp = transform.GetTopmostParentComponent<VehicleController>();
-        targetDrive = GetComponent<DriveForce>();
         wheel = GetComponentInChildren<NewWheel>();
         flippedSide = Vector3.Dot(transform.forward, vp.transform.right) < 0;
         flippedSideFactor = flippedSide ? -1 : 1;
         initialRotation = transform.localRotation;
+
+        targetDrive = new Drivetrain();
 
         if (Application.isPlaying)
         {
@@ -116,12 +117,12 @@ public class NewSuspension : MonoBehaviour
         {
             ApplySuspensionForce();
         }
-        if (wheel.targetDrive)
-        {
+        //if (wheel.targetDrive)
+        //{
             targetDrive.active = driveEnabled;
             targetDrive.feedbackRPM = wheel.targetDrive.feedbackRPM;
             wheel.targetDrive.SetDrive(targetDrive);
-        }
+        //}
     }
 
     void Update()
