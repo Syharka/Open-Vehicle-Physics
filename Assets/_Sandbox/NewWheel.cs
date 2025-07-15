@@ -43,7 +43,7 @@ public class NewWheel : MonoBehaviour
     private float airTime;
     #endregion
 
-    #region Misc
+    #region Mis
     private SphereCollider sphereCol; // Hard collider
     private Transform sphereColTr; // Hard collider transform
 
@@ -89,7 +89,7 @@ public class NewWheel : MonoBehaviour
 
         // Get proper inputs
         actualEbrake = suspensionParent.ebrakeEnabled ? suspensionParent.brake.ebrakeForce : 0;
-        actualTargetRPM = targetDrive.rpm * (suspensionParent.driveInverted ? -1 : 1);
+        actualTargetRPM = targetDrive.rpm;
         actualTorque = suspensionParent.driveEnabled ? Mathf.Lerp(targetDrive.torque, Mathf.Abs(vp.accelInput), vp.burnout) : 0;
 
         if (getContact)
@@ -331,9 +331,9 @@ public class NewWheel : MonoBehaviour
     {
         if (suspensionParent)
         {
-            float ackermannVal = Mathf.Sign(suspensionParent.steering.steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.steering.ackermannFactor : 1 - suspensionParent.steering.ackermannFactor;
+            float ackermannVal = Mathf.Sign(suspensionParent.steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.steering.ackermannFactor : 1 - suspensionParent.steering.ackermannFactor;
             transform.localEulerAngles = new Vector3(
-                suspensionParent.camberAngle + suspensionParent.camber.casterAngle * suspensionParent.steering.steerAngle * suspensionParent.flippedSideFactor,
+                suspensionParent.camberAngle + suspensionParent.camber.casterAngle * suspensionParent.steerAngle * suspensionParent.flippedSideFactor,
                 -suspensionParent.camber.toeAngle * suspensionParent.flippedSideFactor + suspensionParent.steerDegrees * ackermannVal,
                 0);
         }

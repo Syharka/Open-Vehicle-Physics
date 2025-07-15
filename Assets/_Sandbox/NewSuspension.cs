@@ -1,6 +1,7 @@
 using RVP;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class NewSuspension : MonoBehaviour
@@ -28,6 +29,8 @@ public class NewSuspension : MonoBehaviour
 
     public List<SuspensionPart> movingParts { get; private set; } = new List<SuspensionPart>();
     public float steerDegrees { get; private set; }
+    [NonSerialized]
+    public float steerAngle;
     public float camberAngle { get; private set; }
     public float compression { get; private set; }
     public float penetration { get; private set; }
@@ -38,16 +41,16 @@ public class NewSuspension : MonoBehaviour
     public Drivetrain targetDrive { get; private set; }
 
     public SuspensionPropertyToggle properties { get; private set; }
-    public bool steerEnabled { get; private set; } = true;
-    public bool steerInverted { get; private set; }
-    public bool driveEnabled { get; private set; } = true;
-    public bool driveInverted { get; private set; }
-    public bool ebrakeEnabled { get; private set; } = true;
-    public bool skidSteerBrake { get; private set; }
+
+    [Range(-1,1)]
+    public float steerFactor;
+    public bool driveEnabled = true;
+    public bool ebrakeEnabled = true;
+    public bool skidSteerBrake = false;
 
     #region Misc
-    CapsuleCollider compressCol; // The hard collider
-    Transform compressTr; // Transform component of the hard collider
+    private CapsuleCollider compressCol; // The hard collider
+    private Transform compressTr; // Transform component of the hard collider
     #endregion
 
     private void Awake()
@@ -91,12 +94,6 @@ public class NewSuspension : MonoBehaviour
             }
 
             steering.steerRangeMax = Mathf.Max(steering.steerRangeMin, steering.steerRangeMax);
-
-            properties = GetComponent<SuspensionPropertyToggle>();
-            if (properties)
-            {
-                UpdateProperties();
-            }
         }
     }
 
@@ -110,19 +107,18 @@ public class NewSuspension : MonoBehaviour
 
         GetSpringVectors();
 
-            compression = Mathf.Min(spring.targetCompression, spring.suspensionDistance > 0 ? Mathf.Clamp01(wheel.contactPoint.distance / spring.suspensionDistance) : 0);
-            penetration = Mathf.Min(0, wheel.contactPoint.distance);
+        compression = Mathf.Min(spring.targetCompression, spring.suspensionDistance > 0 ? Mathf.Clamp01(wheel.contactPoint.distance / spring.suspensionDistance) : 0);
+        penetration = Mathf.Min(0, wheel.contactPoint.distance);
 
         if (spring.targetCompression > 0)
         {
             ApplySuspensionForce();
         }
-        //if (wheel.targetDrive)
-        //{
-            targetDrive.active = driveEnabled;
-            targetDrive.feedbackRPM = wheel.targetDrive.feedbackRPM;
-            wheel.targetDrive.SetDrive(targetDrive);
-        //}
+
+        targetDrive.active = driveEnabled;
+        targetDrive.feedbackRPM = wheel.targetDrive.feedbackRPM;
+        wheel.targetDrive.SetDrive(targetDrive);
+
     }
 
     void Update()
@@ -135,7 +131,7 @@ public class NewSuspension : MonoBehaviour
         }
 
         // Set steer angle for the wheel
-        steerDegrees = Mathf.Abs(steering.steerAngle) * (steering.steerAngle > 0 ? steering.steerRangeMax : steering.steerRangeMin);
+        steerDegrees = Mathf.Abs(steerAngle) * (steerAngle > 0 ? steering.steerRangeMax : steering.steerRangeMin);
     }
 
     // Apply suspension forces to support vehicles
@@ -220,38 +216,6 @@ public class NewSuspension : MonoBehaviour
         }
     }
 
-    // Update the toggleable properties
-    public void UpdateProperties()
-    {
-        if (properties)
-        {
-            foreach (SuspensionToggledProperty curProperty in properties.properties)
-            {
-                switch ((int)curProperty.property)
-                {
-                    case 0:
-                        steerEnabled = curProperty.toggled;
-                        break;
-                    case 1:
-                        steerInverted = curProperty.toggled;
-                        break;
-                    case 2:
-                        driveEnabled = curProperty.toggled;
-                        break;
-                    case 3:
-                        driveInverted = curProperty.toggled;
-                        break;
-                    case 4:
-                        ebrakeEnabled = curProperty.toggled;
-                        break;
-                    case 5:
-                        skidSteerBrake = curProperty.toggled;
-                        break;
-                }
-            }
-        }
-    }
-
     // Visualize steer range
     void OnDrawGizmosSelected()
     {
@@ -264,7 +228,7 @@ public class NewSuspension : MonoBehaviour
                 Vector3 wheelPoint = wheel.rim.position;
 
                 float camberSin = -Mathf.Sin(camberAngle * Mathf.Deg2Rad);
-                float steerSin = Mathf.Sin(Mathf.Lerp(activeSteerSettings.steerRangeMin, activeSteerSettings.steerRangeMax, (activeSteerSettings.steerAngle + 1) * 0.5f) * Mathf.Deg2Rad);
+                float steerSin = Mathf.Sin(Mathf.Lerp(activeSteerSettings.steerRangeMin, activeSteerSettings.steerRangeMax, (steerAngle + 1) * 0.5f) * Mathf.Deg2Rad);
                 float minSteerSin = Mathf.Sin(activeSteerSettings.steerRangeMin * Mathf.Deg2Rad);
                 float maxSteerSin = Mathf.Sin(activeSteerSettings.steerRangeMax * Mathf.Deg2Rad);
 

@@ -45,11 +45,6 @@ public class AxleSteeringValues
     [Range(-180, 180)]
     public float steerRangeMax;
 
-    [Tooltip("How much the wheel is steered")]
-    public float steerFactor = 1;
-    [Range(-1, 1)]
-    public float steerAngle;
-
     [Tooltip("Effect of Ackermann steering geometry")]
     public float ackermannFactor;
 }

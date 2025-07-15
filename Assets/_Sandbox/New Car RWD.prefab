@@ -870,17 +870,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 2383688111211546213}
   suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
-  targetDrive:
-    rpm: 0
-    torque: 0
-    torqueCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    feedbackRPM: 0
-    active: 1
+  steerFactor: 0
+  driveEnabled: 1
+  ebrakeEnabled: 1
+  skidSteerBrake: 0
 --- !u!1 &2223084429816982787
 GameObject:
   m_ObjectHideFlags: 0
@@ -7282,17 +7275,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 2894025643322900104}
   suspensionSettings: {fileID: 11400000, guid: cc633674793cf4f47af48bc3bf64dcb0, type: 2}
-  targetDrive:
-    rpm: 0
-    torque: 0
-    torqueCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    feedbackRPM: 0
-    active: 1
+  steerFactor: 0
+  driveEnabled: 1
+  ebrakeEnabled: 1
+  skidSteerBrake: 0
 --- !u!1 &6558597509815987421
 GameObject:
   m_ObjectHideFlags: 0
@@ -7428,17 +7414,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 6717674609977350985}
   suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
-  targetDrive:
-    rpm: 0
-    torque: 0
-    torqueCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    feedbackRPM: 0
-    active: 1
+  steerFactor: 1
+  driveEnabled: 0
+  ebrakeEnabled: 0
+  skidSteerBrake: 0
 --- !u!1 &7019630432916055562
 GameObject:
   m_ObjectHideFlags: 0
@@ -13652,14 +13631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oppositeWheel: {fileID: 6317199783542584441}
   suspensionSettings: {fileID: 11400000, guid: 0217695d25ab50e448cdc29293847a44, type: 2}
-  targetDrive:
-    rpm: 0
-    torque: 0
-    torqueCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    feedbackRPM: 0
-    active: 1
+  steerFactor: 1
+  driveEnabled: 0
+  ebrakeEnabled: 0
+  skidSteerBrake: 0
