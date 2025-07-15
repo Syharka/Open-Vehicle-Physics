@@ -6874,22 +6874,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112e6485deeb260418319ce55f6ccd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelAxisIsBrake: 0
-  brakeIsReverse: 1
-  holdEbrakePark: 1
-  burnoutThreshold: 0.9
-  burnoutSpin: 5
-  burnoutSmoothness: 0.5
+  vehicleSettings: {fileID: 11400000, guid: a31daeccf20534b42b46afa098a3d59e, type: 2}
   engine: {fileID: 1392148012855773252}
+  transmission: {fileID: 58682418803900612}
+  assists: {fileID: 6846634884538205187}
+  steering: {fileID: 3623334860521100151}
+  suspensions:
+  - {fileID: 6317199783542584441}
+  - {fileID: 2894025643322900104}
+  - {fileID: 6717674609977350985}
+  - {fileID: 2383688111211546213}
   wheels:
   - {fileID: 2293858944175353494}
   - {fileID: 1332262138342175505}
   - {fileID: 7596426462887484613}
   - {fileID: 6456462955189796019}
-  suspensionCenterOfMass: 0
-  centerOfMassOffset: {x: 0, y: -0.1, z: 0}
-  wheelForceMode: 5
-  suspensionForceMode: 5
 --- !u!114 &6846634884538205187
 MonoBehaviour:
   m_ObjectHideFlags: 0

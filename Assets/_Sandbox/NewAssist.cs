@@ -166,7 +166,7 @@ public class NewAssist : MonoBehaviour
         }
         else
         {
-            targetTurnSpeed = vp.steerInput * drift.driftSpinSpeed * (vp.localVelocity.z < 0 ? (vp.accelAxisIsBrake ? Mathf.Sign(vp.accelInput) : Mathf.Sign(F.MaxAbs(vp.accelInput, -vp.brakeInput))) : 1);
+            targetTurnSpeed = vp.steerInput * drift.driftSpinSpeed * (vp.localVelocity.z < 0 ? (vp.extras.accelAxisIsBrake ? Mathf.Sign(vp.accelInput) : Mathf.Sign(F.MaxAbs(vp.accelInput, -vp.brakeInput))) : 1);
         }
 
         rb.AddRelativeTorque(
@@ -247,7 +247,7 @@ public class NewAssist : MonoBehaviour
     // Assist for accelerating while drifting
     void ApplyDriftPush()
     {
-        float pushFactor = (vp.accelAxisIsBrake ? vp.accelInput : vp.accelInput - vp.brakeInput) * Mathf.Abs(vp.localVelocity.x) * drift.driftPush * groundedFactor * (1 - Mathf.Abs(Vector3.Dot(vp.transform.forward, rb.linearVelocity.normalized)));
+        float pushFactor = (vp.extras.accelAxisIsBrake ? vp.accelInput : vp.accelInput - vp.brakeInput) * Mathf.Abs(vp.localVelocity.x) * drift.driftPush * groundedFactor * (1 - Mathf.Abs(Vector3.Dot(vp.transform.forward, rb.linearVelocity.normalized)));
 
         rb.AddForce(
             vp.norm.TransformDirection(new Vector3(Mathf.Abs(pushFactor) * Mathf.Sign(vp.localVelocity.x), Mathf.Abs(pushFactor) * Mathf.Sign(vp.localVelocity.z), 0)),

@@ -2,11 +2,41 @@ using RVP;
 using UnityEngine;
 using System.Collections;
 
+/* TO DO */
+/* 
+ * Refactor to connect vehicle functions as manager
+ * Design custom inspectors to obfuscate component info
+ * Set scriptable data from here per object
+ * Refactor functions with Delegates to subscribe child components as actions
+ * Split visual and audio into seperate handlers
+ * Test input system as replacement to current inputs
+*/
+
+/* GOAL */
+/* 
+ * This script should merely setup the child components and manage their actions/values as a public source.
+ * This script should not actually 'do' any work, only call and receive from functions on components that do.
+*/
+
+
 public class VehicleController : MonoBehaviour
 {
-    [Header("Old Stuff")]
+    #region Core Components
     public Rigidbody rb { get; private set; }
     public Transform norm { get; private set; }
+    #endregion
+
+    #region Required Setup
+    public VehicleSettings vehicleSettings;
+    public VehicleExtraValues extras => vehicleSettings.extras;
+    [Space]
+    public NewMotor engine;
+    public NewTransmission transmission;
+    public NewAssist assists;
+    public Steering steering;
+    public NewSuspension[] suspensions;
+    public NewWheel[] wheels;
+    #endregion
 
     public float accelInput { get; private set; }
     public float brakeInput { get; private set; }
@@ -20,42 +50,37 @@ public class VehicleController : MonoBehaviour
     public float pitchInput { get; private set; }
     public float yawInput { get; private set; }
     public float rollInput { get; private set; }
-
-    [Tooltip("Accel axis is used for brake input")]
-    public bool accelAxisIsBrake;
-
-    [Tooltip("Brake input will act as reverse input")]
-    public bool brakeIsReverse;
-
-    [Tooltip("Automatically hold ebrake if it's pressed while parked")]
-    public bool holdEbrakePark;
-
-    public float burnoutThreshold = 0.9f;
     public float burnout { get; private set; }
-    public float burnoutSpin = 5;
-    [Range(0, 0.9f)]
-    public float burnoutSmoothness = 0.5f;
-    public NewMotor engine;
+    public Vector3 localVelocity { get; private set; }
+    public Vector3 localAngularVel { get; private set; }
+    public bool reversing { get; private set; }
+    public int groundedWheels { get; private set; }
+    public Vector3 wheelNormalAverage { get; private set; }
 
+    private Vector3 wheelsAverageVelocity;
     private bool stopUpshift;
     private bool stopDownShift;
 
-    public Vector3 localVelocity { get; private set; }
-    public Vector3 localAngularVel { get; private set; }
+    //[Tooltip("Accel axis is used for brake input")]
+    //public bool accelAxisIsBrake;
 
-    public bool reversing { get; private set; }
+    //[Tooltip("Brake input will act as reverse input")]
+    //public bool brakeIsReverse;
 
-    public NewWheel[] wheels;
-    public int groundedWheels { get; private set; }
-    public Vector3 wheelNormalAverage { get; private set; }
-    private Vector3 wheelsAverageVelocity; // Average velocity of wheel contact points
+    //[Tooltip("Automatically hold ebrake if it's pressed while parked")]
+    //public bool holdEbrakePark;
 
-    [Tooltip("Lower center of mass by suspension height")]
-    public bool suspensionCenterOfMass;
-    public Vector3 centerOfMassOffset;
+    //public float burnoutThreshold = 0.9f;
+    //public float burnoutSpin = 5;
+    //[Range(0, 0.9f)]
+    //public float burnoutSmoothness = 0.5f;
 
-    public ForceMode wheelForceMode = ForceMode.Acceleration;
-    public ForceMode suspensionForceMode = ForceMode.Acceleration;
+    //[Tooltip("Lower center of mass by suspension height")]
+    //public bool suspensionCenterOfMass;
+    //public Vector3 centerOfMassOffset;
+
+    //public ForceMode wheelForceMode = ForceMode.Acceleration;
+    //public ForceMode suspensionForceMode = ForceMode.Acceleration;
 
     void Start()
     {
@@ -117,7 +142,7 @@ public class VehicleController : MonoBehaviour
 
     public void SetBrake(float f)
     {
-        brakeInput = accelAxisIsBrake ? -Mathf.Clamp(accelInput, -1, 0) : Mathf.Clamp(f, -1, 1);
+        brakeInput = extras.accelAxisIsBrake ? -Mathf.Clamp(accelInput, -1, 0) : Mathf.Clamp(f, -1, 1);
     }
 
     public void SetSteer(float f)
@@ -127,7 +152,7 @@ public class VehicleController : MonoBehaviour
 
     public void SetEbrake(float f)
     {
-        if ((f > 0 || ebrakeInput > 0) && holdEbrakePark && rb.linearVelocity.magnitude < 1 && accelInput == 0 && (brakeInput == 0 || !brakeIsReverse))
+        if ((f > 0 || ebrakeInput > 0) && extras.holdEbrakePark && rb.linearVelocity.magnitude < 1 && accelInput == 0 && (brakeInput == 0 || !extras.brakeIsReverse))
         {
             ebrakeInput = 1;
         }
@@ -196,7 +221,7 @@ public class VehicleController : MonoBehaviour
         float susAverage = 0;
 
         // Get average suspension height
-        if (suspensionCenterOfMass)
+        if (extras.suspensionCenterOfMass)
         {
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -205,19 +230,19 @@ public class VehicleController : MonoBehaviour
             }
         }
 
-        rb.centerOfMass = centerOfMassOffset + new Vector3(0, -susAverage, 0);
+        rb.centerOfMass = extras.centerOfMassOffset + new Vector3(0, -susAverage, 0);
         rb.inertiaTensor = rb.inertiaTensor; // This is required due to decoupling of inertia tensor from center of mass in Unity 5.3
     }
 
     void SetBurnoutInputs()
     {
-        if (groundedWheels > 0 && !accelAxisIsBrake && burnoutThreshold >= 0 && accelInput > burnoutThreshold && brakeInput > burnoutThreshold)
+        if (groundedWheels > 0 && !extras.accelAxisIsBrake && extras.burnoutThreshold >= 0 && accelInput > extras.burnoutThreshold && brakeInput > extras.burnoutThreshold)
         {
-            burnout = Mathf.Lerp(burnout, ((5 - Mathf.Min(5, Mathf.Abs(localVelocity.z))) / 5) * Mathf.Abs(accelInput), Time.fixedDeltaTime * (1 - burnoutSmoothness) * 10);
+            burnout = Mathf.Lerp(burnout, ((5 - Mathf.Min(5, Mathf.Abs(localVelocity.z))) / 5) * Mathf.Abs(accelInput), Time.fixedDeltaTime * (1 - extras.burnoutSmoothness) * 10);
         }
         else if (burnout > 0.01f)
         {
-            burnout = Mathf.Lerp(burnout, 0, Time.fixedDeltaTime * (1 - burnoutSmoothness) * 10);
+            burnout = Mathf.Lerp(burnout, 0, Time.fixedDeltaTime * (1 - extras.burnoutSmoothness) * 10);
         }
         else
         {
@@ -227,7 +252,7 @@ public class VehicleController : MonoBehaviour
 
     void SetReversing()
     {
-        if (brakeIsReverse && brakeInput > 0 && localVelocity.z < 1 && burnout == 0)
+        if (extras.brakeIsReverse && brakeInput > 0 && localVelocity.z < 1 && burnout == 0)
         {
             reversing = true;
         }

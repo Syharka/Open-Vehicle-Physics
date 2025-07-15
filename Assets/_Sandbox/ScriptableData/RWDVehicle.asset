@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd840a17b2ff02648be65fca3d3e9949, type: 3}
+  m_Name: RWDVehicle
+  m_EditorClassIdentifier: 
+  motor: {fileID: 11400000, guid: c418920e6dbf13c429a56c687347d6f4, type: 2}
+  transmission: {fileID: 11400000, guid: 530a425553ec253488a0768c219585ed, type: 2}
+  assists: {fileID: 11400000, guid: d536904b20967c040a5fbd971a5aed03, type: 2}
+  extras:
+    accelAxisIsBrake: 0
+    brakeIsReverse: 1
+    holdEbrakePark: 1
+    burnoutThreshold: 0.9
+    burnoutSpin: 5
+    burnoutSmoothness: 0.5
+    suspensionCenterOfMass: 0
+    centerOfMassOffset: {x: 0, y: -0.1, z: 0}
+    wheelForceMode: 5
+    suspensionForceMode: 5

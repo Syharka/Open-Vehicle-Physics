@@ -1,6 +1,14 @@
 using RVP;
 using UnityEngine;
 
+/* TO DO */
+/* 
+ * Remove Drivetrain Scripts
+ * Feedback RPM on suspension can be applied to Wheels
+ * Transmission has 2 unique drivetrains to be refactored, both using RPM, Torque & Curve. ID1 matching engine, ID2 is unique
+*/
+
+
 public class NewTransmission : MonoBehaviour
 {
     #region Core Components
@@ -146,7 +154,7 @@ public class NewTransmission : MonoBehaviour
         }
         else
         {
-            newDrive.rpm = (automatic && extra.skidSteerDrive ? Mathf.Abs(targetDrive.rpm) * Mathf.Sign(vp.accelInput - (vp.brakeIsReverse ? vp.brakeInput * (1 - vp.burnout) : 0)) : targetDrive.rpm) / curGearRatio;
+            newDrive.rpm = (automatic && extra.skidSteerDrive ? Mathf.Abs(targetDrive.rpm) * Mathf.Sign(vp.accelInput - (vp.extras.brakeIsReverse ? vp.brakeInput * (1 - vp.burnout) : 0)) : targetDrive.rpm) / curGearRatio;
             newDrive.torque = Mathf.Abs(curGearRatio) * targetDrive.torque;
         }
 
@@ -158,17 +166,17 @@ public class NewTransmission : MonoBehaviour
         {
             if (!extra.skidSteerDrive && vp.burnout == 0)
             {
-                if (Mathf.Abs(vp.localVelocity.z) > 1 || vp.accelInput > 0 || (vp.brakeInput > 0 && vp.brakeIsReverse))
+                if (Mathf.Abs(vp.localVelocity.z) > 1 || vp.accelInput > 0 || (vp.brakeInput > 0 && vp.extras.brakeIsReverse))
                 {
                     if (currentGear < gear.gears.Length - 1
                         && (upperGear.minRPM + upshiftDifference * (curGearRatio < 0 ? Mathf.Min(1, clutch.shiftThreshold) : clutch.shiftThreshold) - actualFeedbackRPM <= 0 || (curGearRatio <= 0 && upperGear.ratio > 0 && (!vp.reversing || (vp.accelInput > 0 && vp.localVelocity.z > curGearRatio * 10))))
-                        && !(vp.brakeInput > 0 && vp.brakeIsReverse && upperGear.ratio >= 0)
+                        && !(vp.brakeInput > 0 && vp.extras.brakeIsReverse && upperGear.ratio >= 0)
                         && !(vp.localVelocity.z < 0 && vp.accelInput == 0))
                     {
                         Shift(1);
                     }
                     else if (currentGear > 0
-                        && (actualFeedbackRPM - (lowerGear.maxRPM - downshiftDifference * clutch.shiftThreshold) <= 0 || (curGearRatio >= 0 && lowerGear.ratio < 0 && (vp.reversing || ((vp.accelInput < 0 || (vp.brakeInput > 0 && vp.brakeIsReverse)) && vp.localVelocity.z < curGearRatio * 10))))
+                        && (actualFeedbackRPM - (lowerGear.maxRPM - downshiftDifference * clutch.shiftThreshold) <= 0 || (curGearRatio >= 0 && lowerGear.ratio < 0 && (vp.reversing || ((vp.accelInput < 0 || (vp.brakeInput > 0 && vp.extras.brakeIsReverse)) && vp.localVelocity.z < curGearRatio * 10))))
                         && !(vp.accelInput > 0 && lowerGear.ratio <= 0)
                         && (lowerGear.ratio > 0 || vp.localVelocity.z < 1))
                     {

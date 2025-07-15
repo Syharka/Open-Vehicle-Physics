@@ -125,7 +125,7 @@ public class NewMotor : MonoBehaviour
         }
 
         // Calculate proper input
-        actualAccel = Mathf.Lerp(vp.brakeIsReverse && vp.reversing && vp.accelInput <= 0 ? vp.brakeInput : vp.accelInput, Mathf.Max(vp.accelInput, vp.burnout), vp.burnout);
+        actualAccel = Mathf.Lerp(vp.extras.brakeIsReverse && vp.reversing && vp.accelInput <= 0 ? vp.brakeInput : vp.accelInput, Mathf.Max(vp.accelInput, vp.burnout), vp.burnout);
         float accelGet = performance.canReverse ? actualAccel : Mathf.Clamp01(actualAccel);
         actualInput = temp.inputCurve.Evaluate(Mathf.Abs(accelGet)) * Mathf.Sign(accelGet);
         targetDrive.curve = performance.torqueCurve;

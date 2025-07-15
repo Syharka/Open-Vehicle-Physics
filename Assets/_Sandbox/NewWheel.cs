@@ -119,7 +119,7 @@ public class NewWheel : MonoBehaviour
         // Handle Burnout
         if (vp.burnout > 0 && targetDrive.rpm != 0 && actualEbrake * vp.ebrakeInput == 0 && grounded)
         {
-            rb.AddForceAtPosition(suspensionParent.forwardDir * -suspensionParent.flippedSideFactor * (vp.steerInput * vp.burnoutSpin * currentRPM * Mathf.Min(0.1f, targetDrive.torque) * 0.001f) * vp.burnout * 1 * contactPoint.surfaceFriction, suspensionParent.transform.position, vp.wheelForceMode);
+            rb.AddForceAtPosition(suspensionParent.forwardDir * -suspensionParent.flippedSideFactor * (vp.steerInput * vp.extras.burnoutSpin * currentRPM * Mathf.Min(0.1f, targetDrive.torque) * 0.001f) * vp.burnout * 1 * contactPoint.surfaceFriction, suspensionParent.transform.position, vp.extras.wheelForceMode);
         }
     }
 
@@ -249,12 +249,12 @@ public class NewWheel : MonoBehaviour
             targetForce = transform.TransformDirection(targetForceX, 0, targetForceZ);
             targetForceMultiplier = ((1 - friction.compressionFrictionFactor) + (1 - suspensionParent.compression) * friction.compressionFrictionFactor * Mathf.Clamp01(Mathf.Abs(suspensionParent.transform.InverseTransformDirection(localVel).z) * 10)) * contactPoint.surfaceFriction;
             frictionForce = Vector3.Lerp(frictionForce, targetForce * targetForceMultiplier, 1 - friction.frictionSmoothness);
-            rb.AddForceAtPosition(frictionForce, forceApplicationPoint, vp.wheelForceMode);
+            rb.AddForceAtPosition(frictionForce, forceApplicationPoint, vp.extras.wheelForceMode);
 
             // If resting on a rigidbody, apply opposing force to it
             if (contactPoint.col.attachedRigidbody)
             {
-                contactPoint.col.attachedRigidbody.AddForceAtPosition(-frictionForce, contactPoint.point, vp.wheelForceMode);
+                contactPoint.col.attachedRigidbody.AddForceAtPosition(-frictionForce, contactPoint.point, vp.extras.wheelForceMode);
             }
         }
     }
@@ -266,7 +266,7 @@ public class NewWheel : MonoBehaviour
         float brakeCheckValue = suspensionParent.skidSteerBrake ? vp.localAngularVel.y : vp.localVelocity.z;
 
         // Set brake force
-        if (vp.brakeIsReverse)
+        if (vp.extras.brakeIsReverse)
         {
             if (brakeCheckValue > 0)
             {

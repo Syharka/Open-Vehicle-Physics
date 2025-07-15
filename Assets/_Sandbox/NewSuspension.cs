@@ -162,7 +162,7 @@ public class NewSuspension : MonoBehaviour
                 rb.AddForceAtPosition(
                     appliedSuspensionForce,
                     extra.applyForceAtGroundContact ? wheel.contactPoint.point : wheel.transform.position,
-                    vp.suspensionForceMode);
+                    vp.extras.suspensionForceMode);
 
                 // If wheel is resting on a rigidbody, apply opposing force to it
                 if (groundBody)
@@ -170,7 +170,7 @@ public class NewSuspension : MonoBehaviour
                     groundBody.AddForceAtPosition(
                         -appliedSuspensionForce,
                         wheel.contactPoint.point,
-                        vp.suspensionForceMode);
+                        vp.extras.suspensionForceMode);
                 }
             }
 
@@ -180,7 +180,7 @@ public class NewSuspension : MonoBehaviour
                 rb.AddForceAtPosition(
                     -vp.norm.TransformDirection(0, 0, Mathf.Clamp(travelVel, -spring.hardContactSensitivity * TimeMaster.fixedTimeFactor, 0) + penetration) * spring.hardContactForce * Mathf.Clamp01(TimeMaster.fixedTimeFactor),
                     extra.applyForceAtGroundContact ? wheel.contactPoint.point : wheel.transform.position,
-                    vp.suspensionForceMode);
+                    vp.extras.suspensionForceMode);
             }
         }
     }
