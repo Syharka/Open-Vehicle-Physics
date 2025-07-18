@@ -1,6 +1,10 @@
 using RVP;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
+using UnityEditor;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 /* TO DO */
 /* 
@@ -34,8 +38,7 @@ public class VehicleController : MonoBehaviour
     public NewTransmission transmission;
     public NewAssist assists;
     public Steering steering;
-    public NewSuspension[] suspensions;
-    public NewWheel[] wheels;
+    public List<NewSuspension> suspensions { get; private set; } = new List<NewSuspension>();
     #endregion
 
     public float accelInput { get; private set; }
@@ -202,10 +205,11 @@ public class VehicleController : MonoBehaviour
         // Get average suspension height
         if (extras.suspensionCenterOfMass)
         {
-            for (int i = 0; i < wheels.Length; i++)
+            for (int i = 0; i < suspensions.Count; i++)
             {
-                float newSusDist = wheels[i].transform.parent.GetComponent<NewSuspension>().spring.suspensionDistance;
-                susAverage = i == 0 ? newSusDist : (susAverage + newSusDist) * 0.5f;
+                //float newSusDist = wheels[i].transform.parent.GetComponent<NewSuspension>().spring.suspensionDistance;
+                float suspensionDistance = suspensions[i].spring.suspensionDistance;
+                susAverage = i == 0 ? suspensionDistance : (susAverage + suspensionDistance) * 0.5f;
             }
         }
 
@@ -247,12 +251,13 @@ public class VehicleController : MonoBehaviour
         groundedWheels = 0;
         wheelsAverageVelocity = Vector3.zero;
 
-        for (int i = 0; i < wheels.Length; i++)
+        for (int i = 0; i < suspensions.Count; i++)
         {
-            if (!wheels[i].grounded) break;
+            NewWheel wheel = suspensions[i].wheel;
+            if (!wheel.grounded) break;
 
-            wheelsAverageVelocity = i == 0 ? wheels[i].contactVelocity : (wheelsAverageVelocity + wheels[i].contactVelocity) * 0.5f;
-            wheelNormalAverage = i == 0 ? wheels[i].contactPoint.normal : (wheelNormalAverage + wheels[i].contactPoint.normal).normalized;
+            wheelsAverageVelocity = i == 0 ? wheel.contactVelocity : (wheelsAverageVelocity + wheel.contactVelocity) * 0.5f;
+            wheelNormalAverage = i == 0 ? wheel.contactPoint.normal : (wheelNormalAverage + wheel.contactPoint.normal).normalized;
             groundedWheels++;
         }
     }
@@ -263,5 +268,21 @@ public class VehicleController : MonoBehaviour
         {
             Destroy(norm.gameObject);
         }
+    }
+
+    public void RegisterSuspension(NewSuspension _suspension)
+    {
+        if (suspensions.Contains(_suspension))
+            { return; }
+
+        suspensions.Add(_suspension);
+    }
+
+    public void RemoveSuspension(NewSuspension _suspension)
+    {
+        if (!suspensions.Contains(_suspension))
+        { return; }
+
+        suspensions.Remove(_suspension);
     }
 }

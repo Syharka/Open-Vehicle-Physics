@@ -5,7 +5,7 @@ public class Steering : MonoBehaviour
 {
     #region Core Components
     public VehicleController vp {  get; private set; }
-    public NewSuspension[] steeredWheels;
+    //public NewSuspension[] steeredWheels;
     #endregion
 
     #region Settings
@@ -38,7 +38,7 @@ public class Steering : MonoBehaviour
         steerAmount = vp.steerInput * steerLimit;
 
         // Set steer angles in wheels
-        foreach (NewSuspension curSus in steeredWheels)
+        foreach (NewSuspension curSus in vp.suspensions)
         {
             curSus.steerAngle = Mathf.Lerp(curSus.steerAngle, steerAmount * curSus.steerFactor * curSus.steerFactor, control.steerRate * TimeMaster.inverseFixedTimeFactor * Time.timeScale);
         }

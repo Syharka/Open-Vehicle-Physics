@@ -4,10 +4,8 @@ using UnityEngine;
 
 /* TO DO */
 /* 
- * Remove Drivetrain Scripts
  * Feedback RPM on suspension can be applied to Wheels
  * Transmission has 2 unique drivetrains to be refactored, both using RPM, Torque & Curve. ID1 matching engine, ID2 is unique
- * Re-add output drives of motor to multiple transmissions, as differential system
 */
 
 
@@ -18,7 +16,6 @@ public class NewTransmission : MonoBehaviour
     [NonSerialized]
     public Drivetrain targetDrive;
     public Drivetrain newDrive { get; private set; }
-    public NewSuspension[] outputDrives;
     #endregion
 
     #region Settings
@@ -61,34 +58,31 @@ public class NewTransmission : MonoBehaviour
 
     protected void SetOutputDrives(float ratio)
     {
-        // Distribute drive to wheels
-        if (outputDrives.Length > 0)
+        int enabledDrives = 0;
+
+        // Check for which outputs are enabled
+        foreach (NewSuspension curOutput in vp.suspensions)
         {
-            int enabledDrives = 0;
-
-            // Check for which outputs are enabled
-            foreach (NewSuspension curOutput in outputDrives)
+            if (curOutput.targetDrive.active)
             {
-                if (curOutput.targetDrive.active)
-                {
-                    enabledDrives++;
-                }
+                enabledDrives++;
             }
-
-            float torqueFactor = Mathf.Pow(1f / enabledDrives, extra.driveDividePower);
-            float tempRPM = 0;
-
-            foreach (NewSuspension curOutput in outputDrives)
-            {
-                if (curOutput.targetDrive.active)
-                {
-                    tempRPM += extra.skidSteerDrive ? Mathf.Abs(curOutput.targetDrive.feedbackRPM) : curOutput.targetDrive.feedbackRPM;
-                    curOutput.targetDrive.SetDrive(newDrive, torqueFactor);
-                }
-            }
-
-            targetDrive.feedbackRPM = (tempRPM / enabledDrives) * ratio;
         }
+
+        float torqueFactor = Mathf.Pow(1f / enabledDrives, extra.driveDividePower);
+        float tempRPM = 0;
+
+        foreach (NewSuspension curOutput in vp.suspensions)
+        {
+            if (curOutput.targetDrive.active)
+            {
+                tempRPM += extra.skidSteerDrive ? Mathf.Abs(curOutput.targetDrive.feedbackRPM) : curOutput.targetDrive.feedbackRPM;
+                curOutput.targetDrive.SetDrive(newDrive, torqueFactor);
+            }
+        }
+
+        targetDrive.feedbackRPM = (tempRPM / enabledDrives) * ratio;
+
     }
 
     public void ResetMaxRPM()

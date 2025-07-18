@@ -103,7 +103,7 @@ public class NewAssist : MonoBehaviour
 
         if (vp.groundedWheels > 0)
         {
-            groundedFactor = drift.basedOnWheelsGrounded ? vp.groundedWheels / vp.wheels.Length : 1;
+            groundedFactor = drift.basedOnWheelsGrounded ? vp.groundedWheels / vp.suspensions.Count : 1;
 
             angDragTime = 20;
             rb.angularDamping = initialAngularDrag;

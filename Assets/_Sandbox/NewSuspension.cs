@@ -40,8 +40,6 @@ public class NewSuspension : MonoBehaviour
     public Vector3 forwardDir { get; private set; }
     public Drivetrain targetDrive { get; private set; }
 
-    public SuspensionPropertyToggle properties { get; private set; }
-
     [Range(-1,1)]
     public float steerFactor;
     public bool driveEnabled = true;
@@ -95,6 +93,8 @@ public class NewSuspension : MonoBehaviour
 
             steering.steerRangeMax = Mathf.Max(steering.steerRangeMin, steering.steerRangeMax);
         }
+
+        vp.RegisterSuspension(this);
     }
 
     void FixedUpdate()
