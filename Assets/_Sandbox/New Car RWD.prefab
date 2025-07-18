@@ -1018,9 +1018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2452c5cc082452a4586195c32cebd9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outputDrives:
-  - {fileID: 2894025643322900104}
-  - {fileID: 2383688111211546213}
   transmissionSettings: {fileID: 11400000, guid: 530a425553ec253488a0768c219585ed,
     type: 2}
 --- !u!1 &3318031878013134469
@@ -6742,17 +6739,7 @@ MonoBehaviour:
   engine: {fileID: 1392148012855773252}
   transmission: {fileID: 58682418803900612}
   assists: {fileID: 6846634884538205187}
-  steering: {fileID: 3623334860521100151}
-  suspensions:
-  - {fileID: 6317199783542584441}
-  - {fileID: 2894025643322900104}
-  - {fileID: 6717674609977350985}
-  - {fileID: 2383688111211546213}
-  wheels:
-  - {fileID: 2293858944175353494}
-  - {fileID: 1332262138342175505}
-  - {fileID: 7596426462887484613}
-  - {fileID: 6456462955189796019}
+  steeringSettings: {fileID: 11400000, guid: 1399182756cd1fe4da09745d8f5eb63a, type: 2}
 --- !u!114 &6846634884538205187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7955,7 +7942,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6514987751180537685}
-  - component: {fileID: 3623334860521100151}
   m_Layer: 0
   m_Name: steeringwheel
   m_TagString: Untagged
@@ -7978,22 +7964,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3548895780325718919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3623334860521100151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7330413538576190952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9890332aa717b4d47bb173715a425b45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  steeredWheels:
-  - {fileID: 6317199783542584441}
-  - {fileID: 6717674609977350985}
-  steeringSettings: {fileID: 11400000, guid: 1399182756cd1fe4da09745d8f5eb63a, type: 2}
 --- !u!1 &7636272792677085179
 GameObject:
   m_ObjectHideFlags: 0

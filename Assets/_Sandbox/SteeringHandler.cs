@@ -1,15 +1,9 @@
 using RVP;
 using UnityEngine;
 
-public class Steering : MonoBehaviour
+public class SteeringHandler
 {
-    #region Core Components
-    public VehicleController vp {  get; private set; }
-    //public NewSuspension[] steeredWheels;
-    #endregion
-
     #region Settings
-    public SteeringSettings steeringSettings;
     public SteeringExtraValues extra { get; private set; }
     public SteeringControlValues control { get; private set; }
     public SteeringVisualValues visual { get; private set; }
@@ -18,39 +12,34 @@ public class Steering : MonoBehaviour
     private float steerAmount;
     private float steerRot;
 
-    private void Awake()
+    public void Init(SteeringSettings _steeringSettings)
     {
-        extra = steeringSettings.extra;
-        control = steeringSettings.control;
-        visual = steeringSettings.visual;
-    }
-
-    void Start()
-    {
-        vp = transform.GetTopmostParentComponent<VehicleController>();
+        extra = _steeringSettings.extra;
+        control = _steeringSettings.control;
+        visual = _steeringSettings.visual;
         steerRot = visual.rotationOffset;
     }
 
-    void FixedUpdate()
+    public void UpdateSteering(VehicleController _vc)
     {
-        float rbSpeed = vp.localVelocity.z / control.steerCurveStretch;
+        float rbSpeed = _vc.localVelocity.z / control.steerCurveStretch;
         float steerLimit = extra.limitSteer ? control.steerCurve.Evaluate(extra.applyInReverse ? Mathf.Abs(rbSpeed) : rbSpeed) : 1;
-        steerAmount = vp.steerInput * steerLimit;
+        steerAmount = _vc.steerInput * steerLimit;
 
         // Set steer angles in wheels
-        foreach (NewSuspension curSus in vp.suspensions)
+        foreach (NewSuspension curSus in _vc.suspensions)
         {
             curSus.steerAngle = Mathf.Lerp(curSus.steerAngle, steerAmount * curSus.steerFactor * curSus.steerFactor, control.steerRate * TimeMaster.inverseFixedTimeFactor * Time.timeScale);
         }
     }
 
-    void Update()
+    void UpdateSteeringWheel()
     {
         // Visual steering wheel rotation
         if (visual.rotate)
         {
             steerRot = Mathf.Lerp(steerRot, steerAmount * visual.maxDegreesRotation + visual.rotationOffset, control.steerRate * Time.timeScale);
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, steerRot);
+            //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, steerRot);
         }
     }
 }

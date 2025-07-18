@@ -37,7 +37,8 @@ public class VehicleController : MonoBehaviour
     public NewMotor engine;
     public NewTransmission transmission;
     public NewAssist assists;
-    public Steering steering;
+    public SteeringHandler steeringHandler { get; private set; } = new SteeringHandler();
+    public SteeringSettings steeringSettings;
     public List<NewSuspension> suspensions { get; private set; } = new List<NewSuspension>();
     #endregion
 
@@ -67,6 +68,7 @@ public class VehicleController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        steeringHandler.Init(steeringSettings);
 
         CreateNormalOrientation();
         SetCenterOfMass();
@@ -106,6 +108,8 @@ public class VehicleController : MonoBehaviour
 
         SetBurnoutInputs();
         SetReversing();
+
+        steeringHandler.UpdateSteering(this);
     }
 
     private void CreateNormalOrientation()
