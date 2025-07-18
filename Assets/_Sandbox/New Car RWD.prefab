@@ -6680,7 +6680,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3548895780325718919}
   - component: {fileID: 1020507029092676929}
-  - component: {fileID: 6846634884538205187}
   - component: {fileID: 5031735986637735294}
   - component: {fileID: 683567073069992721}
   - component: {fileID: 9027277398838608468}
@@ -6738,21 +6737,8 @@ MonoBehaviour:
   vehicleSettings: {fileID: 11400000, guid: a31daeccf20534b42b46afa098a3d59e, type: 2}
   engine: {fileID: 1392148012855773252}
   transmission: {fileID: 58682418803900612}
-  assists: {fileID: 6846634884538205187}
-  steeringSettings: {fileID: 11400000, guid: 1399182756cd1fe4da09745d8f5eb63a, type: 2}
---- !u!114 &6846634884538205187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5490219933845673502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1decd4fb5f9234a971b510f284c397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   assistSettings: {fileID: 11400000, guid: d536904b20967c040a5fbd971a5aed03, type: 2}
+  steeringSettings: {fileID: 11400000, guid: 1399182756cd1fe4da09745d8f5eb63a, type: 2}
 --- !u!54 &5031735986637735294
 Rigidbody:
   m_ObjectHideFlags: 0
