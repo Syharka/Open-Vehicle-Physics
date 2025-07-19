@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6763475483257259576}
-  - component: {fileID: 1392148012855773252}
   - component: {fileID: 4449857956232079144}
   m_Layer: 0
   m_Name: engine
@@ -33,23 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3548895780325718919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1392148012855773252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212063564351605393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58c6eabd28c9b624c95f068000145fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motorSettings: {fileID: 11400000, guid: c418920e6dbf13c429a56c687347d6f4, type: 2}
-  boostLoopSnd: {fileID: 6368097505544381720}
-  boostParticles:
-  - {fileID: 6445605747769176062}
-  - {fileID: 1710568784083389572}
 --- !u!82 &4449857956232079144
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6735,7 +6717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleSettings: {fileID: 11400000, guid: a31daeccf20534b42b46afa098a3d59e, type: 2}
-  engine: {fileID: 1392148012855773252}
+  engineSettings: {fileID: 11400000, guid: c418920e6dbf13c429a56c687347d6f4, type: 2}
   transmission: {fileID: 58682418803900612}
   assistSettings: {fileID: 11400000, guid: d536904b20967c040a5fbd971a5aed03, type: 2}
   steeringSettings: {fileID: 11400000, guid: 1399182756cd1fe4da09745d8f5eb63a, type: 2}

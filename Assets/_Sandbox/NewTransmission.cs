@@ -216,9 +216,9 @@ public class NewTransmission : MonoBehaviour
     public void CalculateRpmRanges()
     {
         bool cantCalc = false;
-        NewMotor engine = transform.GetTopmostParentComponent<VehicleController>().GetComponentInChildren<NewMotor>();
+        EngineHandler engine = transform.GetTopmostParentComponent<VehicleController>().engineHandler;
 
-        if (engine)
+        if (engine != null)
         {
             maxRPM = engine.performance.torqueCurve.keys[engine.performance.torqueCurve.length - 1].time;
         }

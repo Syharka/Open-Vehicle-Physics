@@ -19,7 +19,7 @@ namespace RVP
         public Text stuntText;
         public Text scoreText;
         VehicleController vp;
-        NewMotor engine;
+        EngineHandler engine;
         NewTransmission trans;
         StuntDetect stunter;
         public bool stuntMode;
@@ -41,7 +41,7 @@ namespace RVP
                 stunter = targetVehicle.GetComponent<StuntDetect>();
             }
 
-            engine = targetVehicle.GetComponentInChildren<NewMotor>();
+            engine = vp.engineHandler;
             propertySetter = targetVehicle.GetComponent<PropertyToggleSetter>();
 
             stuntText.gameObject.SetActive(stuntMode);
@@ -56,8 +56,7 @@ namespace RVP
                         gearText.text = "Gear: " + (trans.currentGear == 0 ? "R" : (trans.currentGear == 1 ? "N" : (trans.currentGear - 1).ToString()));
                 }
 
-                if (engine) {
-                    rpmMeter.value = engine.targetPitch;
+                if (engine != null) {
 
                     if (engine.boost.maxBoost > 0) {
                         boostMeter.value = engine.boost.boostPower / engine.boost.maxBoost;

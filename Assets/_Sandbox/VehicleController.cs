@@ -33,8 +33,8 @@ public class VehicleController : MonoBehaviour
     #region Required Setup
     public VehicleSettings vehicleSettings;
     public VehicleExtraValues extras => vehicleSettings.extras;
-    [Space]
-    public NewMotor engine;
+    public EngineHandler engineHandler { get; private set; } = new EngineHandler();
+    public MotorSettings engineSettings;
     public NewTransmission transmission;
     public AssistHandler assistsHandler { get; private set; } = new AssistHandler();
     public AssistSettings assistSettings;
@@ -70,6 +70,8 @@ public class VehicleController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
+        engineHandler.Init(engineSettings);
+        engineHandler.GetMaxRPM(this);
         assistsHandler.Init(assistSettings);
         steeringHandler.Init(steeringSettings);
 
@@ -112,6 +114,7 @@ public class VehicleController : MonoBehaviour
         SetBurnoutInputs();
         SetReversing();
 
+        engineHandler.UpdateMotor(this);
         assistsHandler.UpdateAssists(this);
         steeringHandler.UpdateSteering(this);
     }
