@@ -20,7 +20,7 @@ namespace RVP
         public Text scoreText;
         VehicleController vp;
         EngineHandler engine;
-        NewTransmission trans;
+        TransmissionHandler trans;
         StuntDetect stunter;
         public bool stuntMode;
         float stuntEndTime = -1;
@@ -35,7 +35,7 @@ namespace RVP
             targetVehicle = newVehicle;
             vp = targetVehicle.GetComponent<VehicleController>();
 
-            trans = targetVehicle.GetComponentInChildren<NewTransmission>();
+            trans = vp.transmissionHandler;
 
             if (stuntMode) {
                 stunter = targetVehicle.GetComponent<StuntDetect>();
@@ -52,7 +52,7 @@ namespace RVP
             if (vp) {
                 speedText.text = (vp.rb.linearVelocity.magnitude * 2.23694f).ToString("0") + " MPH";
 
-                if (trans) {
+                if (trans != null) {
                         gearText.text = "Gear: " + (trans.currentGear == 0 ? "R" : (trans.currentGear == 1 ? "N" : (trans.currentGear - 1).ToString()));
                 }
 

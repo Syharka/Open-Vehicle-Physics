@@ -8,15 +8,10 @@ using UnityEngine;
  * Transmission has 2 unique drivetrains to be refactored, both using RPM, Torque & Curve. ID1 matching engine, ID2 is unique
 */
 
-
-public class NewTransmission : MonoBehaviour
+public class TransmissionHandler
 {
-    #region Core Components
-    protected VehicleController vp;
-    [NonSerialized]
     public Drivetrain targetDrive;
     public Drivetrain newDrive { get; private set; }
-    #endregion
 
     #region Settings
     public TransmissionSettings transmissionSettings;
@@ -38,30 +33,25 @@ public class NewTransmission : MonoBehaviour
     private float upshiftDifference; // RPM difference between current gear and upper gear
     private float downshiftDifference; // RPM difference between current gear and lower gear
 
-    private void Awake()
+    public void Init(TransmissionSettings _transmissionSettings)
     {
-        extra = transmissionSettings.extra;
-        gear = transmissionSettings.gear;
-        clutch = transmissionSettings.clutch;
-    }
+        extra = _transmissionSettings.extra;
+        gear = _transmissionSettings.gear;
+        clutch = _transmissionSettings.clutch;
 
-    public virtual void Start()
-    {
-        vp = transform.GetTopmostParentComponent<VehicleController>();
         newDrive = new Drivetrain();
 
         currentGear = Mathf.Clamp(gear.startGear, 0, gear.gears.Length - 1);
 
-        // Get gear number 1 (first one above neutral)
         GetFirstGear();
     }
 
-    protected void SetOutputDrives(float ratio)
+    public void SetOutputDrives(VehicleController _vc, float _ratio)
     {
         int enabledDrives = 0;
 
         // Check for which outputs are enabled
-        foreach (NewSuspension curOutput in vp.suspensions)
+        foreach (NewSuspension curOutput in _vc.suspensions)
         {
             if (curOutput.targetDrive.active)
             {
@@ -72,7 +62,7 @@ public class NewTransmission : MonoBehaviour
         float torqueFactor = Mathf.Pow(1f / enabledDrives, extra.driveDividePower);
         float tempRPM = 0;
 
-        foreach (NewSuspension curOutput in vp.suspensions)
+        foreach (NewSuspension curOutput in _vc.suspensions)
         {
             if (curOutput.targetDrive.active)
             {
@@ -81,7 +71,7 @@ public class NewTransmission : MonoBehaviour
             }
         }
 
-        targetDrive.feedbackRPM = (tempRPM / enabledDrives) * ratio;
+        targetDrive.feedbackRPM = (tempRPM / enabledDrives) * _ratio;
 
     }
 
@@ -89,24 +79,8 @@ public class NewTransmission : MonoBehaviour
     {
         maxRPM = -1; // Setting this to -1 triggers derived classes to recalculate things
     }
-    void Update()
-    {
-        // Check for manual shift button presses
-        if (!automatic)
-        {
-            if (vp.upshiftPressed && currentGear < gear.gears.Length - 1)
-            {
-                Shift(1);
-            }
 
-            if (vp.downshiftPressed && currentGear > 0)
-            {
-                Shift(-1);
-            }
-        }
-    }
-
-    void FixedUpdate()
+    public void UpdateTransmission(VehicleController _vc)
     {
         shiftTime = Mathf.Max(0, shiftTime - Time.timeScale * TimeMaster.inverseFixedTimeFactor);
         curGearRatio = gear.gears[currentGear].ratio;
@@ -136,7 +110,7 @@ public class NewTransmission : MonoBehaviour
 
             if (extra.autoCalculateRpmRanges)
             {
-                CalculateRpmRanges();
+                CalculateRpmRanges(_vc.engineHandler);
             }
         }
 
@@ -150,7 +124,7 @@ public class NewTransmission : MonoBehaviour
         }
         else
         {
-            newDrive.rpm = (automatic && extra.skidSteerDrive ? Mathf.Abs(targetDrive.rpm) * Mathf.Sign(vp.accelInput - (vp.extras.brakeIsReverse ? vp.brakeInput * (1 - vp.burnout) : 0)) : targetDrive.rpm) / curGearRatio;
+            newDrive.rpm = (automatic && extra.skidSteerDrive ? Mathf.Abs(targetDrive.rpm) * Mathf.Sign(_vc.accelInput - (_vc.extras.brakeIsReverse ? _vc.brakeInput * (1 - _vc.burnout) : 0)) : targetDrive.rpm) / curGearRatio;
             newDrive.torque = Mathf.Abs(curGearRatio) * targetDrive.torque;
         }
 
@@ -158,23 +132,23 @@ public class NewTransmission : MonoBehaviour
         upshiftDifference = gear.gears[currentGear].maxRPM - upperGear.minRPM;
         downshiftDifference = lowerGear.maxRPM - gear.gears[currentGear].minRPM;
 
-        if (automatic && shiftTime == 0 && vp.groundedWheels > 0)
+        if (automatic && shiftTime == 0 && _vc.groundedWheels > 0)
         {
-            if (!extra.skidSteerDrive && vp.burnout == 0)
+            if (!extra.skidSteerDrive && _vc.burnout == 0)
             {
-                if (Mathf.Abs(vp.localVelocity.z) > 1 || vp.accelInput > 0 || (vp.brakeInput > 0 && vp.extras.brakeIsReverse))
+                if (Mathf.Abs(_vc.localVelocity.z) > 1 || _vc.accelInput > 0 || (_vc.brakeInput > 0 && _vc.extras.brakeIsReverse))
                 {
                     if (currentGear < gear.gears.Length - 1
-                        && (upperGear.minRPM + upshiftDifference * (curGearRatio < 0 ? Mathf.Min(1, clutch.shiftThreshold) : clutch.shiftThreshold) - actualFeedbackRPM <= 0 || (curGearRatio <= 0 && upperGear.ratio > 0 && (!vp.reversing || (vp.accelInput > 0 && vp.localVelocity.z > curGearRatio * 10))))
-                        && !(vp.brakeInput > 0 && vp.extras.brakeIsReverse && upperGear.ratio >= 0)
-                        && !(vp.localVelocity.z < 0 && vp.accelInput == 0))
+                        && (upperGear.minRPM + upshiftDifference * (curGearRatio < 0 ? Mathf.Min(1, clutch.shiftThreshold) : clutch.shiftThreshold) - actualFeedbackRPM <= 0 || (curGearRatio <= 0 && upperGear.ratio > 0 && (!_vc.reversing || (_vc.accelInput > 0 && _vc.localVelocity.z > curGearRatio * 10))))
+                        && !(_vc.brakeInput > 0 && _vc.extras.brakeIsReverse && upperGear.ratio >= 0)
+                        && !(_vc.localVelocity.z < 0 && _vc.accelInput == 0))
                     {
                         Shift(1);
                     }
                     else if (currentGear > 0
-                        && (actualFeedbackRPM - (lowerGear.maxRPM - downshiftDifference * clutch.shiftThreshold) <= 0 || (curGearRatio >= 0 && lowerGear.ratio < 0 && (vp.reversing || ((vp.accelInput < 0 || (vp.brakeInput > 0 && vp.extras.brakeIsReverse)) && vp.localVelocity.z < curGearRatio * 10))))
-                        && !(vp.accelInput > 0 && lowerGear.ratio <= 0)
-                        && (lowerGear.ratio > 0 || vp.localVelocity.z < 1))
+                        && (actualFeedbackRPM - (lowerGear.maxRPM - downshiftDifference * clutch.shiftThreshold) <= 0 || (curGearRatio >= 0 && lowerGear.ratio < 0 && (_vc.reversing || ((_vc.accelInput < 0 || (_vc.brakeInput > 0 && _vc.extras.brakeIsReverse)) && _vc.localVelocity.z < curGearRatio * 10))))
+                        && !(_vc.accelInput > 0 && lowerGear.ratio <= 0)
+                        && (lowerGear.ratio > 0 || _vc.localVelocity.z < 1))
                     {
                         Shift(-1);
                     }
@@ -187,7 +161,7 @@ public class NewTransmission : MonoBehaviour
             }
         }
 
-        SetOutputDrives(curGearRatio);
+        SetOutputDrives(_vc, curGearRatio);
     }
 
     // Shift gears by the number entered
@@ -213,18 +187,16 @@ public class NewTransmission : MonoBehaviour
     }
 
     // Caculate ideal RPM ranges for each gear (works most of the time)
-    public void CalculateRpmRanges()
+    public void CalculateRpmRanges(EngineHandler _engineHandler)
     {
         bool cantCalc = false;
-        EngineHandler engine = transform.GetTopmostParentComponent<VehicleController>().engineHandler;
 
-        if (engine != null)
+        if (_engineHandler != null)
         {
-            maxRPM = engine.performance.torqueCurve.keys[engine.performance.torqueCurve.length - 1].time;
+            maxRPM = _engineHandler.performance.torqueCurve.keys[_engineHandler.performance.torqueCurve.length - 1].time;
         }
         else
-        {
-            Debug.LogError("There is no <GasMotor> in the vehicle to get RPM info from.", this);
+        {            
             cantCalc = true;
         }
 

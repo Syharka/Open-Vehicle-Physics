@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f191dc6f2e42ee84bba426d5c898ff45, type: 3}
+  m_Script: {fileID: 11500000, guid: ce49a56623741ff438e88c89f86a9d54, type: 3}
   m_Name: Motor
   m_EditorClassIdentifier: 
   temp:
@@ -37,13 +37,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    minPitch: 0.5
-    maxPitch: 1.5
-    pitchIncreaseBetweenShift: 1
-    pitchDecreaseWithoutThrottle: 1
   boost:
     canBoost: 1
-    boostPower: 0.3809782
+    boostPower: 1
     boostPowerCurve:
       serializedVersion: 2
       m_Curve:
@@ -70,8 +66,6 @@ MonoBehaviour:
       m_RotationOrder: 4
     maxBoost: 1
     boostBurnRate: 0.01
-    boostStart: {fileID: 8300000, guid: 27c508aa14a6022439b9fa55e3d0b8bd, type: 3}
-    boostEnd: {fileID: 8300000, guid: c77128afd2d136e4481f5235bb62fac7, type: 3}
   performance:
     torqueCurve:
       serializedVersion: 2

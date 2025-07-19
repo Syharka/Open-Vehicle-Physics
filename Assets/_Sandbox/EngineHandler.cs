@@ -6,9 +6,9 @@ public class EngineHandler
     private Drivetrain targetDrive;
 
     #region Settings
-    public MotorTempValues temp { get; private set; }
-    public MotorBoostValues boost { get; private set; }
-    public MotorPerformanceValues performance { get; private set; }
+    public EngineTempValues temp { get; private set; }
+    public EngineBoostValues boost { get; private set; }
+    public EnginePerformanceValues performance { get; private set; }
     #endregion
 
     public bool ignition { get; private set; } = true;
@@ -23,7 +23,7 @@ public class EngineHandler
     private float actualAccel;
     public bool shifting { get; private set; }
 
-    public void Init(MotorSettings _motorSettings)
+    public void Init(EngineSettings _motorSettings)
     {
         temp = _motorSettings.temp;
         boost = _motorSettings.boost;
@@ -84,14 +84,14 @@ public class EngineHandler
             // Send RPM and torque through drivetrain
             float torqueFactor = Mathf.Pow(1f, performance.driveDividePower);
             float tempRPM = 0;
-            tempRPM += _vc.transmission.targetDrive.feedbackRPM;
-            _vc.transmission.targetDrive.SetDrive(targetDrive, torqueFactor);
+            tempRPM += _vc.transmissionHandler.targetDrive.feedbackRPM;
+            _vc.transmissionHandler.targetDrive.SetDrive(targetDrive, torqueFactor);
 
             targetDrive.feedbackRPM = tempRPM / 1;
 
-            if (_vc.transmission)
+            if (_vc.transmissionHandler != null)
             {
-                shifting = _vc.transmission.shiftTime > 0;
+                shifting = _vc.transmissionHandler.shiftTime > 0;
             }
             else
             {
@@ -105,7 +105,7 @@ public class EngineHandler
             targetDrive.torque = 0;
             targetDrive.feedbackRPM = 0;
             shifting = false;
-            _vc.transmission.targetDrive.SetDrive(targetDrive);
+            _vc.transmissionHandler.targetDrive.SetDrive(targetDrive);
         }
     }
 
@@ -114,9 +114,9 @@ public class EngineHandler
     {
         maxRPM = performance.torqueCurve.keys[performance.torqueCurve.length - 1].time;
 
-        _vc.transmission.targetDrive = new Drivetrain();
-        _vc.transmission.targetDrive.torqueCurve = targetDrive.torqueCurve;
-        _vc.transmission.ResetMaxRPM();
+        _vc.transmissionHandler.targetDrive = new Drivetrain();
+        _vc.transmissionHandler.targetDrive.torqueCurve = targetDrive.torqueCurve;
+        _vc.transmissionHandler.ResetMaxRPM();
     }
 }
 

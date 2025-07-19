@@ -1,10 +1,11 @@
+using NUnit.Framework;
 using RVP;
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using NUnit.Framework;
-using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.Android.AndroidGame;
 
 /* TO DO */
 /* 
@@ -34,8 +35,9 @@ public class VehicleController : MonoBehaviour
     public VehicleSettings vehicleSettings;
     public VehicleExtraValues extras => vehicleSettings.extras;
     public EngineHandler engineHandler { get; private set; } = new EngineHandler();
-    public MotorSettings engineSettings;
-    public NewTransmission transmission;
+    public EngineSettings engineSettings;
+    public TransmissionHandler transmissionHandler { get; private set; } = new TransmissionHandler();
+    public TransmissionSettings transmissionSettings;
     public AssistHandler assistsHandler { get; private set; } = new AssistHandler();
     public AssistSettings assistSettings;
     public SteeringHandler steeringHandler { get; private set; } = new SteeringHandler();
@@ -72,6 +74,7 @@ public class VehicleController : MonoBehaviour
 
         engineHandler.Init(engineSettings);
         engineHandler.GetMaxRPM(this);
+        transmissionHandler.Init(transmissionSettings);
         assistsHandler.Init(assistSettings);
         steeringHandler.Init(steeringSettings);
 
@@ -101,6 +104,20 @@ public class VehicleController : MonoBehaviour
         if (downshiftPressed)
         {
             stopDownShift = true;
+        }
+
+        // Check for manual shift button presses
+        if (!transmissionHandler.automatic)
+        {
+            if (upshiftPressed && transmissionHandler.currentGear < transmissionHandler.gear.gears.Length - 1)
+            {
+                transmissionHandler.Shift(1);
+            }
+
+            if (downshiftPressed && transmissionHandler.currentGear > 0)
+            {
+                transmissionHandler.Shift(-1);
+            }
         }
     }
 

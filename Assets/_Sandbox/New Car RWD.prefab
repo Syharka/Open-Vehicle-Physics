@@ -965,7 +965,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4930853820493019005}
-  - component: {fileID: 58682418803900612}
   m_Layer: 0
   m_Name: transmission
   m_TagString: Untagged
@@ -988,20 +987,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3548895780325718919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &58682418803900612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3047917763592755893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2452c5cc082452a4586195c32cebd9e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transmissionSettings: {fileID: 11400000, guid: 530a425553ec253488a0768c219585ed,
-    type: 2}
 --- !u!1 &3318031878013134469
 GameObject:
   m_ObjectHideFlags: 0
@@ -6718,7 +6703,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleSettings: {fileID: 11400000, guid: a31daeccf20534b42b46afa098a3d59e, type: 2}
   engineSettings: {fileID: 11400000, guid: c418920e6dbf13c429a56c687347d6f4, type: 2}
-  transmission: {fileID: 58682418803900612}
+  transmissionSettings: {fileID: 11400000, guid: 530a425553ec253488a0768c219585ed,
+    type: 2}
   assistSettings: {fileID: 11400000, guid: d536904b20967c040a5fbd971a5aed03, type: 2}
   steeringSettings: {fileID: 11400000, guid: 1399182756cd1fe4da09745d8f5eb63a, type: 2}
 --- !u!54 &5031735986637735294
