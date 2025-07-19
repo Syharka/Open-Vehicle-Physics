@@ -132,6 +132,7 @@ public class VehicleController : MonoBehaviour
         SetReversing();
 
         engineHandler.UpdateMotor(this);
+        transmissionHandler.UpdateTransmission(this);
         assistsHandler.UpdateAssists(this);
         steeringHandler.UpdateSteering(this);
     }
