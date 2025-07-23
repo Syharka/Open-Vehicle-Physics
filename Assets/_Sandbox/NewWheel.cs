@@ -344,7 +344,7 @@ public class NewWheel : MonoBehaviour
     {
         if (suspensionParent)
         {
-            float ackermannVal = Mathf.Sign(steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.steering.ackermannFactor : 1 - suspensionParent.steering.ackermannFactor;
+            float ackermannVal = Mathf.Sign(steerAngle) == suspensionParent.flippedSideFactor ? 1 + vp.steeringHandler.extra.ackermannFactor : 1 - vp.steeringHandler.extra.ackermannFactor;
             transform.localEulerAngles = new Vector3(
                 suspensionParent.camberAngle + suspensionParent.camber.casterAngle * steerAngle * suspensionParent.flippedSideFactor,
                 -suspensionParent.camber.toeAngle * suspensionParent.flippedSideFactor + steerDegrees * ackermannVal,

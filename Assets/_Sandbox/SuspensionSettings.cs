@@ -6,7 +6,6 @@ public class SuspensionSettings : ScriptableObject
 {
     public AxleExtraValues extra;
     public AxleBrakeValues brake;
-    public AxleSteeringValues steering;
     public AxleCamberValues camber;
     public AxleSpringValues spring;
 }
@@ -35,16 +34,6 @@ public class AxleBrakeValues
 {
     public float brakeForce;
     public float ebrakeForce;
-}
-
-[Serializable]
-public class AxleSteeringValues
-{
-    [Range(-180, 180)]
-    public float steerRange;
-
-    [Tooltip("Effect of Ackermann steering geometry")]
-    public float ackermannFactor;
 }
 
 [Serializable]

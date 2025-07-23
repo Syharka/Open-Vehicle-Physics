@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b22656fd574e06b4f9c67f07f9b82fbe, type: 3}
-  m_Name: Sus_Front
+  m_Name: Suspension
   m_EditorClassIdentifier: 
   extra:
     generateHardCollider: 0
@@ -20,10 +20,7 @@ MonoBehaviour:
     leaningForce: 0
   brake:
     brakeForce: 0.5
-    ebrakeForce: 0
-  steering:
-    steerRange: 40
-    ackermannFactor: 0.1
+    ebrakeForce: 1
   camber:
     camberCurve:
       serializedVersion: 2

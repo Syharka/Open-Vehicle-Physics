@@ -22,7 +22,6 @@ public class NewSuspension : MonoBehaviour
     public SuspensionSettings suspensionSettings;
     public AxleExtraValues extra { get; private set; }
     public AxleBrakeValues brake { get; private set; }
-    public AxleSteeringValues steering { get; private set; }
     public AxleCamberValues camber { get; private set; }
     public AxleSpringValues spring { get; private set; }
     #endregion
@@ -59,7 +58,6 @@ public class NewSuspension : MonoBehaviour
     {
         extra = _settings.extra;
         brake = _settings.brake;
-        steering = _settings.steering;
         camber = _settings.camber;
         spring = _settings.spring;
     }
