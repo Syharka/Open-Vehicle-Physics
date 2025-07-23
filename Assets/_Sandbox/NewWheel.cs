@@ -1,5 +1,7 @@
 using RVP;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class NewWheel : MonoBehaviour
 {
@@ -43,7 +45,7 @@ public class NewWheel : MonoBehaviour
     private float airTime;
     #endregion
 
-    #region Mis
+    #region Misc
     private SphereCollider sphereCol; // Hard collider
     private Transform sphereColTr; // Hard collider transform
 
@@ -59,6 +61,15 @@ public class NewWheel : MonoBehaviour
     float currentRPM;
     public Drivetrain targetDrive { get; private set; }
     public float rawRPM { get; private set; }
+
+    [Range(-1, 1)]
+    public float steerFactor;
+    public bool driveEnabled = true;
+    public bool ebrakeEnabled = true;
+    public bool skidSteerBrake = false;
+    public float steerDegrees => Mathf.Abs(steerAngle) * (steerAngle > 0 ? vp.steeringHandler.control.steerRange : -vp.steeringHandler.control.steerRange);
+    [NonSerialized]
+    public float steerAngle;
 
     private void Awake()
     {
@@ -78,9 +89,11 @@ public class NewWheel : MonoBehaviour
         travelDist = suspensionParent.spring.targetCompression;
 
         targetDrive = new Drivetrain();
+        targetDrive.active = driveEnabled;
         currentRPM = 0;
 
         CreateWheelCollider();
+        vp.RegisterWheel(this);
     }
 
     void FixedUpdate()
@@ -88,9 +101,9 @@ public class NewWheel : MonoBehaviour
         localVel = rb.GetPointVelocity(forceApplicationPoint);
 
         // Get proper inputs
-        actualEbrake = suspensionParent.ebrakeEnabled ? suspensionParent.brake.ebrakeForce : 0;
+        actualEbrake = ebrakeEnabled ? suspensionParent.brake.ebrakeForce : 0;
         actualTargetRPM = targetDrive.rpm;
-        actualTorque = suspensionParent.driveEnabled ? Mathf.Lerp(targetDrive.torque, Mathf.Abs(vp.accelInput), vp.burnout) : 0;
+        actualTorque = driveEnabled ? Mathf.Lerp(targetDrive.torque, Mathf.Abs(vp.accelInput), vp.burnout) : 0;
 
         if (getContact)
         {
@@ -119,7 +132,7 @@ public class NewWheel : MonoBehaviour
         // Handle Burnout
         if (vp.burnout > 0 && targetDrive.rpm != 0 && actualEbrake * vp.ebrakeInput == 0 && grounded)
         {
-            rb.AddForceAtPosition(suspensionParent.forwardDir * -suspensionParent.flippedSideFactor * (vp.steerInput * vp.extras.burnoutSpin * currentRPM * Mathf.Min(0.1f, targetDrive.torque) * 0.001f) * vp.burnout * 1 * contactPoint.surfaceFriction, suspensionParent.transform.position, vp.extras.wheelForceMode);
+            rb.AddForceAtPosition(suspensionParent.transform.forward * -suspensionParent.flippedSideFactor * (vp.steerInput * vp.extras.burnoutSpin * currentRPM * Mathf.Min(0.1f, targetDrive.torque) * 0.001f) * vp.burnout * 1 * contactPoint.surfaceFriction, suspensionParent.transform.position, vp.extras.wheelForceMode);
         }
     }
 
@@ -263,7 +276,7 @@ public class NewWheel : MonoBehaviour
     void ApplyDrive()
     {
         float brakeForce = 0;
-        float brakeCheckValue = suspensionParent.skidSteerBrake ? vp.localAngularVel.y : vp.localVelocity.z;
+        float brakeCheckValue = skidSteerBrake ? vp.localAngularVel.y : vp.localVelocity.z;
 
         // Set brake force
         if (vp.extras.brakeIsReverse)
@@ -318,9 +331,9 @@ public class NewWheel : MonoBehaviour
         if (suspensionParent)
         {
             rim.position = suspensionParent.maxCompressPoint + suspensionParent.springDirection * suspensionParent.spring.suspensionDistance * (Application.isPlaying ? travelDist : suspensionParent.spring.targetCompression) +
-                suspensionParent.upDir * Mathf.Pow(Mathf.Max(Mathf.Abs(Mathf.Sin(suspensionParent.camber.sideAngle * Mathf.Deg2Rad)), Mathf.Abs(Mathf.Sin(suspensionParent.camber.casterAngle * Mathf.Deg2Rad))), 2) * tireSize.tireRadius +
+                suspensionParent.transform.up * Mathf.Pow(Mathf.Max(Mathf.Abs(Mathf.Sin(suspensionParent.camber.sideAngle * Mathf.Deg2Rad)), Mathf.Abs(Mathf.Sin(suspensionParent.camber.casterAngle * Mathf.Deg2Rad))), 2) * tireSize.tireRadius +
                 suspensionParent.camber.pivotOffset * suspensionParent.transform.TransformDirection(Mathf.Sin(transform.localEulerAngles.y * Mathf.Deg2Rad), 0, Mathf.Cos(transform.localEulerAngles.y * Mathf.Deg2Rad))
-                - suspensionParent.camber.pivotOffset * (Application.isPlaying ? suspensionParent.forwardDir : suspensionParent.transform.forward);
+                - suspensionParent.camber.pivotOffset * (Application.isPlaying ? suspensionParent.transform.forward : suspensionParent.transform.forward);
         }
 
             sphereColTr.position = rim.position;
@@ -331,10 +344,10 @@ public class NewWheel : MonoBehaviour
     {
         if (suspensionParent)
         {
-            float ackermannVal = Mathf.Sign(suspensionParent.steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.steering.ackermannFactor : 1 - suspensionParent.steering.ackermannFactor;
+            float ackermannVal = Mathf.Sign(steerAngle) == suspensionParent.flippedSideFactor ? 1 + suspensionParent.steering.ackermannFactor : 1 - suspensionParent.steering.ackermannFactor;
             transform.localEulerAngles = new Vector3(
-                suspensionParent.camberAngle + suspensionParent.camber.casterAngle * suspensionParent.steerAngle * suspensionParent.flippedSideFactor,
-                -suspensionParent.camber.toeAngle * suspensionParent.flippedSideFactor + suspensionParent.steerDegrees * ackermannVal,
+                suspensionParent.camberAngle + suspensionParent.camber.casterAngle * steerAngle * suspensionParent.flippedSideFactor,
+                -suspensionParent.camber.toeAngle * suspensionParent.flippedSideFactor + steerDegrees * ackermannVal,
                 0);
         }
 

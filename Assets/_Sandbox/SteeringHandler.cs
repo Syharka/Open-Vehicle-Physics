@@ -27,7 +27,7 @@ public class SteeringHandler
         steerAmount = _vc.steerInput * steerLimit;
 
         // Set steer angles in wheels
-        foreach (NewSuspension curSus in _vc.suspensions)
+        foreach (NewWheel curSus in _vc.wheels)
         {
             curSus.steerAngle = Mathf.Lerp(curSus.steerAngle, steerAmount * curSus.steerFactor * curSus.steerFactor, control.steerRate * TimeMaster.inverseFixedTimeFactor * Time.timeScale);
         }

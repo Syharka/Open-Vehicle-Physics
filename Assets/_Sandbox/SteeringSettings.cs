@@ -14,11 +14,15 @@ public class SteeringExtraValues
 {
     public bool limitSteer = true;
     public bool applyInReverse = true; // Limit steering in reverse?
+    [Tooltip("Effect of Ackermann steering geometry")]
+    public float ackermannFactor;
 }
 
 [Serializable]
 public class SteeringControlValues
 {
+    [Range(-180, 180)]
+    public float steerRange;
     public float steerRate = 0.1f;
     [Tooltip("Curve for limiting steer range based on speed, x-axis = speed, y-axis = multiplier")]
     public AnimationCurve steerCurve = AnimationCurve.Linear(0, 1, 30, 0.1f);

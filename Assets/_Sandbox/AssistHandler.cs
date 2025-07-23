@@ -41,7 +41,7 @@ public class AssistHandler
 
         if (_vc.groundedWheels > 0)
         {
-            groundedFactor = drift.basedOnWheelsGrounded ? _vc.groundedWheels / _vc.suspensions.Count : 1;
+            groundedFactor = drift.basedOnWheelsGrounded ? _vc.groundedWheels / _vc.wheels.Count : 1;
 
             angDragTime = 20;
             _vc.rb.angularDamping = initialAngularDrag;

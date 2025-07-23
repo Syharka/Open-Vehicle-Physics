@@ -41,9 +41,7 @@ public class AxleBrakeValues
 public class AxleSteeringValues
 {
     [Range(-180, 180)]
-    public float steerRangeMin;
-    [Range(-180, 180)]
-    public float steerRangeMax;
+    public float steerRange;
 
     [Tooltip("Effect of Ackermann steering geometry")]
     public float ackermannFactor;

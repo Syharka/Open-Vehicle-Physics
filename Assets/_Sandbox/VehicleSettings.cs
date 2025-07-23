@@ -5,11 +5,6 @@ using System;
 public class VehicleSettings : ScriptableObject
 {
     [Header ("Setup")]
-    public EngineSettings motor;
-    public TransmissionSettings transmission;
-    public AssistSettings assists;
-
-    [Space]
     public VehicleExtraValues extras;
 }
 

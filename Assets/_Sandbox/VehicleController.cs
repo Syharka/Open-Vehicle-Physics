@@ -1,17 +1,10 @@
-using NUnit.Framework;
-using RVP;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using static UnityEngine.Android.AndroidGame;
 
 /* TO DO */
 /* 
  * Refactor to connect vehicle functions as manager
  * Design custom inspectors to obfuscate component info
- * Set scriptable data from here per object
  * Refactor functions with Delegates to subscribe child components as actions
  * Split visual and audio into seperate handlers
  * Test input system as replacement to current inputs
@@ -42,7 +35,7 @@ public class VehicleController : MonoBehaviour
     public AssistSettings assistSettings;
     public SteeringHandler steeringHandler { get; private set; } = new SteeringHandler();
     public SteeringSettings steeringSettings;
-    public List<NewSuspension> suspensions { get; private set; } = new List<NewSuspension>();
+    public List<NewWheel> wheels { get; private set; } = new List<NewWheel>();
     #endregion
 
     public float accelInput { get; private set; }
@@ -234,10 +227,10 @@ public class VehicleController : MonoBehaviour
         // Get average suspension height
         if (extras.suspensionCenterOfMass)
         {
-            for (int i = 0; i < suspensions.Count; i++)
+            for (int i = 0; i < wheels.Count; i++)
             {
                 //float newSusDist = wheels[i].transform.parent.GetComponent<NewSuspension>().spring.suspensionDistance;
-                float suspensionDistance = suspensions[i].spring.suspensionDistance;
+                float suspensionDistance = wheels[i].suspensionParent.spring.suspensionDistance;
                 susAverage = i == 0 ? suspensionDistance : (susAverage + suspensionDistance) * 0.5f;
             }
         }
@@ -280,9 +273,9 @@ public class VehicleController : MonoBehaviour
         groundedWheels = 0;
         wheelsAverageVelocity = Vector3.zero;
 
-        for (int i = 0; i < suspensions.Count; i++)
+        for (int i = 0; i < wheels.Count; i++)
         {
-            NewWheel wheel = suspensions[i].wheel;
+            NewWheel wheel = wheels[i];
             if (!wheel.grounded) break;
 
             wheelsAverageVelocity = i == 0 ? wheel.contactVelocity : (wheelsAverageVelocity + wheel.contactVelocity) * 0.5f;
@@ -299,19 +292,19 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    public void RegisterSuspension(NewSuspension _suspension)
+    public void RegisterWheel(NewWheel _wheel)
     {
-        if (suspensions.Contains(_suspension))
+        if (wheels.Contains(_wheel))
             { return; }
 
-        suspensions.Add(_suspension);
+        wheels.Add(_wheel);
     }
 
-    public void RemoveSuspension(NewSuspension _suspension)
+    public void RemoveWheel(NewWheel _wheel)
     {
-        if (!suspensions.Contains(_suspension))
-        { return; }
+        if (!wheels.Contains(_wheel))
+            { return; }
 
-        suspensions.Remove(_suspension);
+        wheels.Remove(_wheel);
     }
 }

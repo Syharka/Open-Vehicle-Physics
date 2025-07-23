@@ -51,7 +51,7 @@ public class TransmissionHandler
         int enabledDrives = 0;
 
         // Check for which outputs are enabled
-        foreach (NewSuspension curOutput in _vc.suspensions)
+        foreach (NewWheel curOutput in _vc.wheels)
         {
             if (curOutput.targetDrive.active)
             {
@@ -62,7 +62,7 @@ public class TransmissionHandler
         float torqueFactor = Mathf.Pow(1f / enabledDrives, extra.driveDividePower);
         float tempRPM = 0;
 
-        foreach (NewSuspension curOutput in _vc.suspensions)
+        foreach (NewWheel curOutput in _vc.wheels)
         {
             if (curOutput.targetDrive.active)
             {
