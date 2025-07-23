@@ -15,7 +15,9 @@ MonoBehaviour:
   extra:
     limitSteer: 1
     applyInReverse: 1
+    ackermannFactor: 0
   control:
+    steerRange: 40
     steerRate: 0.1
     steerCurve:
       serializedVersion: 2
