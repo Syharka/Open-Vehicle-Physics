@@ -19,8 +19,8 @@ public class NewWheel : MonoBehaviour
     public WheelExtraValues extra { get; private set; }
     public WheelFrictionValues friction { get; private set; }
     public WheelRotationValues rotation { get; private set; }
+    public WheelBrakeValues brake { get; private set; }
     public WheelSizeValues tireSize { get; private set; }
-    public WheelAudioValues tireAudio { get; private set; }
     #endregion
 
     #region Friction Values
@@ -87,8 +87,8 @@ public class NewWheel : MonoBehaviour
         extra = _settings.extra;
         friction = _settings.friction;
         rotation = _settings.rotation;
+        brake = _settings.brake;
         tireSize = _settings.size;
-        tireAudio = _settings.audio;
 
         wheelSettings = _settings;
     }
@@ -129,7 +129,7 @@ public class NewWheel : MonoBehaviour
         localVel = rb.GetPointVelocity(forceApplicationPoint);
 
         // Get proper inputs
-        actualEbrake = ebrakeEnabled ? suspensionParent.brake.ebrakeForce : 0;
+        actualEbrake = ebrakeEnabled ? brake.ebrakeForce : 0;
         actualTargetRPM = targetDrive.rpm;
         actualTorque = driveEnabled ? Mathf.Lerp(targetDrive.torque, Mathf.Abs(vp.accelInput), vp.burnout) : 0;
 
@@ -171,12 +171,6 @@ public class NewWheel : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(suspensionParent.maxCompressPoint, suspensionParent.springDirection, out hit, castDist, GlobalControl.wheelCastMaskStatic))
         {
-            if (!grounded && tireAudio.impactSnd && (tireAudio.tireHitClips.Length > 0))
-            {
-                tireAudio.impactSnd.PlayOneShot(tireAudio.tireHitClips[Mathf.RoundToInt(Random.Range(0, tireAudio.tireHitClips.Length - 1))], Mathf.Clamp01(airTime * airTime));
-                tireAudio.impactSnd.pitch = Mathf.Clamp(airTime * 0.2f + 0.8f, 0.8f, 1);
-            }
-
             grounded = true;
             contactPoint.distance = hit.distance - tireSize.tireRadius;
             contactPoint.point = hit.point + localVel * Time.fixedDeltaTime;
@@ -238,7 +232,7 @@ public class NewWheel : MonoBehaviour
         }
         else
         {
-            rawRPM = Mathf.Lerp(rawRPM, actualTargetRPM, (actualTorque + suspensionParent.brake.brakeForce * vp.brakeInput + actualEbrake * vp.ebrakeInput) * Time.timeScale);
+            rawRPM = Mathf.Lerp(rawRPM, actualTargetRPM, (actualTorque + brake.brakeForce * vp.brakeInput + actualEbrake * vp.ebrakeInput) * Time.timeScale);
         }
     }
 
@@ -295,16 +289,16 @@ public class NewWheel : MonoBehaviour
         {
             if (brakeCheckValue > 0)
             {
-                brakeForce = suspensionParent.brake.brakeForce * vp.brakeInput;
+                brakeForce = brake.brakeForce * vp.brakeInput;
             }
             else if (brakeCheckValue <= 0)
             {
-                brakeForce = suspensionParent.brake.brakeForce * Mathf.Clamp01(vp.accelInput);
+                brakeForce = brake.brakeForce * Mathf.Clamp01(vp.accelInput);
             }
         }
         else
         {
-            brakeForce = suspensionParent.brake.brakeForce * vp.brakeInput;
+            brakeForce = brake.brakeForce * vp.brakeInput;
         }
 
         brakeForce += rotation.axleFriction * 0.1f * (Mathf.Approximately(actualTorque, 0) ? 1 : 0);

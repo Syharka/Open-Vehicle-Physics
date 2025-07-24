@@ -5,7 +5,6 @@ using System;
 public class SuspensionSettings : ScriptableObject
 {
     public AxleExtraValues extra;
-    public AxleBrakeValues brake;
     public AxleCamberValues camber;
     public AxleSpringValues spring;
 }
@@ -27,13 +26,6 @@ public class AxleExtraValues
 
     [Tooltip("Apply suspension forces along local up direction instead of ground normal")]
     public bool leaningForce;
-}
-
-[Serializable]
-public class AxleBrakeValues
-{
-    public float brakeForce;
-    public float ebrakeForce;
 }
 
 [Serializable]

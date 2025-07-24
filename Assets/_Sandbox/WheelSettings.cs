@@ -7,8 +7,8 @@ public class WheelSettings : ScriptableObject
     public WheelExtraValues extra;
     public WheelFrictionValues friction;
     public WheelRotationValues rotation;
+    public WheelBrakeValues brake;
     public WheelSizeValues size;
-    public WheelAudioValues audio;
 }
 
 [Serializable]
@@ -68,15 +68,15 @@ public class WheelRotationValues
 }
 
 [Serializable]
+public class WheelBrakeValues
+{
+    public float brakeForce;
+    public float ebrakeForce;
+}
+
+[Serializable]
 public class WheelSizeValues
 {
     public float tireRadius;
     public float tireWidth;
-}
-
-[Serializable]
-public class WheelAudioValues
-{
-    public AudioSource impactSnd;
-    public AudioClip[] tireHitClips;
 }

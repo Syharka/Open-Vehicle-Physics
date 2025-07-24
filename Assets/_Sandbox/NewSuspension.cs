@@ -7,7 +7,6 @@ using UnityEngine;
 /* TO DO */
 /* 
  * Refactor ApplySuspensionForce
- * Move Gizmos to DebugHandler
 */
 
 public class NewSuspension : MonoBehaviour
@@ -15,13 +14,12 @@ public class NewSuspension : MonoBehaviour
     #region Core Components
     public Rigidbody rb { get; private set; }
     public VehicleController vp { get; private set; }
-    public NewSuspension oppositeWheel;
+    public NewSuspension oppositeAxle;
     #endregion
 
     #region Settings
     public SuspensionSettings suspensionSettings;
     public AxleExtraValues extra { get; private set; }
-    public AxleBrakeValues brake { get; private set; }
     public AxleCamberValues camber { get; private set; }
     public AxleSpringValues spring { get; private set; }
     #endregion
@@ -50,14 +48,12 @@ public class NewSuspension : MonoBehaviour
         SetSettingsProfile(suspensionSettings);
         GetCoreComponents();
         GetPositionFactor();
-        GetCamber();
         GenerateCollider();
     }
 
     public void SetSettingsProfile(SuspensionSettings _settings)
     {
         extra = _settings.extra;
-        brake = _settings.brake;
         camber = _settings.camber;
         spring = _settings.spring;
 
@@ -158,13 +154,10 @@ public class NewSuspension : MonoBehaviour
 
     private void GetCamber()
     {
-        if (camber.solidAxleCamber && oppositeWheel)
+        if (camber.solidAxleCamber && oppositeAxle)
         {
-            if (oppositeWheel.wheel.rim && wheel.rim)
-            {
-                Vector3 axleDir = transform.InverseTransformDirection((oppositeWheel.wheel.rim.position - wheel.rim.position).normalized);
+                Vector3 axleDir = transform.InverseTransformDirection((oppositeAxle.wheel.rim.position - wheel.rim.position).normalized);
                 camberAngle = Mathf.Atan2(axleDir.z, axleDir.y) * Mathf.Rad2Deg + 90 + camber.camberOffset;
-            }
         }
         else
         {
