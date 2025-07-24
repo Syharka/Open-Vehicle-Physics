@@ -732,6 +732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9081995471202747616}
   - component: {fileID: 7596426462887484613}
+  - component: {fileID: 3930624866207878809}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -772,6 +773,18 @@ MonoBehaviour:
   driveEnabled: 0
   ebrakeEnabled: 0
   skidSteerBrake: 0
+--- !u!114 &3930624866207878809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2223084429816982787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a2336b19873d342a39c92dcb942d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2606421711671527541
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4526404667186020482}
   - component: {fileID: 6456462955189796019}
+  - component: {fileID: 7592214305976046375}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -986,6 +1000,18 @@ MonoBehaviour:
   driveEnabled: 1
   ebrakeEnabled: 1
   skidSteerBrake: 0
+--- !u!114 &7592214305976046375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3633929451622847123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a2336b19873d342a39c92dcb942d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3822377277433174206
 GameObject:
   m_ObjectHideFlags: 0
@@ -6138,6 +6164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6304565296608668557}
   - component: {fileID: 2293858944175353494}
+  - component: {fileID: 6114017041917867145}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -6178,6 +6205,18 @@ MonoBehaviour:
   driveEnabled: 0
   ebrakeEnabled: 0
   skidSteerBrake: 0
+--- !u!114 &6114017041917867145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551715672900846569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a2336b19873d342a39c92dcb942d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4904016697233742472
 GameObject:
   m_ObjectHideFlags: 0
@@ -12810,6 +12849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3258205200328920481}
   - component: {fileID: 1332262138342175505}
+  - component: {fileID: 3970521696160181495}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -12850,6 +12890,18 @@ MonoBehaviour:
   driveEnabled: 1
   ebrakeEnabled: 1
   skidSteerBrake: 0
+--- !u!114 &3970521696160181495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967391534226258567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a2336b19873d342a39c92dcb942d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8240016789815400626
 GameObject:
   m_ObjectHideFlags: 0

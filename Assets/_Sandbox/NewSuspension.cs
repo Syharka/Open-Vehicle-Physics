@@ -60,6 +60,8 @@ public class NewSuspension : MonoBehaviour
         brake = _settings.brake;
         camber = _settings.camber;
         spring = _settings.spring;
+
+        suspensionSettings = _settings;
     }
 
     private void GetCoreComponents()
@@ -169,52 +171,4 @@ public class NewSuspension : MonoBehaviour
             camberAngle = camber.camberCurve.Evaluate(wheel.travelDist) + camber.camberOffset;
         }
     }
-
-    //void OnDrawGizmosSelected()
-    //{
-    //    if (wheel)
-    //    {
-    //        if (wheel.rim)
-    //        {
-    //            AxleSteeringValues activeSteerSettings = Application.isPlaying ? steering : suspensionSettings.steering;
-
-    //            Vector3 wheelPoint = wheel.rim.position;
-
-    //            float camberSin = -Mathf.Sin(camberAngle * Mathf.Deg2Rad);
-    //            float steerSin = Mathf.Sin(Mathf.Lerp(-activeSteerSettings.steerRange, activeSteerSettings.steerRange, (steerAngle + 1) * 0.5f) * Mathf.Deg2Rad);
-    //            float minSteerSin = Mathf.Sin(-activeSteerSettings.steerRange * Mathf.Deg2Rad);
-    //            float maxSteerSin = Mathf.Sin(activeSteerSettings.steerRange * Mathf.Deg2Rad);
-
-    //            Gizmos.color = Color.magenta;
-
-    //            Gizmos.DrawWireSphere(wheelPoint, 0.05f);
-
-    //            Gizmos.DrawLine(wheelPoint, wheelPoint + transform.TransformDirection(minSteerSin,
-    //                camberSin * (1 - Mathf.Abs(minSteerSin)),
-    //                Mathf.Cos(-activeSteerSettings.steerRange * Mathf.Deg2Rad) * (1 - Mathf.Abs(camberSin))
-    //                ).normalized);
-
-    //            Gizmos.DrawLine(wheelPoint, wheelPoint + transform.TransformDirection(maxSteerSin,
-    //                camberSin * (1 - Mathf.Abs(maxSteerSin)),
-    //                Mathf.Cos(activeSteerSettings.steerRange * Mathf.Deg2Rad) * (1 - Mathf.Abs(camberSin))
-    //                ).normalized);
-
-    //            Gizmos.DrawLine(wheelPoint + transform.TransformDirection(minSteerSin,
-    //                camberSin * (1 - Mathf.Abs(minSteerSin)),
-    //                Mathf.Cos(-activeSteerSettings.steerRange * Mathf.Deg2Rad) * (1 - Mathf.Abs(camberSin))
-    //                ).normalized * 0.9f,
-    //            wheelPoint + transform.TransformDirection(maxSteerSin,
-    //                camberSin * (1 - Mathf.Abs(maxSteerSin)),
-    //                Mathf.Cos(activeSteerSettings.steerRange * Mathf.Deg2Rad) * (1 - Mathf.Abs(camberSin))
-    //                ).normalized * 0.9f);
-
-    //            Gizmos.DrawLine(wheelPoint, wheelPoint + transform.TransformDirection(steerSin,
-    //                camberSin * (1 - Mathf.Abs(steerSin)),
-    //                Mathf.Cos(-activeSteerSettings.steerRange * Mathf.Deg2Rad) * (1 - Mathf.Abs(camberSin))
-    //                ).normalized);
-    //        }
-    //    }
-
-    //    Gizmos.color = Color.red;
-    //}
 }
