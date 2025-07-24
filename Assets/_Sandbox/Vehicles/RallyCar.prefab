@@ -6537,7 +6537,7 @@ GameObject:
   - component: {fileID: 683567073069992721}
   - component: {fileID: 9027277398838608468}
   m_Layer: 9
-  m_Name: New Car RWD
+  m_Name: RallyCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

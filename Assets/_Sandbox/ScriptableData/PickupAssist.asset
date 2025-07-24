@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31cbde70ac80ee44ca325d8b3f422212, type: 3}
-  m_Name: Assist
+  m_Name: PickupAssist
   m_EditorClassIdentifier: 
   drift:
     basedOnWheelsGrounded: 1
@@ -25,20 +25,20 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0.0011961722
-        inSlope: 0.114820495
-        outSlope: 0.114820495
+        inSlope: 0.094736844
+        outSlope: 0.094736844
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.11233018
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3.3867548
-        value: 0.6789952
-        inSlope: 0.1438106
-        outSlope: 0.1438106
+        time: 2.9338434
+        value: 0.63532454
+        inSlope: 0.11338814
+        outSlope: 0.11338814
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.087985925
+        inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 10

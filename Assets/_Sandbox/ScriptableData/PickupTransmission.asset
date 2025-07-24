@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8acaba2731c1b4e8b35a33c487fe6e, type: 3}
+  m_Name: PickupTransmission
+  m_EditorClassIdentifier: 
+  extra:
+    autoCalculateRpmRanges: 1
+    skidSteerDrive: 0
+    driveDividePower: 2
+  gear:
+    skipNeutral: 1
+    startGear: 2
+    gears:
+    - ratio: -3.5
+      minRPM: -1101.7301
+      maxRPM: 0
+    - ratio: 0
+      minRPM: 0
+      maxRPM: 0
+    - ratio: 3
+      minRPM: 0
+      maxRPM: 1285.3518
+    - ratio: 2
+      minRPM: 964.0138
+      maxRPM: 1928.0276
+    - ratio: 1.5
+      minRPM: 1606.6897
+      maxRPM: 2570.7036
+    - ratio: 1
+      minRPM: 1928.0276
+      maxRPM: 3856.0552
+    - ratio: 0.8
+      minRPM: 3374.048
+      maxRPM: 4820.069
+  clutch:
+    shiftDelay: 30
+    shiftThreshold: 1

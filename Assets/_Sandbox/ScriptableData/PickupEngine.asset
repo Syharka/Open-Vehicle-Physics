@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce49a56623741ff438e88c89f86a9d54, type: 3}
-  m_Name: Motor
+  m_Name: PickupEngine
   m_EditorClassIdentifier: 
   temp:
     inputCurve:
@@ -80,19 +80,19 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.180513
-        value: 0.99924433
-        inSlope: 0
-        outSlope: 0
+        time: 1.6353285
+        value: 0.9766364
+        inSlope: -0.014466913
+        outSlope: -0.014466913
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 8.0434
+        time: 7.011009
         value: 0.004496321
-        inSlope: -0.3291178
-        outSlope: -0.3291178
+        inSlope: -0.52951765
+        outSlope: -0.52951765
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -100,6 +100,6 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    inertia: 0.8
+    inertia: 0.87
     canReverse: 0
     driveDividePower: 3
