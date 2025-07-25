@@ -28,8 +28,6 @@ public class WheelFrictionValues
     public float frictionSmoothness = 0.5f;
     public float forwardFriction = 1;
     public float sidewaysFriction = 1;
-    public float forwardRimFriction = 0.5f;
-    public float sidewaysRimFriction = 0.5f;
     public float forwardCurveStretch = 1;
     public float sidewaysCurveStretch = 1;
 

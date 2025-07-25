@@ -1,5 +1,6 @@
 using RVP;
 using System;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,6 +13,7 @@ public class NewWheel : MonoBehaviour
     public VehicleController vp { get; private set; }
     public NewSuspension suspensionParent { get; private set; }
     public Transform rim { get; private set; }
+    public Transform attachments { get; private set; }
     #endregion
 
     #region Settings
@@ -98,6 +100,7 @@ public class NewWheel : MonoBehaviour
         rb = transform.GetTopmostParentComponent<Rigidbody>();
         vp = transform.GetTopmostParentComponent<VehicleController>();
         rim = transform.GetChild(0);
+        attachments = transform.GetChild(1);
         suspensionParent = transform.parent.GetComponent<NewSuspension>();
         travelDist = suspensionParent.spring.targetCompression;
     }
@@ -342,7 +345,8 @@ public class NewWheel : MonoBehaviour
                 - suspensionParent.camber.pivotOffset * (Application.isPlaying ? suspensionParent.transform.forward : suspensionParent.transform.forward);
         }
 
-            sphereColTr.position = rim.position;
+        attachments.position = rim.position;
+        sphereColTr.position = rim.position;
     }
 
     // Visual wheel rotation
@@ -363,6 +367,10 @@ public class NewWheel : MonoBehaviour
         {
             rim.localEulerAngles = new Vector3(0, 0, rim.localEulerAngles.z);
         }
+
+        Vector3 rimRot = rim.localEulerAngles;
+        rimRot.z = 0;
+        attachments.localEulerAngles = rimRot;
     }
 }
 

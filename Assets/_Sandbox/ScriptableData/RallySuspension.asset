@@ -18,35 +18,41 @@ MonoBehaviour:
     applyHardContactForce: 1
     applyForceAtGroundContact: 1
     leaningForce: 0
-  brake:
-    brakeForce: 0.5
-    ebrakeForce: 1
   camber:
     camberCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: -7.5
+        inSlope: 45.307686
+        outSlope: 45.307686
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.19987896
+      - serializedVersion: 3
+        time: 0.5
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.12681162
       - serializedVersion: 3
         time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
+        value: 7.5
+        inSlope: 44.105423
+        outSlope: 44.105423
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.20193052
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    camberOffset: 0
+    camberOffset: 2.5
     solidAxleCamber: 0
     sideAngle: 0
     casterAngle: 0

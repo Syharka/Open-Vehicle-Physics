@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drift:
     basedOnWheelsGrounded: 1
-    driftSpinAssist: 2
-    driftSpinSpeed: 3
-    driftSpinExponent: 2
+    driftSpinAssist: 1.5
+    driftSpinSpeed: 2
+    driftSpinExponent: 1
     autoSteerDrift: 0
     maxDriftAngle: 70
     driftSpinCurve:
@@ -25,12 +25,12 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0.0011961722
-        inSlope: 0.114820495
-        outSlope: 0.114820495
+        inSlope: 0.0031313994
+        outSlope: 0.0031313994
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.11233018
+        outWeight: 0.14709905
       - serializedVersion: 3
         time: 3.3867548
         value: 0.6789952
@@ -52,7 +52,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    driftPush: 2
+    driftPush: 1.5
     straightenAssist: 1
   downforce:
     downforceAmount: 2

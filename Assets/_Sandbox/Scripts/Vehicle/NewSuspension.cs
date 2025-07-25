@@ -29,8 +29,6 @@ public class NewSuspension : MonoBehaviour
     public Quaternion initialRotation { get; private set; }
 
     public NewWheel wheel { get; private set; }
-
-    public List<SuspensionPart> movingParts { get; private set; } = new List<SuspensionPart>();
     public float camberAngle { get; private set; }
     public float compression => Mathf.Min(spring.targetCompression, spring.suspensionDistance > 0 ? 
                                 Mathf.Clamp01(wheel.contactPoint.distance / spring.suspensionDistance) : 0);
