@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drift:
     basedOnWheelsGrounded: 1
-    driftSpinAssist: 1.5
-    driftSpinSpeed: 2
+    driftSpinAssist: 3
+    driftSpinSpeed: 1
     driftSpinExponent: 1
     autoSteerDrift: 0
     maxDriftAngle: 70
