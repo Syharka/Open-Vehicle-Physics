@@ -61,19 +61,28 @@ MonoBehaviour:
   spring:
     suspensionDistance: 0.2
     targetCompression: 1
-    springForce: 5
+    springForce: 7
     springForceCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 2
-        outSlope: 2
+        inSlope: 5.756481
+        outSlope: 5.756481
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.0498134
+      - serializedVersion: 3
+        time: 0.32886678
+        value: 0.9161489
+        inSlope: 0.44186166
+        outSlope: 0.44186166
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.15842207
       - serializedVersion: 3
         time: 1
         value: 1
@@ -86,8 +95,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    springExponent: 10
+    springExponent: 15
     springDampening: 0.5
-    extendSpeed: 20
+    extendSpeed: 40
     hardContactForce: 50
     hardContactSensitivity: 2

@@ -39,7 +39,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   boost:
     canBoost: 1
-    boostPower: 1
+    boostPower: 0.6025393
     boostPowerCurve:
       serializedVersion: 2
       m_Curve:
@@ -72,7 +72,7 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.869695
+        value: 0.6502403
         inSlope: 0.061536875
         outSlope: 0.061536875
         tangentMode: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 4.180513
-        value: 0.99924433
+        time: 4.991721
+        value: 0.7797896
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 8.0434
+        time: 8.026218
         value: 0.004496321
         inSlope: -0.3291178
         outSlope: -0.3291178
@@ -100,6 +100,6 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    inertia: 0.8
+    inertia: 0.7
     canReverse: 0
     driveDividePower: 3

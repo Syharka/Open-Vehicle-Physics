@@ -15,31 +15,31 @@ MonoBehaviour:
   drift:
     basedOnWheelsGrounded: 1
     driftSpinAssist: 2
-    driftSpinSpeed: 3
+    driftSpinSpeed: 2
     driftSpinExponent: 2
-    autoSteerDrift: 0
+    autoSteerDrift: 1
     maxDriftAngle: 70
     driftSpinCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0011961722
-        inSlope: 0.094736844
-        outSlope: 0.094736844
+        value: 0.307826
+        inSlope: 0.13128816
+        outSlope: 0.13128816
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.2795726
       - serializedVersion: 3
-        time: 2.9338434
-        value: 0.63532454
-        inSlope: 0.11338814
-        outSlope: 0.11338814
+        time: 3.3867548
+        value: 0.6789952
+        inSlope: 0.08730717
+        outSlope: 0.08730717
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0.087985925
+        outWeight: 0.10830317
       - serializedVersion: 3
         time: 10
         value: 1.0011961
@@ -92,3 +92,12 @@ MonoBehaviour:
     angularDragOnJump: 1
     fallSpeedLimit: Infinity
     applyFallLimitUpwards: 0
+  aircontrol:
+    disableDuringCrash: 0
+    flipPower: {x: 1, y: 3, z: 1}
+    freeSpinFlip: 0
+    stopFlip: 1
+    rotationCorrection: {x: 5, y: 0, z: 5}
+    groundCheckDistance: 100
+    groundSteepnessLimit: 0.5
+    diveFactor: 0.25

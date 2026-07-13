@@ -8,10 +8,22 @@ EditorUserSettings:
     GraphicsSettingsInspector_UserSettings:
       value: 18134705175a055722080a3115371d4a0d55006876786860616b0471b8b07a68ffab74f9ee2a3a30300cea1a11320d0beb1a0c25f7060f494b4cdf1b18f3045e38cb5ad8
       flags: 0
+    QuickInstaller_com.unity.purchasing_installRecorded:
+      value: 2550581500
+      flags: 0
+    QuickInstaller_com.unity.services.levelplay_installRecorded:
+      value: 2550581500
+      flags: 0
     RecentlyUsedSceneGuid-0:
       value: 5250555e52070b595e59097a437b5c4417154b7a7f7177607a7f1c32e6b9646b
       flags: 0
     RecentlyUsedSceneGuid-1:
+      value: 5a5757560101590a5d0c0e24427b5d44434e4c7a7b7a23677f2b4565b7b5353a
+      flags: 0
+    RecentlyUsedSceneGuid-2:
+      value: 0152060552025a095c5c0d7441705d44434e1e2929797734287d1935e1b56460
+      flags: 0
+    RecentlyUsedSceneGuid-3:
       value: 540100005653080f555e587448205e4441164b7d287b7060782c1f61b3e63568
       flags: 0
     lightmappingBakingProfile:

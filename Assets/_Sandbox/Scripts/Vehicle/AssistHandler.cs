@@ -4,10 +4,12 @@ using UnityEngine;
 public class AssistHandler
 {
     #region Settings
-    public AssistDriftValues drift { get; private set; }
-    public AssistDownforceValues downforce { get; private set; }
-    public AssistRolloverValues rollover { get; private set; }
-    public AssistAirtimeValues airtime { get; private set; }
+    public AssistSettings assistSettings;
+    public AssistDriftValues drift => assistSettings.drift;
+    public AssistDownforceValues downforce => assistSettings.downforce;
+    public AssistRolloverValues rollover => assistSettings.rollover;
+    public AssistAirtimeValues airtime => assistSettings.airtime;
+    public AssistAircontrolValues aircontrol => assistSettings.aircontrol;
     #endregion
 
     public float forwardDot { get; private set; }
@@ -25,13 +27,9 @@ public class AssistHandler
     private float initialAngularDrag;
     private float angDragTime = 0;
 
-    public void Init(AssistSettings _assistSettings)
-    {
-        drift = _assistSettings.drift;
-        downforce = _assistSettings.downforce;
-        rollover = _assistSettings.rollover;
-        airtime = _assistSettings.airtime;
-    }
+    private Quaternion velDir;
+
+    public void Init(AssistSettings _assistSettings) => assistSettings = _assistSettings;
 
     public void UpdateAssists(VehicleController _vc)
     {
@@ -63,7 +61,30 @@ public class AssistHandler
                 angDragTime = Mathf.Max(0, angDragTime - Time.timeScale * TimeMaster.inverseFixedTimeFactor);
                 _vc.rb.angularDamping = angDragTime > 0 && upDot > 0.5 ? 10 : initialAngularDrag;
             }
+
+            velDir = Quaternion.LookRotation(GlobalControl.worldUpDir, _vc.rb.linearVelocity);
+
+            if (aircontrol.flipPower != Vector3.zero)
+            {
+                ApplyFlip(_vc);
+            }
+
+            if (aircontrol.stopFlip)
+            {
+                ApplyStopFlip(_vc);
+            }
+
+            if (aircontrol.rotationCorrection != Vector3.zero)
+            {
+                ApplyRotationCorrection(_vc);
+            }
+
+            if (aircontrol.diveFactor > 0)
+            {
+                Dive(_vc);
+            }
         }
+        
 
         if (downforce.downforceAmount > 0)
         {
@@ -78,7 +99,7 @@ public class AssistHandler
         if (Mathf.Abs(_vc.localVelocity.y) > airtime.fallSpeedLimit && (_vc.localVelocity.y < 0 || airtime.applyFallLimitUpwards))
         {
             _vc.rb.AddRelativeForce(Vector3.down * _vc.localVelocity.y, ForceMode.Acceleration);
-        }
+        }        
     }
 
     // Apply assist for steering and drifting
@@ -113,7 +134,7 @@ public class AssistHandler
 
         float rightVelDot = Vector3.Dot(_vc.transform.right, _vc.rb.linearVelocity.normalized);
 
-        if (drift.straightenAssist && _vc.steerInput == 0 && Mathf.Abs(rightVelDot) < 0.1f && _vc.rb.linearVelocity.sqrMagnitude > 5)
+        if (drift.straightenAssist && _vc.steerInput == 0 && Mathf.Abs(rightVelDot) < 0.1f && _vc.rb.linearVelocity.sqrMagnitude > 10)
         {
             _vc.rb.AddRelativeTorque(
                 new Vector3(0, rightVelDot * 100 * Mathf.Sign(_vc.localVelocity.z) * drift.driftSpinAssist, 0),
@@ -190,5 +211,77 @@ public class AssistHandler
         _vc.rb.AddForce(
             _vc.norm.TransformDirection(new Vector3(Mathf.Abs(pushFactor) * Mathf.Sign(_vc.localVelocity.x), Mathf.Abs(pushFactor) * Mathf.Sign(_vc.localVelocity.z), 0)),
             ForceMode.Acceleration);
+    }
+
+    // Apply flip forces
+    void ApplyFlip(VehicleController _vc)
+    {
+        Vector3 flipTorque;
+
+        if (aircontrol.freeSpinFlip)
+        {
+            flipTorque = new Vector3(
+                _vc.pitchInput * aircontrol.flipPower.x,
+                _vc.rollInput * aircontrol.flipPower.y,
+                _vc.yawInput * aircontrol.flipPower.z
+                );
+        }
+        else
+        {
+            flipTorque = new Vector3(
+                _vc.pitchInput != 0 && Mathf.Abs(_vc.localAngularVel.x) > 1 && System.Math.Sign(_vc.pitchInput * Mathf.Sign(aircontrol.flipPower.x)) != System.Math.Sign(_vc.localAngularVel.x) ? -_vc.localAngularVel.x * Mathf.Abs(aircontrol.flipPower.x) : _vc.pitchInput * aircontrol.flipPower.x - _vc.localAngularVel.x * (1 - Mathf.Abs(_vc.pitchInput)) * Mathf.Abs(aircontrol.flipPower.x),
+                _vc.rollInput != 0 && Mathf.Abs(_vc.localAngularVel.y) > 1 && System.Math.Sign(_vc.rollInput * Mathf.Sign(aircontrol.flipPower.y)) != System.Math.Sign(_vc.localAngularVel.y) ? -_vc.localAngularVel.y * Mathf.Abs(aircontrol.flipPower.y) : _vc.rollInput * aircontrol.flipPower.y - _vc.localAngularVel.y * (1 - Mathf.Abs(_vc.rollInput)) * Mathf.Abs(aircontrol.flipPower.y),
+                _vc.yawInput != 0 && Mathf.Abs(_vc.localAngularVel.z) > 1 && System.Math.Sign(_vc.yawInput * Mathf.Sign(aircontrol.flipPower.z)) != System.Math.Sign(_vc.localAngularVel.z) ? -_vc.localAngularVel.z * Mathf.Abs(aircontrol.flipPower.z) : _vc.yawInput * aircontrol.flipPower.z - _vc.localAngularVel.z * (1 - Mathf.Abs(_vc.yawInput)) * Mathf.Abs(aircontrol.flipPower.z)
+                );
+        }
+
+        _vc.rb.AddRelativeTorque(flipTorque, ForceMode.Acceleration);
+    }
+
+    // Counteract flipping with forces
+    void ApplyStopFlip(VehicleController _vc)
+    {
+        Vector3 stopFlipFactor = Vector3.zero;
+
+        stopFlipFactor.x = _vc.pitchInput * aircontrol.flipPower.x == 0 ? Mathf.Pow(Mathf.Clamp01(upDot), Mathf.Clamp(10 - Mathf.Abs(_vc.localAngularVel.x), 2, 10)) * 10 : 0;
+        stopFlipFactor.y = _vc.yawInput * aircontrol.flipPower.y == 0 && _vc.rb.linearVelocity.sqrMagnitude > 5 ? Mathf.Pow(Mathf.Clamp01(Vector3.Dot(_vc.transform.forward, velDir * Vector3.up)), Mathf.Clamp(10 - Mathf.Abs(_vc.localAngularVel.y), 2, 10)) * 10 : 0;
+        stopFlipFactor.z = _vc.rollInput * aircontrol.flipPower.z == 0 ? Mathf.Pow(Mathf.Clamp01(upDot), Mathf.Clamp(10 - Mathf.Abs(_vc.localAngularVel.z), 2, 10)) * 10 : 0;
+
+        _vc.rb.AddRelativeTorque(new Vector3(-_vc.localAngularVel.x * stopFlipFactor.x, -_vc.localAngularVel.y * stopFlipFactor.y, -_vc.localAngularVel.z * stopFlipFactor.z), ForceMode.Acceleration);
+    }
+
+    // Apply forces to align vehicle with normal of ground surface that it will land on
+    void ApplyRotationCorrection(VehicleController _vc)
+    {
+        float actualForwardDot = forwardDot;
+        float actualRightDot = rightDot;
+        float actualUpDot = upDot;
+
+        if (aircontrol.groundCheckDistance > 0)
+        {
+            RaycastHit groundHit;
+
+            if (Physics.Raycast(_vc.transform.position, (-GlobalControl.worldUpDir + _vc.rb.linearVelocity).normalized, out groundHit, aircontrol.groundCheckDistance, GlobalControl.groundMaskStatic))
+            {
+                if (Vector3.Dot(groundHit.normal, GlobalControl.worldUpDir) >= aircontrol.groundSteepnessLimit)
+                {
+                    actualForwardDot = Vector3.Dot(_vc.transform.forward, groundHit.normal);
+                    actualRightDot = Vector3.Dot(_vc.transform.right, groundHit.normal);
+                    actualUpDot = Vector3.Dot(_vc.transform.up, groundHit.normal);
+                }
+            }
+        }
+
+        _vc.rb.AddRelativeTorque(new Vector3(
+            _vc.pitchInput * aircontrol.flipPower.x == 0 ? actualForwardDot * (1 - Mathf.Abs(actualRightDot)) * aircontrol.rotationCorrection.x - _vc.localAngularVel.x * Mathf.Pow(actualUpDot, 2) * 10 : 0,
+            _vc.yawInput * aircontrol.flipPower.y == 0 && _vc.rb.linearVelocity.sqrMagnitude > 10 ? Vector3.Dot(_vc.transform.forward, velDir * Vector3.right) * Mathf.Abs(actualUpDot) * aircontrol.rotationCorrection.y - _vc.localAngularVel.y * Mathf.Pow(actualUpDot, 2) * 10 : 0,
+            _vc.rollInput * aircontrol.flipPower.z == 0 ? -actualRightDot * (1 - Mathf.Abs(actualForwardDot)) * aircontrol.rotationCorrection.z - _vc.localAngularVel.z * Mathf.Pow(actualUpDot, 2) * 10 : 0
+            ), ForceMode.Acceleration);
+    }
+
+    // Apply diving force
+    void Dive(VehicleController _vc)
+    {
+        _vc.rb.AddTorque(velDir * Vector3.left * Mathf.Clamp01(_vc.rb.linearVelocity.magnitude * 0.01f) * Mathf.Clamp01(upDot) * aircontrol.diveFactor, ForceMode.Acceleration);
     }
 }

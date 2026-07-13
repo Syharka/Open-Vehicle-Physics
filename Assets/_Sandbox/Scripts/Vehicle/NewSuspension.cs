@@ -19,9 +19,9 @@ public class NewSuspension : MonoBehaviour
 
     #region Settings
     public SuspensionSettings suspensionSettings;
-    public AxleExtraValues extra { get; private set; }
-    public AxleCamberValues camber { get; private set; }
-    public AxleSpringValues spring { get; private set; }
+    public AxleExtraValues extra => suspensionSettings.extra;
+    public AxleCamberValues camber => suspensionSettings.camber;
+    public AxleSpringValues spring => suspensionSettings.spring;
     #endregion
 
     public bool flippedSide { get; private set; }
@@ -43,20 +43,20 @@ public class NewSuspension : MonoBehaviour
 
     private void Start()
     {
-        SetSettingsProfile(suspensionSettings);
+        //SetSettingsProfile(suspensionSettings);
         GetCoreComponents();
         GetPositionFactor();
         GenerateCollider();
     }
 
-    public void SetSettingsProfile(SuspensionSettings _settings)
-    {
-        extra = _settings.extra;
-        camber = _settings.camber;
-        spring = _settings.spring;
+    //public void SetSettingsProfile(SuspensionSettings _settings)
+    //{
+    //    extra = _settings.extra;
+    //    camber = _settings.camber;
+    //    spring = _settings.spring;
 
-        suspensionSettings = _settings;
-    }
+    //    suspensionSettings = _settings;
+    //}
 
     private void GetCoreComponents()
     {

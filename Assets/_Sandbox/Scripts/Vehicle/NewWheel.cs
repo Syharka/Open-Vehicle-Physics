@@ -18,11 +18,11 @@ public class NewWheel : MonoBehaviour
 
     #region Settings
     public WheelSettings wheelSettings;
-    public WheelExtraValues extra { get; private set; }
-    public WheelFrictionValues friction { get; private set; }
-    public WheelRotationValues rotation { get; private set; }
-    public WheelBrakeValues brake { get; private set; }
-    public WheelSizeValues tireSize { get; private set; }
+    public WheelExtraValues extra => wheelSettings.extra;
+    public WheelFrictionValues friction => wheelSettings.friction;
+    public WheelRotationValues rotation => wheelSettings.rotation;
+    public WheelBrakeValues brake => wheelSettings.brake;
+    public WheelSizeValues tireSize => wheelSettings.size;
     #endregion
 
     #region Friction Values
@@ -77,23 +77,23 @@ public class NewWheel : MonoBehaviour
 
     void Start()
     {
-        SetSettingsProfile(wheelSettings);
+        //SetSettingsProfile(wheelSettings);
         GetCoreComponents();
         ResetDrivetrain();
         CreateWheelCollider();
         vp.RegisterWheel(this);
     }
 
-    public void SetSettingsProfile(WheelSettings _settings)
-    {
-        extra = _settings.extra;
-        friction = _settings.friction;
-        rotation = _settings.rotation;
-        brake = _settings.brake;
-        tireSize = _settings.size;
+    //public void SetSettingsProfile(WheelSettings _settings)
+    //{
+    //    extra = _settings.extra;
+    //    friction = _settings.friction;
+    //    rotation = _settings.rotation;
+    //    brake = _settings.brake;
+    //    tireSize = _settings.size;
 
-        wheelSettings = _settings;
-    }
+    //    wheelSettings = _settings;
+    //}
 
     private void GetCoreComponents()
     {

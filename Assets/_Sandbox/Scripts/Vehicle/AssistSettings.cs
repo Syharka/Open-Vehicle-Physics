@@ -8,6 +8,7 @@ public class AssistSettings : ScriptableObject
     public AssistDownforceValues downforce;
     public AssistRolloverValues rollover;
     public AssistAirtimeValues airtime;
+    public AssistAircontrolValues aircontrol;
 }
 
 [Serializable]
@@ -71,4 +72,29 @@ public class AssistAirtimeValues
 
     public float fallSpeedLimit = Mathf.Infinity;
     public bool applyFallLimitUpwards;
+}
+
+[Serializable]
+public class AssistAircontrolValues
+{
+    public bool disableDuringCrash;
+    public Vector3 flipPower;
+
+    [Tooltip("Continue spinning if input is stopped")]
+    public bool freeSpinFlip;
+
+    [Tooltip("Stop spinning if input is stopped and vehicle is upright")]
+    public bool stopFlip;
+
+    [Tooltip("How quickly the vehicle will rotate upright in air")]
+    public Vector3 rotationCorrection;
+
+    [Tooltip("Distance to check for ground for reference normal for rotation correction")]
+    public float groundCheckDistance = 100;
+
+    [Tooltip("Minimum dot product between ground normal and global up direction for rotation correction")]
+    public float groundSteepnessLimit = 0.5f;
+
+    [Tooltip("How quickly the vehicle will dive in the direction it's soaring")]
+    public float diveFactor;
 }
